@@ -1,0 +1,840 @@
+﻿namespace AutoCraft
+{
+    partial class Form1
+    {
+        /// <summary>
+        /// 設計工具所需的變數。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清除任何使用中的資源。
+        /// </summary>
+        /// <param name="disposing">如果應該處置受控資源則為 true，否則為 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form 設計工具產生的程式碼
+
+        /// <summary>
+        /// 此為設計工具支援所需的方法 - 請勿使用程式碼編輯器修改
+        /// 這個方法的內容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.nudTime = new System.Windows.Forms.NumericUpDown();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblActiveStatus = new System.Windows.Forms.Label();
+            this.lblDoc = new System.Windows.Forms.Label();
+            this.btnSetAltPos = new System.Windows.Forms.Button();
+            this.lblAltPos = new System.Windows.Forms.Label();
+            this.lblAugPos = new System.Windows.Forms.Label();
+            this.btnSetAugPos = new System.Windows.Forms.Button();
+            this.lblRegalPos = new System.Windows.Forms.Label();
+            this.btnSetRegalPos = new System.Windows.Forms.Button();
+            this.lblChaosPos = new System.Windows.Forms.Label();
+            this.btnSetChaosPos = new System.Windows.Forms.Button();
+            this.lblChancePos = new System.Windows.Forms.Label();
+            this.btnSetChancePos = new System.Windows.Forms.Button();
+            this.lblScourPos = new System.Windows.Forms.Label();
+            this.btnSetScourPos = new System.Windows.Forms.Button();
+            this.lblCraftAreaPos = new System.Windows.Forms.Label();
+            this.btnSetCraftAreaPos = new System.Windows.Forms.Button();
+            this.pnlSetBTNs = new System.Windows.Forms.Panel();
+            this.btnSetAlchPos = new System.Windows.Forms.Button();
+            this.lbl_PlayTime = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.IsSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.AffixName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AffixMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AffixMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button2 = new System.Windows.Forms.Button();
+            this.gbStopCondition = new System.Windows.Forms.GroupBox();
+            this.lblStopSuf = new System.Windows.Forms.Label();
+            this.nudStopSuf = new System.Windows.Forms.NumericUpDown();
+            this.lblStopPre = new System.Windows.Forms.Label();
+            this.nudStopPre = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nudDelay = new System.Windows.Forms.NumericUpDown();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.rb_UseChaos = new System.Windows.Forms.RadioButton();
+            this.rb_UseAlt = new System.Windows.Forms.RadioButton();
+            this.rb_UseChance = new System.Windows.Forms.RadioButton();
+            this.rb_UseAlch = new System.Windows.Forms.RadioButton();
+            this.gb_AltOption = new System.Windows.Forms.GroupBox();
+            this.pnl_UseRegal = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.rb_Regal_And = new System.Windows.Forms.RadioButton();
+            this.rb_Regal_Or = new System.Windows.Forms.RadioButton();
+            this.rb_Regal_Suf = new System.Windows.Forms.RadioButton();
+            this.rb_Regal_Pre = new System.Windows.Forms.RadioButton();
+            this.cb_Regal = new System.Windows.Forms.CheckBox();
+            this.pnl_UseAug = new System.Windows.Forms.Panel();
+            this.pnl_Aug_Option = new System.Windows.Forms.Panel();
+            this.rb_Aug_Or = new System.Windows.Forms.RadioButton();
+            this.rb_Aug_Suf = new System.Windows.Forms.RadioButton();
+            this.rb_Aug_Pre = new System.Windows.Forms.RadioButton();
+            this.cb_Augment = new System.Windows.Forms.CheckBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblAlchPos = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.nudTime)).BeginInit();
+            this.pnlSetBTNs.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.gbStopCondition.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStopSuf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStopPre)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDelay)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.gb_AltOption.SuspendLayout();
+            this.pnl_UseRegal.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.pnl_UseAug.SuspendLayout();
+            this.pnl_Aug_Option.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // nudTime
+            // 
+            this.nudTime.Location = new System.Drawing.Point(120, 287);
+            this.nudTime.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.nudTime.Name = "nudTime";
+            this.nudTime.Size = new System.Drawing.Size(82, 22);
+            this.nudTime.TabIndex = 0;
+            this.nudTime.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(8, 501);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 486);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 12);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            this.label1.Visible = false;
+            // 
+            // lblActiveStatus
+            // 
+            this.lblActiveStatus.AutoSize = true;
+            this.lblActiveStatus.Location = new System.Drawing.Point(94, 258);
+            this.lblActiveStatus.Name = "lblActiveStatus";
+            this.lblActiveStatus.Size = new System.Drawing.Size(41, 12);
+            this.lblActiveStatus.TabIndex = 3;
+            this.lblActiveStatus.Text = "停止中";
+            // 
+            // lblDoc
+            // 
+            this.lblDoc.AutoSize = true;
+            this.lblDoc.Location = new System.Drawing.Point(49, 222);
+            this.lblDoc.Name = "lblDoc";
+            this.lblDoc.Size = new System.Drawing.Size(80, 12);
+            this.lblDoc.TabIndex = 4;
+            this.lblDoc.Text = "F2開始,F3停止";
+            // 
+            // btnSetAltPos
+            // 
+            this.btnSetAltPos.Location = new System.Drawing.Point(21, 17);
+            this.btnSetAltPos.Name = "btnSetAltPos";
+            this.btnSetAltPos.Size = new System.Drawing.Size(106, 23);
+            this.btnSetAltPos.TabIndex = 5;
+            this.btnSetAltPos.Text = "設定改造石座標";
+            this.btnSetAltPos.UseVisualStyleBackColor = true;
+            this.btnSetAltPos.Click += new System.EventHandler(this.btnSetAltPos_Click);
+            // 
+            // lblAltPos
+            // 
+            this.lblAltPos.AutoSize = true;
+            this.lblAltPos.Location = new System.Drawing.Point(178, 53);
+            this.lblAltPos.Name = "lblAltPos";
+            this.lblAltPos.Size = new System.Drawing.Size(33, 12);
+            this.lblAltPos.TabIndex = 6;
+            this.lblAltPos.Text = "label2";
+            // 
+            // lblAugPos
+            // 
+            this.lblAugPos.AutoSize = true;
+            this.lblAugPos.Location = new System.Drawing.Point(178, 101);
+            this.lblAugPos.Name = "lblAugPos";
+            this.lblAugPos.Size = new System.Drawing.Size(33, 12);
+            this.lblAugPos.TabIndex = 8;
+            this.lblAugPos.Text = "label2";
+            // 
+            // btnSetAugPos
+            // 
+            this.btnSetAugPos.Location = new System.Drawing.Point(21, 65);
+            this.btnSetAugPos.Name = "btnSetAugPos";
+            this.btnSetAugPos.Size = new System.Drawing.Size(106, 23);
+            this.btnSetAugPos.TabIndex = 7;
+            this.btnSetAugPos.Text = "設定增幅石座標";
+            this.btnSetAugPos.UseVisualStyleBackColor = true;
+            this.btnSetAugPos.Click += new System.EventHandler(this.btnSetAugPos_Click);
+            // 
+            // lblRegalPos
+            // 
+            this.lblRegalPos.AutoSize = true;
+            this.lblRegalPos.Location = new System.Drawing.Point(178, 151);
+            this.lblRegalPos.Name = "lblRegalPos";
+            this.lblRegalPos.Size = new System.Drawing.Size(33, 12);
+            this.lblRegalPos.TabIndex = 10;
+            this.lblRegalPos.Text = "label2";
+            // 
+            // btnSetRegalPos
+            // 
+            this.btnSetRegalPos.Location = new System.Drawing.Point(21, 115);
+            this.btnSetRegalPos.Name = "btnSetRegalPos";
+            this.btnSetRegalPos.Size = new System.Drawing.Size(106, 23);
+            this.btnSetRegalPos.TabIndex = 9;
+            this.btnSetRegalPos.Text = "設定富豪石座標";
+            this.btnSetRegalPos.UseVisualStyleBackColor = true;
+            this.btnSetRegalPos.Click += new System.EventHandler(this.btnSetRegalPos_Click);
+            // 
+            // lblChaosPos
+            // 
+            this.lblChaosPos.AutoSize = true;
+            this.lblChaosPos.Location = new System.Drawing.Point(178, 203);
+            this.lblChaosPos.Name = "lblChaosPos";
+            this.lblChaosPos.Size = new System.Drawing.Size(33, 12);
+            this.lblChaosPos.TabIndex = 12;
+            this.lblChaosPos.Text = "label2";
+            // 
+            // btnSetChaosPos
+            // 
+            this.btnSetChaosPos.Location = new System.Drawing.Point(21, 167);
+            this.btnSetChaosPos.Name = "btnSetChaosPos";
+            this.btnSetChaosPos.Size = new System.Drawing.Size(106, 23);
+            this.btnSetChaosPos.TabIndex = 11;
+            this.btnSetChaosPos.Text = "設定混沌石座標";
+            this.btnSetChaosPos.UseVisualStyleBackColor = true;
+            this.btnSetChaosPos.Click += new System.EventHandler(this.btnSetChaosPos_Click);
+            // 
+            // lblChancePos
+            // 
+            this.lblChancePos.AutoSize = true;
+            this.lblChancePos.Location = new System.Drawing.Point(178, 249);
+            this.lblChancePos.Name = "lblChancePos";
+            this.lblChancePos.Size = new System.Drawing.Size(33, 12);
+            this.lblChancePos.TabIndex = 14;
+            this.lblChancePos.Text = "label2";
+            // 
+            // btnSetChancePos
+            // 
+            this.btnSetChancePos.Location = new System.Drawing.Point(21, 213);
+            this.btnSetChancePos.Name = "btnSetChancePos";
+            this.btnSetChancePos.Size = new System.Drawing.Size(106, 23);
+            this.btnSetChancePos.TabIndex = 13;
+            this.btnSetChancePos.Text = "設定機會石座標";
+            this.btnSetChancePos.UseVisualStyleBackColor = true;
+            this.btnSetChancePos.Click += new System.EventHandler(this.btnSetChancePos_Click);
+            // 
+            // lblScourPos
+            // 
+            this.lblScourPos.AutoSize = true;
+            this.lblScourPos.Location = new System.Drawing.Point(178, 293);
+            this.lblScourPos.Name = "lblScourPos";
+            this.lblScourPos.Size = new System.Drawing.Size(33, 12);
+            this.lblScourPos.TabIndex = 16;
+            this.lblScourPos.Text = "label2";
+            // 
+            // btnSetScourPos
+            // 
+            this.btnSetScourPos.Location = new System.Drawing.Point(21, 257);
+            this.btnSetScourPos.Name = "btnSetScourPos";
+            this.btnSetScourPos.Size = new System.Drawing.Size(106, 23);
+            this.btnSetScourPos.TabIndex = 15;
+            this.btnSetScourPos.Text = "設定重鑄石座標";
+            this.btnSetScourPos.UseVisualStyleBackColor = true;
+            this.btnSetScourPos.Click += new System.EventHandler(this.btnSetScourPos_Click);
+            // 
+            // lblCraftAreaPos
+            // 
+            this.lblCraftAreaPos.AutoSize = true;
+            this.lblCraftAreaPos.Location = new System.Drawing.Point(178, 385);
+            this.lblCraftAreaPos.Name = "lblCraftAreaPos";
+            this.lblCraftAreaPos.Size = new System.Drawing.Size(33, 12);
+            this.lblCraftAreaPos.TabIndex = 18;
+            this.lblCraftAreaPos.Text = "label2";
+            // 
+            // btnSetCraftAreaPos
+            // 
+            this.btnSetCraftAreaPos.Location = new System.Drawing.Point(21, 346);
+            this.btnSetCraftAreaPos.Name = "btnSetCraftAreaPos";
+            this.btnSetCraftAreaPos.Size = new System.Drawing.Size(106, 23);
+            this.btnSetCraftAreaPos.TabIndex = 17;
+            this.btnSetCraftAreaPos.Text = "設定做裝區座標";
+            this.btnSetCraftAreaPos.UseVisualStyleBackColor = true;
+            this.btnSetCraftAreaPos.Click += new System.EventHandler(this.btnSetCraftAreaPos_Click);
+            // 
+            // pnlSetBTNs
+            // 
+            this.pnlSetBTNs.Controls.Add(this.btnSetAlchPos);
+            this.pnlSetBTNs.Controls.Add(this.btnSetCraftAreaPos);
+            this.pnlSetBTNs.Controls.Add(this.btnSetScourPos);
+            this.pnlSetBTNs.Controls.Add(this.btnSetChancePos);
+            this.pnlSetBTNs.Controls.Add(this.btnSetChaosPos);
+            this.pnlSetBTNs.Controls.Add(this.btnSetRegalPos);
+            this.pnlSetBTNs.Controls.Add(this.btnSetAugPos);
+            this.pnlSetBTNs.Controls.Add(this.btnSetAltPos);
+            this.pnlSetBTNs.Location = new System.Drawing.Point(27, 34);
+            this.pnlSetBTNs.Name = "pnlSetBTNs";
+            this.pnlSetBTNs.Size = new System.Drawing.Size(145, 387);
+            this.pnlSetBTNs.TabIndex = 19;
+            // 
+            // btnSetAlchPos
+            // 
+            this.btnSetAlchPos.Location = new System.Drawing.Point(21, 301);
+            this.btnSetAlchPos.Name = "btnSetAlchPos";
+            this.btnSetAlchPos.Size = new System.Drawing.Size(106, 23);
+            this.btnSetAlchPos.TabIndex = 20;
+            this.btnSetAlchPos.Text = "設定點金石座標";
+            this.btnSetAlchPos.UseVisualStyleBackColor = true;
+            this.btnSetAlchPos.Click += new System.EventHandler(this.btnSetAlchPos_Click);
+            // 
+            // lbl_PlayTime
+            // 
+            this.lbl_PlayTime.AutoSize = true;
+            this.lbl_PlayTime.Location = new System.Drawing.Point(49, 293);
+            this.lbl_PlayTime.Name = "lbl_PlayTime";
+            this.lbl_PlayTime.Size = new System.Drawing.Size(65, 12);
+            this.lbl_PlayTime.TabIndex = 6;
+            this.lbl_PlayTime.Text = "執行次數：";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(47, 258);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "狀態：";
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1115, 569);
+            this.tabControl1.TabIndex = 21;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.gbStopCondition);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.nudDelay);
+            this.tabPage1.Controls.Add(this.lbl_PlayTime);
+            this.tabPage1.Controls.Add(this.nudTime);
+            this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Controls.Add(this.lblDoc);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.gb_AltOption);
+            this.tabPage1.Controls.Add(this.lblActiveStatus);
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1107, 543);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IsSelected,
+            this.AffixName,
+            this.AffixMin,
+            this.AffixMax});
+            this.dataGridView1.Location = new System.Drawing.Point(507, 6);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(592, 179);
+            this.dataGridView1.TabIndex = 32;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // IsSelected
+            // 
+            this.IsSelected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.IsSelected.HeaderText = "選取";
+            this.IsSelected.Name = "IsSelected";
+            this.IsSelected.Width = 35;
+            // 
+            // AffixName
+            // 
+            this.AffixName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.AffixName.HeaderText = "詞綴";
+            this.AffixName.Name = "AffixName";
+            this.AffixName.Width = 54;
+            // 
+            // AffixMin
+            // 
+            this.AffixMin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.AffixMin.HeaderText = "下限";
+            this.AffixMin.Name = "AffixMin";
+            this.AffixMin.Width = 54;
+            // 
+            // AffixMax
+            // 
+            this.AffixMax.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.AffixMax.HeaderText = "上限";
+            this.AffixMax.Name = "AffixMax";
+            this.AffixMax.Width = 54;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(96, 501);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 31;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // gbStopCondition
+            // 
+            this.gbStopCondition.Controls.Add(this.lblStopSuf);
+            this.gbStopCondition.Controls.Add(this.nudStopSuf);
+            this.gbStopCondition.Controls.Add(this.lblStopPre);
+            this.gbStopCondition.Controls.Add(this.nudStopPre);
+            this.gbStopCondition.Location = new System.Drawing.Point(49, 362);
+            this.gbStopCondition.Name = "gbStopCondition";
+            this.gbStopCondition.Size = new System.Drawing.Size(152, 91);
+            this.gbStopCondition.TabIndex = 30;
+            this.gbStopCondition.TabStop = false;
+            this.gbStopCondition.Text = "停止條件";
+            // 
+            // lblStopSuf
+            // 
+            this.lblStopSuf.AutoSize = true;
+            this.lblStopSuf.Location = new System.Drawing.Point(21, 54);
+            this.lblStopSuf.Name = "lblStopSuf";
+            this.lblStopSuf.Size = new System.Drawing.Size(41, 12);
+            this.lblStopSuf.TabIndex = 34;
+            this.lblStopSuf.Text = "後綴：";
+            // 
+            // nudStopSuf
+            // 
+            this.nudStopSuf.Location = new System.Drawing.Point(71, 50);
+            this.nudStopSuf.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.nudStopSuf.Name = "nudStopSuf";
+            this.nudStopSuf.Size = new System.Drawing.Size(66, 22);
+            this.nudStopSuf.TabIndex = 33;
+            // 
+            // lblStopPre
+            // 
+            this.lblStopPre.AutoSize = true;
+            this.lblStopPre.Location = new System.Drawing.Point(21, 26);
+            this.lblStopPre.Name = "lblStopPre";
+            this.lblStopPre.Size = new System.Drawing.Size(41, 12);
+            this.lblStopPre.TabIndex = 32;
+            this.lblStopPre.Text = "前綴：";
+            // 
+            // nudStopPre
+            // 
+            this.nudStopPre.Location = new System.Drawing.Point(71, 22);
+            this.nudStopPre.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.nudStopPre.Name = "nudStopPre";
+            this.nudStopPre.Size = new System.Drawing.Size(66, 22);
+            this.nudStopPre.TabIndex = 31;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(49, 328);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(62, 12);
+            this.label3.TabIndex = 29;
+            this.label3.Text = "延遲(ms)：";
+            // 
+            // nudDelay
+            // 
+            this.nudDelay.Location = new System.Drawing.Point(120, 326);
+            this.nudDelay.Name = "nudDelay";
+            this.nudDelay.Size = new System.Drawing.Size(82, 22);
+            this.nudDelay.TabIndex = 0;
+            this.nudDelay.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.rb_UseChaos);
+            this.panel1.Controls.Add(this.rb_UseAlt);
+            this.panel1.Controls.Add(this.rb_UseChance);
+            this.panel1.Controls.Add(this.rb_UseAlch);
+            this.panel1.Location = new System.Drawing.Point(51, 54);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(170, 123);
+            this.panel1.TabIndex = 28;
+            // 
+            // rb_UseChaos
+            // 
+            this.rb_UseChaos.AutoSize = true;
+            this.rb_UseChaos.Location = new System.Drawing.Point(25, 43);
+            this.rb_UseChaos.Name = "rb_UseChaos";
+            this.rb_UseChaos.Size = new System.Drawing.Size(59, 16);
+            this.rb_UseChaos.TabIndex = 3;
+            this.rb_UseChaos.Tag = "2";
+            this.rb_UseChaos.Text = "用混沌";
+            this.rb_UseChaos.UseVisualStyleBackColor = true;
+            this.rb_UseChaos.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
+            // 
+            // rb_UseAlt
+            // 
+            this.rb_UseAlt.AutoSize = true;
+            this.rb_UseAlt.Location = new System.Drawing.Point(25, 66);
+            this.rb_UseAlt.Name = "rb_UseAlt";
+            this.rb_UseAlt.Size = new System.Drawing.Size(59, 16);
+            this.rb_UseAlt.TabIndex = 2;
+            this.rb_UseAlt.Tag = "3";
+            this.rb_UseAlt.Text = "用改造";
+            this.rb_UseAlt.UseVisualStyleBackColor = true;
+            this.rb_UseAlt.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
+            // 
+            // rb_UseChance
+            // 
+            this.rb_UseChance.AutoSize = true;
+            this.rb_UseChance.Location = new System.Drawing.Point(25, 88);
+            this.rb_UseChance.Name = "rb_UseChance";
+            this.rb_UseChance.Size = new System.Drawing.Size(83, 16);
+            this.rb_UseChance.TabIndex = 1;
+            this.rb_UseChance.Tag = "4";
+            this.rb_UseChance.Text = "用重鑄機會";
+            this.rb_UseChance.UseVisualStyleBackColor = true;
+            this.rb_UseChance.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
+            // 
+            // rb_UseAlch
+            // 
+            this.rb_UseAlch.AutoSize = true;
+            this.rb_UseAlch.Checked = true;
+            this.rb_UseAlch.Location = new System.Drawing.Point(25, 21);
+            this.rb_UseAlch.Name = "rb_UseAlch";
+            this.rb_UseAlch.Size = new System.Drawing.Size(83, 16);
+            this.rb_UseAlch.TabIndex = 0;
+            this.rb_UseAlch.TabStop = true;
+            this.rb_UseAlch.Tag = "1";
+            this.rb_UseAlch.Text = "用重鑄點金";
+            this.rb_UseAlch.UseVisualStyleBackColor = true;
+            this.rb_UseAlch.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
+            // 
+            // gb_AltOption
+            // 
+            this.gb_AltOption.Controls.Add(this.pnl_UseRegal);
+            this.gb_AltOption.Controls.Add(this.pnl_UseAug);
+            this.gb_AltOption.Enabled = false;
+            this.gb_AltOption.Location = new System.Drawing.Point(245, 54);
+            this.gb_AltOption.Name = "gb_AltOption";
+            this.gb_AltOption.Size = new System.Drawing.Size(241, 415);
+            this.gb_AltOption.TabIndex = 26;
+            this.gb_AltOption.TabStop = false;
+            this.gb_AltOption.Text = "改造增幅富豪";
+            // 
+            // pnl_UseRegal
+            // 
+            this.pnl_UseRegal.Controls.Add(this.panel2);
+            this.pnl_UseRegal.Controls.Add(this.cb_Regal);
+            this.pnl_UseRegal.Location = new System.Drawing.Point(20, 239);
+            this.pnl_UseRegal.Name = "pnl_UseRegal";
+            this.pnl_UseRegal.Size = new System.Drawing.Size(205, 150);
+            this.pnl_UseRegal.TabIndex = 25;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.rb_Regal_And);
+            this.panel2.Controls.Add(this.rb_Regal_Or);
+            this.panel2.Controls.Add(this.rb_Regal_Suf);
+            this.panel2.Controls.Add(this.rb_Regal_Pre);
+            this.panel2.Location = new System.Drawing.Point(36, 35);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(132, 99);
+            this.panel2.TabIndex = 23;
+            // 
+            // rb_Regal_And
+            // 
+            this.rb_Regal_And.AutoSize = true;
+            this.rb_Regal_And.Location = new System.Drawing.Point(15, 76);
+            this.rb_Regal_And.Name = "rb_Regal_And";
+            this.rb_Regal_And.Size = new System.Drawing.Size(95, 16);
+            this.rb_Regal_And.TabIndex = 3;
+            this.rb_Regal_And.TabStop = true;
+            this.rb_Regal_And.Text = "前後綴均符合";
+            this.rb_Regal_And.UseVisualStyleBackColor = true;
+            // 
+            // rb_Regal_Or
+            // 
+            this.rb_Regal_Or.AutoSize = true;
+            this.rb_Regal_Or.Location = new System.Drawing.Point(15, 56);
+            this.rb_Regal_Or.Name = "rb_Regal_Or";
+            this.rb_Regal_Or.Size = new System.Drawing.Size(95, 16);
+            this.rb_Regal_Or.TabIndex = 2;
+            this.rb_Regal_Or.TabStop = true;
+            this.rb_Regal_Or.Text = "前或後綴符合";
+            this.rb_Regal_Or.UseVisualStyleBackColor = true;
+            // 
+            // rb_Regal_Suf
+            // 
+            this.rb_Regal_Suf.AutoSize = true;
+            this.rb_Regal_Suf.Location = new System.Drawing.Point(15, 34);
+            this.rb_Regal_Suf.Name = "rb_Regal_Suf";
+            this.rb_Regal_Suf.Size = new System.Drawing.Size(71, 16);
+            this.rb_Regal_Suf.TabIndex = 1;
+            this.rb_Regal_Suf.TabStop = true;
+            this.rb_Regal_Suf.Text = "後綴符合";
+            this.rb_Regal_Suf.UseVisualStyleBackColor = true;
+            // 
+            // rb_Regal_Pre
+            // 
+            this.rb_Regal_Pre.AutoSize = true;
+            this.rb_Regal_Pre.Location = new System.Drawing.Point(15, 12);
+            this.rb_Regal_Pre.Name = "rb_Regal_Pre";
+            this.rb_Regal_Pre.Size = new System.Drawing.Size(71, 16);
+            this.rb_Regal_Pre.TabIndex = 0;
+            this.rb_Regal_Pre.TabStop = true;
+            this.rb_Regal_Pre.Text = "前綴符合";
+            this.rb_Regal_Pre.UseVisualStyleBackColor = true;
+            // 
+            // cb_Regal
+            // 
+            this.cb_Regal.AutoSize = true;
+            this.cb_Regal.Location = new System.Drawing.Point(14, 13);
+            this.cb_Regal.Name = "cb_Regal";
+            this.cb_Regal.Size = new System.Drawing.Size(84, 16);
+            this.cb_Regal.TabIndex = 21;
+            this.cb_Regal.Text = "使用富豪石";
+            this.cb_Regal.UseVisualStyleBackColor = true;
+            // 
+            // pnl_UseAug
+            // 
+            this.pnl_UseAug.Controls.Add(this.pnl_Aug_Option);
+            this.pnl_UseAug.Controls.Add(this.cb_Augment);
+            this.pnl_UseAug.Location = new System.Drawing.Point(20, 46);
+            this.pnl_UseAug.Name = "pnl_UseAug";
+            this.pnl_UseAug.Size = new System.Drawing.Size(205, 150);
+            this.pnl_UseAug.TabIndex = 24;
+            // 
+            // pnl_Aug_Option
+            // 
+            this.pnl_Aug_Option.Controls.Add(this.rb_Aug_Or);
+            this.pnl_Aug_Option.Controls.Add(this.rb_Aug_Suf);
+            this.pnl_Aug_Option.Controls.Add(this.rb_Aug_Pre);
+            this.pnl_Aug_Option.Location = new System.Drawing.Point(36, 35);
+            this.pnl_Aug_Option.Name = "pnl_Aug_Option";
+            this.pnl_Aug_Option.Size = new System.Drawing.Size(132, 99);
+            this.pnl_Aug_Option.TabIndex = 23;
+            // 
+            // rb_Aug_Or
+            // 
+            this.rb_Aug_Or.AutoSize = true;
+            this.rb_Aug_Or.Location = new System.Drawing.Point(15, 60);
+            this.rb_Aug_Or.Name = "rb_Aug_Or";
+            this.rb_Aug_Or.Size = new System.Drawing.Size(95, 16);
+            this.rb_Aug_Or.TabIndex = 2;
+            this.rb_Aug_Or.TabStop = true;
+            this.rb_Aug_Or.Text = "前或後綴符合";
+            this.rb_Aug_Or.UseVisualStyleBackColor = true;
+            // 
+            // rb_Aug_Suf
+            // 
+            this.rb_Aug_Suf.AutoSize = true;
+            this.rb_Aug_Suf.Location = new System.Drawing.Point(15, 38);
+            this.rb_Aug_Suf.Name = "rb_Aug_Suf";
+            this.rb_Aug_Suf.Size = new System.Drawing.Size(71, 16);
+            this.rb_Aug_Suf.TabIndex = 1;
+            this.rb_Aug_Suf.TabStop = true;
+            this.rb_Aug_Suf.Text = "後綴符合";
+            this.rb_Aug_Suf.UseVisualStyleBackColor = true;
+            // 
+            // rb_Aug_Pre
+            // 
+            this.rb_Aug_Pre.AutoSize = true;
+            this.rb_Aug_Pre.Location = new System.Drawing.Point(15, 16);
+            this.rb_Aug_Pre.Name = "rb_Aug_Pre";
+            this.rb_Aug_Pre.Size = new System.Drawing.Size(71, 16);
+            this.rb_Aug_Pre.TabIndex = 0;
+            this.rb_Aug_Pre.TabStop = true;
+            this.rb_Aug_Pre.Text = "前綴符合";
+            this.rb_Aug_Pre.UseVisualStyleBackColor = true;
+            // 
+            // cb_Augment
+            // 
+            this.cb_Augment.AutoSize = true;
+            this.cb_Augment.Location = new System.Drawing.Point(14, 13);
+            this.cb_Augment.Name = "cb_Augment";
+            this.cb_Augment.Size = new System.Drawing.Size(84, 16);
+            this.cb_Augment.TabIndex = 21;
+            this.cb_Augment.Text = "使用增幅石";
+            this.cb_Augment.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.lblAlchPos);
+            this.tabPage2.Controls.Add(this.pnlSetBTNs);
+            this.tabPage2.Controls.Add(this.lblCraftAreaPos);
+            this.tabPage2.Controls.Add(this.lblRegalPos);
+            this.tabPage2.Controls.Add(this.lblAltPos);
+            this.tabPage2.Controls.Add(this.lblScourPos);
+            this.tabPage2.Controls.Add(this.lblAugPos);
+            this.tabPage2.Controls.Add(this.lblChaosPos);
+            this.tabPage2.Controls.Add(this.lblChancePos);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1107, 543);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lblAlchPos
+            // 
+            this.lblAlchPos.AutoSize = true;
+            this.lblAlchPos.Location = new System.Drawing.Point(178, 340);
+            this.lblAlchPos.Name = "lblAlchPos";
+            this.lblAlchPos.Size = new System.Drawing.Size(33, 12);
+            this.lblAlchPos.TabIndex = 21;
+            this.lblAlchPos.Text = "label2";
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1115, 569);
+            this.Controls.Add(this.tabControl1);
+            this.Name = "Form1";
+            this.Text = "AAAAAA";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nudTime)).EndInit();
+            this.pnlSetBTNs.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.gbStopCondition.ResumeLayout(false);
+            this.gbStopCondition.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStopSuf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStopPre)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDelay)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.gb_AltOption.ResumeLayout(false);
+            this.pnl_UseRegal.ResumeLayout(false);
+            this.pnl_UseRegal.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.pnl_UseAug.ResumeLayout(false);
+            this.pnl_UseAug.PerformLayout();
+            this.pnl_Aug_Option.ResumeLayout(false);
+            this.pnl_Aug_Option.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.NumericUpDown nudTime;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblActiveStatus;
+        private System.Windows.Forms.Label lblDoc;
+        private System.Windows.Forms.Button btnSetAltPos;
+        private System.Windows.Forms.Label lblAltPos;
+        private System.Windows.Forms.Label lblAugPos;
+        private System.Windows.Forms.Button btnSetAugPos;
+        private System.Windows.Forms.Label lblRegalPos;
+        private System.Windows.Forms.Button btnSetRegalPos;
+        private System.Windows.Forms.Label lblChaosPos;
+        private System.Windows.Forms.Button btnSetChaosPos;
+        private System.Windows.Forms.Label lblChancePos;
+        private System.Windows.Forms.Button btnSetChancePos;
+        private System.Windows.Forms.Label lblScourPos;
+        private System.Windows.Forms.Button btnSetScourPos;
+        private System.Windows.Forms.Label lblCraftAreaPos;
+        private System.Windows.Forms.Button btnSetCraftAreaPos;
+        private System.Windows.Forms.Panel pnlSetBTNs;
+        private System.Windows.Forms.Label lbl_PlayTime;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.CheckBox cb_Augment;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Panel pnl_Aug_Option;
+        private System.Windows.Forms.RadioButton rb_Aug_Pre;
+        private System.Windows.Forms.RadioButton rb_Aug_Or;
+        private System.Windows.Forms.RadioButton rb_Aug_Suf;
+        private System.Windows.Forms.Panel pnl_UseRegal;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton rb_Regal_And;
+        private System.Windows.Forms.RadioButton rb_Regal_Or;
+        private System.Windows.Forms.RadioButton rb_Regal_Suf;
+        private System.Windows.Forms.RadioButton rb_Regal_Pre;
+        private System.Windows.Forms.CheckBox cb_Regal;
+        private System.Windows.Forms.Panel pnl_UseAug;
+        private System.Windows.Forms.GroupBox gb_AltOption;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.RadioButton rb_UseChaos;
+        private System.Windows.Forms.RadioButton rb_UseAlt;
+        private System.Windows.Forms.RadioButton rb_UseChance;
+        private System.Windows.Forms.RadioButton rb_UseAlch;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown nudDelay;
+        private System.Windows.Forms.GroupBox gbStopCondition;
+        private System.Windows.Forms.Label lblStopSuf;
+        private System.Windows.Forms.NumericUpDown nudStopSuf;
+        private System.Windows.Forms.Label lblStopPre;
+        private System.Windows.Forms.NumericUpDown nudStopPre;
+        private System.Windows.Forms.Button btnSetAlchPos;
+        private System.Windows.Forms.Label lblAlchPos;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn IsSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AffixName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AffixMin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AffixMax;
+    }
+}
+

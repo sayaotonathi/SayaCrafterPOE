@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCraft", "AutoCraft\AutoCraft.csproj", "{093DF6F8-D7C3-4C81-8485-6A540DD5D608}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{093DF6F8-D7C3-4C81-8485-6A540DD5D608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{093DF6F8-D7C3-4C81-8485-6A540DD5D608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{093DF6F8-D7C3-4C81-8485-6A540DD5D608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{093DF6F8-D7C3-4C81-8485-6A540DD5D608}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D179B522-78E2-45E8-AA4D-108DC4140B4B}
+	EndGlobalSection
+EndGlobal
