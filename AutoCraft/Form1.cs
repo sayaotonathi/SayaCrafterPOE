@@ -44,7 +44,7 @@ namespace AutoCraft
         Point relScour = new Point(150, 400); //重鑄
         Point relRegal = new Point(360, 250); //富豪
         Point relChaos = new Point(460, 250); //混沌
-        Point relAlch = new Point(460, 250); //點金
+        Point relAlch = new Point(410, 250); //點金
         Point relCraftArea = new Point(290, 408); //做裝區域
         bool flagSetAlt = false;
         bool flagSetAug = false;
@@ -84,8 +84,10 @@ namespace AutoCraft
             lblRegalPos.Text = $"{relRegal.X},{relRegal.Y}";
             lblChaosPos.Text = $"{relChaos.X},{relChaos.Y}";
             lblCraftAreaPos.Text = $"{relCraftArea.X},{relCraftArea.Y}";
-            hwnd = Utilities.FindWindow(null, "AAAAAA");
-
+            lblAlchPos.Text = $"{relAlch.X},{relAlch.Y}";
+            //hwnd = Utilities.FindWindow(null, "AAAAAA");
+            hwnd = Utilities.FindWindow(null, "Path of Exile");
+            ReloadAffix();//讀取詞綴設定檔
         }
 
 
@@ -97,26 +99,43 @@ namespace AutoCraft
         Dictionary<string, int> suf = new Dictionary<string, int>();
 
 
-        int int_count_prefix = 0;
-        int int_count_suffix = 0;
+
         //測試用按鈕
         private void button1_Click(object sender, EventArgs e)
         {
-            string str = ut.getClipBoard();
-            //ut.affixDetermine(str,-2, affix);
-            //for (int i = 0;i< affix.Count; i++)
-            //{
-            //    Console.WriteLine(affix.ElementAt(i));
-            //}
-            ut.affixDetermine("增加 23 % 閃避值\r\n減少 7% 魔力保留", -1, testpre);
-            Console.WriteLine(testpre.ElementAt(0));
-            Console.WriteLine(testpre.ElementAt(1));
-            ut.affixDetermine("減少 7% 魔力保留", -1, testsuf);
-            Console.WriteLine(testsuf.ElementAt(0));
-            ut.affixCheck(affix, testpre, testsuf, ref int_count_prefix, ref int_count_suffix);
-            Console.WriteLine(int_count_prefix + "," + int_count_suffix);
+            //string str = ut.getClipBoard();
+            ////ut.affixDetermine(str,-2, affix);
+            ////for (int i = 0;i< affix.Count; i++)
+            ////{
+            ////    Console.WriteLine(affix.ElementAt(i));
+            ////}
+            //ut.affixDetermine("增加 23 % 閃避值\r\n減少 7% 魔力保留", -1, testpre);
+            //Console.WriteLine(testpre.ElementAt(0));
+            //Console.WriteLine(testpre.ElementAt(1));
+            //ut.affixDetermine("減少 7% 魔力保留", -1, testsuf);
+            //Console.WriteLine(testsuf.ElementAt(0));
+            //ut.affixCheck(affix, testpre, testsuf, ref int_count_prefix, ref int_count_suffix);
+            //Console.WriteLine(int_count_prefix + "," + int_count_suffix);
+
         }
 
+
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //寫入
+            Affix a = new Affix();
+            a.AffixName = "增加%暴擊率";
+            a.AffixMin = "35";
+            a.IsSelected = true;
+            List<Affix> ls = new List<Affix>();
+            ls.Add(a);
+            using (var writer = new StreamWriter("./suffixs.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(ls);
+            }
+        }
 
         #region 位置設定按鍵
 
@@ -184,7 +203,6 @@ namespace AutoCraft
         }
 
         #endregion
-
         //選擇腳本
         private void ChangeActivatingAction(object sender, EventArgs e)
         {
@@ -195,107 +213,80 @@ namespace AutoCraft
                 gb_AltOption.Enabled = ActivatingAction == 3 ? true : false;
             }
         }
-
-        //機會石腳本
-        private void chance(object delay)
-        {
-            int idelay = (int)delay;
-            while (loopCounter < nudTime.Value)
-            {
-                ut.useCurrency(absScour, absCraftArea);
-                Thread.Sleep(idelay);
-                ut.useCurrency(absChance, absCraftArea);
-                Thread.Sleep(idelay);
-                loopCounter++;
-            }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            //寫入
-            Affix a = new Affix();
-            a.AffixName = "增加%閃避值增加%閃避值增加%閃避值增加%閃避值";
-            a.AffixMin = 20;
-            a.IsSelected = true;
-            List<Affix> ls = new List<Affix>();
-            ls.Add(a);
-            using (var writer = new StreamWriter("./file.csv"))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                csv.WriteRecords(ls);
-            }
-
-            //讀取想要的詞綴設定
-            using (var reader = new StreamReader("./file.csv"))
-            {
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                {
-                    var record = csv.GetRecords<Affix>();
-                    foreach(var i in record)
-                    {
-                        var index = dataGridView1.Rows.Add();
-                        dataGridView1.Rows[index].Cells["IsSelected"].Value = i.IsSelected;
-                        dataGridView1.Rows[index].Cells["Affixname"].Value = i.AffixName;
-                        dataGridView1.Rows[index].Cells["AffixMin"].Value = i.AffixMin;
-                        dataGridView1.Rows[index].Cells["AffixMax"].Value = i.AffixMax;
-                        if (i.IsSelected)
-                        {
-                            pre.Add(i.AffixName, i.AffixMin);
-                        }
-                    }
-                }
-            }
-        }
         //勾選加入list，取消勾選移除
-        //todo:前後綴分兩個dgv
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            var dgv = (DataGridView)sender;
+            var s = dgv.Name == "dgv_Prefix" ? pre : suf;
+            string str = dgv.Name == "dgv_Prefix" ? "pre" : "suf";
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
-                this.dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                dgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
-            if ((bool)this.dataGridView1.CurrentCell.Value == true)
+            if ((bool)dgv.CurrentCell.Value == true)
             {
-                if (dataGridView1.Rows[e.RowIndex].Cells["AffixName"].Value != null)
+                if (dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value != null)
                 {
-                    string key = dataGridView1.Rows[e.RowIndex].Cells["AffixName"].Value.ToString();
-                    int value = dataGridView1.Rows[e.RowIndex].Cells["AffixMin"].Value == null ? (int)dataGridView1.Rows[e.RowIndex].Cells["AffixMin"].Value : 0;
-                    pre.Add(key, value);
+                    string key = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value.ToString();
+                    int value = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value == null ? (int)dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value : 0;
+                    s.Add(key, value);
                 }
             }
             else
             {
-                pre.Remove(dataGridView1.Rows[e.RowIndex].Cells["AffixName"].Value.ToString());
+                string key = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value.ToString();
+                s.Remove(key);
             }
         }
-
-
-        //重鑄點金腳本
-        private void Alchemy(object delay)
+        //儲存詞綴按鈕
+        private void btn_SaveAffix_Click(object sender, EventArgs e)
         {
-            //todo:之後index改成自訂
-            int index = 1;
-            int idelay = (int)delay;
-            while (loopCounter < nudTime.Value)
+            List<Affix> prefix = new List<Affix>();
+            var prefixrows = dgv_Prefix.Rows;
+            for (int i = 0; i < prefixrows.Count - 1; i++)
             {
-                ut.useCurrency(absScour, absCraftArea);
-                Thread.Sleep(idelay);
-                ut.useCurrency(absAlch, absCraftArea);
-                Thread.Sleep(idelay);
-                ut.CtrlC();
-                string clip = ut.getClipBoard();
-                Dictionary<string, int> clipAffix = new Dictionary<string, int>();
-                ut.affixDetermine(clip, index, clipAffix);
-                ut.affixCheck(clipAffix, testpre, testsuf, ref int_count_prefix, ref int_count_suffix);
-                if (int_count_prefix >= nudStopPre.Value && int_count_suffix >= nudStopSuf.Value)
+                Affix affix = new Affix
                 {
-                    loopCounter = 0;
-                    break;
-                }
-                loopCounter++;
+                    IsSelected = (bool)prefixrows[i].Cells["dgvpreIsSelected"].Value,
+                    AffixName = (string)prefixrows[i].Cells["dgvpreAffixName"].Value,
+                    AffixMin = (string)prefixrows[i].Cells["dgvpreAffixMin"].Value,
+                    AffixMax = (string)prefixrows[i].Cells["dgvpreAffixMax"].Value
+                };
+                prefix.Add(affix);
             }
+            using (var writer = new StreamWriter("./prefixs.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(prefix);
+            }
+
+            List<Affix> suffix = new List<Affix>();
+            var suffixrows = dgv_Suffix.Rows;
+            for (int i = 0; i < suffixrows.Count - 1; i++)
+            {
+                Affix affix = new Affix
+                {
+                    IsSelected = (bool)suffixrows[i].Cells["dgvsufIsSelected"].Value,
+                    AffixName = (string)suffixrows[i].Cells["dgvsufAffixName"].Value,
+                    AffixMin = (string)suffixrows[i].Cells["dgvsufAffixMin"].Value,
+                    AffixMax = (string)suffixrows[i].Cells["dgvsufAffixMax"].Value
+                };
+                suffix.Add(affix);
+            }
+            using (var writer = new StreamWriter("./suffixs.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(suffix);
+            }
+
         }
+        //重新載入按鈕
+        private void btn_ReloadAffix_Click(object sender, EventArgs e)
+        {
+            ReloadAffix();
+        }
+
+
 
         //背景快捷功能
         /* https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes */
@@ -315,17 +306,20 @@ namespace AutoCraft
                     loopCounter = 0;
                     break;
                 case 113://F2
-                         //Utilities.SetForegroundWindow(Utilities.FindWindow(null, "Path of Exile"));
+                    Utilities.SetForegroundWindow(Utilities.FindWindow(null, "Path of Exile"));
                     if (!flagActivate)
                     {
+                        flagActivate = true;
                         lblActiveStatus.Text = "執行中";
+                        ParameterizedThreadStart pts = null;
                         switch (ActivatingAction)
                         {
                             case 1:
                                 ut.getAbsolutePoint(hwnd, relAlch, out absAlch);
                                 ut.getAbsolutePoint(hwnd, relScour, out absScour);
                                 ut.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
-                                pt = new Thread(new ParameterizedThreadStart(Alchemy));
+                                pts = new ParameterizedThreadStart(Alchemy);
+
                                 break;
                             case 2:
                                 break;
@@ -335,13 +329,23 @@ namespace AutoCraft
                                 ut.getAbsolutePoint(hwnd, relChance, out absChance);
                                 ut.getAbsolutePoint(hwnd, relScour, out absScour);
                                 ut.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
-                                pt = new Thread(new ParameterizedThreadStart(chance));
+                                pts = new ParameterizedThreadStart(chance);
                                 break;
                         }
                         Utilities.SetForegroundWindow(hwnd);
                         int delay = (int)nudDelay.Value;
+                        pts += (iii) =>
+                        {
+                            flagActivate = false;
+                            this.InvokeIfRequired(() =>
+                            {
+                                this.lblActiveStatus.Text = "停止中";
+                            });
+                        };
+                        pt = new Thread(pts);
                         pt.Start(delay);
                         loopCounter = 0;
+
                     }
                     break;
 
@@ -397,9 +401,114 @@ namespace AutoCraft
                     }
                     pnlSetBTNs.Enabled = true;
                     break;
+                case 115:
+                    ut.CtrlC();
+                    string s = ut.getClipBoard();
+                    Console.WriteLine(s);
+                    break;
             }
         }
+
+        #region 功能區
+        //重新載入詞綴功能
+        private void ReloadAffix()
+        {
+            pre.Clear();
+            suf.Clear();
+            dgv_Prefix.Rows.Clear();
+            dgv_Suffix.Rows.Clear();
+
+            //讀取想要的詞綴設定
+            using (var reader = new StreamReader("./prefixs.csv"))
+            {
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    var record = csv.GetRecords<Affix>();
+                    foreach (var i in record)
+                    {
+                        var index = dgv_Prefix.Rows.Add();
+                        dgv_Prefix.Rows[index].Cells["dgvpreIsSelected"].Value = i.IsSelected;
+                        dgv_Prefix.Rows[index].Cells["dgvpreAffixname"].Value = i.AffixName;
+                        dgv_Prefix.Rows[index].Cells["dgvpreAffixMin"].Value = i.AffixMin;
+                        dgv_Prefix.Rows[index].Cells["dgvpreAffixMax"].Value = i.AffixMax;
+                        if (i.IsSelected)
+                        {
+                            pre.Add(i.AffixName, int.Parse(i.AffixMin));
+                        }
+                    }
+                }
+            }
+
+            using (var reader = new StreamReader("./suffixs.csv"))
+            {
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    var record = csv.GetRecords<Affix>();
+                    foreach (var i in record)
+                    {
+                        var index = dgv_Suffix.Rows.Add();
+                        dgv_Suffix.Rows[index].Cells["dgvsufIsSelected"].Value = i.IsSelected;
+                        dgv_Suffix.Rows[index].Cells["dgvsufAffixname"].Value = i.AffixName;
+                        dgv_Suffix.Rows[index].Cells["dgvsufAffixMin"].Value = i.AffixMin;
+                        dgv_Suffix.Rows[index].Cells["dgvsufAffixMax"].Value = i.AffixMax;
+                        if (i.IsSelected)
+                        {
+                            suf.Add(i.AffixName, int.Parse(i.AffixMin));
+                        }
+                    }
+                }
+            }
+        }
+        #endregion
+        #region 腳本區
+        //重鑄點金腳本
+        private void Alchemy(object delay)
+        {
+            //todo:之後index改成自訂
+            int index = -1;
+            int idelay = (int)delay;
+
+            while (loopCounter < nudTime.Value)
+            {
+                int int_count_prefix = 0;
+                int int_count_suffix = 0;
+                string clip = "";
+                Dictionary<string, int> clipAffix = new Dictionary<string, int>();
+                ut.useCurrency(absScour, absCraftArea);
+                Thread.Sleep(idelay);
+                ut.useCurrency(absAlch, absCraftArea);
+                Thread.Sleep(idelay);
+                ut.CtrlC();
+                this.InvokeIfRequired(() =>
+                {
+                    clip = ut.getClipBoard();
+                });
+                ut.affixDetermine(clip, index, clipAffix);
+                ut.affixCheck(clipAffix, pre, suf, ref int_count_prefix, ref int_count_suffix);
+                if (int_count_prefix >= nudStopPre.Value && int_count_suffix >= nudStopSuf.Value)
+                {
+                    loopCounter = 0;
+                    break;
+                }
+                loopCounter++;
+            }
+        }
+        //機會石腳本
+        private void chance(object delay)
+        {
+            int idelay = (int)delay;
+            while (loopCounter < nudTime.Value)
+            {
+                ut.useCurrency(absScour, absCraftArea);
+                Thread.Sleep(idelay);
+                ut.useCurrency(absChance, absCraftArea);
+                Thread.Sleep(idelay);
+                loopCounter++;
+            }
+        }
+        #endregion
     }
+
 }
 
 

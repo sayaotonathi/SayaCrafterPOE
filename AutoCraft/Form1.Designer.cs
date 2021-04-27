@@ -53,11 +53,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.IsSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.AffixName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AffixMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AffixMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_ReloadAffix = new System.Windows.Forms.Button();
+            this.btn_SaveAffix = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dgv_Suffix = new System.Windows.Forms.DataGridView();
+            this.dgvsufIsselected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dgvsufAffixName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvsufAffixMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvsufAffixMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgv_Prefix = new System.Windows.Forms.DataGridView();
+            this.dgvpreIsSelected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.dgvpreAffixName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvpreAffixMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvpreAffixMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button2 = new System.Windows.Forms.Button();
             this.gbStopCondition = new System.Windows.Forms.GroupBox();
             this.lblStopSuf = new System.Windows.Forms.Label();
@@ -91,7 +100,8 @@
             this.pnlSetBTNs.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Suffix)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Prefix)).BeginInit();
             this.gbStopCondition.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStopSuf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStopPre)).BeginInit();
@@ -349,7 +359,12 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.btn_ReloadAffix);
+            this.tabPage1.Controls.Add(this.btn_SaveAffix);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.label4);
+            this.tabPage1.Controls.Add(this.dgv_Suffix);
+            this.tabPage1.Controls.Add(this.dgv_Prefix);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.gbStopCondition);
             this.tabPage1.Controls.Add(this.label3);
@@ -368,51 +383,132 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(1107, 543);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "功能";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // btn_ReloadAffix
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.IsSelected,
-            this.AffixName,
-            this.AffixMin,
-            this.AffixMax});
-            this.dataGridView1.Location = new System.Drawing.Point(507, 6);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(592, 179);
-            this.dataGridView1.TabIndex = 32;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.btn_ReloadAffix.Location = new System.Drawing.Point(873, 501);
+            this.btn_ReloadAffix.Name = "btn_ReloadAffix";
+            this.btn_ReloadAffix.Size = new System.Drawing.Size(103, 23);
+            this.btn_ReloadAffix.TabIndex = 37;
+            this.btn_ReloadAffix.Text = "重新載入詞綴";
+            this.btn_ReloadAffix.UseVisualStyleBackColor = true;
+            this.btn_ReloadAffix.Click += new System.EventHandler(this.btn_ReloadAffix_Click);
             // 
-            // IsSelected
+            // btn_SaveAffix
             // 
-            this.IsSelected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.IsSelected.HeaderText = "選取";
-            this.IsSelected.Name = "IsSelected";
-            this.IsSelected.Width = 35;
+            this.btn_SaveAffix.Location = new System.Drawing.Point(997, 501);
+            this.btn_SaveAffix.Name = "btn_SaveAffix";
+            this.btn_SaveAffix.Size = new System.Drawing.Size(102, 23);
+            this.btn_SaveAffix.TabIndex = 36;
+            this.btn_SaveAffix.Text = "儲存詞綴設定";
+            this.btn_SaveAffix.UseVisualStyleBackColor = true;
+            this.btn_SaveAffix.Click += new System.EventHandler(this.btn_SaveAffix_Click);
             // 
-            // AffixName
+            // label5
             // 
-            this.AffixName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.AffixName.HeaderText = "詞綴";
-            this.AffixName.Name = "AffixName";
-            this.AffixName.Width = 54;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(507, 258);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 35;
+            this.label5.Text = "後綴：";
             // 
-            // AffixMin
+            // label4
             // 
-            this.AffixMin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.AffixMin.HeaderText = "下限";
-            this.AffixMin.Name = "AffixMin";
-            this.AffixMin.Width = 54;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(507, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 34;
+            this.label4.Text = "前綴：";
             // 
-            // AffixMax
+            // dgv_Suffix
             // 
-            this.AffixMax.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.AffixMax.HeaderText = "上限";
-            this.AffixMax.Name = "AffixMax";
-            this.AffixMax.Width = 54;
+            this.dgv_Suffix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Suffix.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvsufIsselected,
+            this.dgvsufAffixName,
+            this.dgvsufAffixMin,
+            this.dgvsufAffixMax});
+            this.dgv_Suffix.Location = new System.Drawing.Point(509, 287);
+            this.dgv_Suffix.Name = "dgv_Suffix";
+            this.dgv_Suffix.RowTemplate.Height = 24;
+            this.dgv_Suffix.Size = new System.Drawing.Size(592, 179);
+            this.dgv_Suffix.TabIndex = 33;
+            this.dgv_Suffix.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
+            // 
+            // dgvsufIsselected
+            // 
+            this.dgvsufIsselected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dgvsufIsselected.HeaderText = "選取";
+            this.dgvsufIsselected.Name = "dgvsufIsselected";
+            this.dgvsufIsselected.Width = 35;
+            // 
+            // dgvsufAffixName
+            // 
+            this.dgvsufAffixName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dgvsufAffixName.HeaderText = "詞綴";
+            this.dgvsufAffixName.Name = "dgvsufAffixName";
+            this.dgvsufAffixName.Width = 54;
+            // 
+            // dgvsufAffixMin
+            // 
+            this.dgvsufAffixMin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dgvsufAffixMin.HeaderText = "下限";
+            this.dgvsufAffixMin.Name = "dgvsufAffixMin";
+            this.dgvsufAffixMin.Width = 54;
+            // 
+            // dgvsufAffixMax
+            // 
+            this.dgvsufAffixMax.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dgvsufAffixMax.HeaderText = "上限";
+            this.dgvsufAffixMax.Name = "dgvsufAffixMax";
+            this.dgvsufAffixMax.Width = 54;
+            // 
+            // dgv_Prefix
+            // 
+            this.dgv_Prefix.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Prefix.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvpreIsSelected,
+            this.dgvpreAffixName,
+            this.dgvpreAffixMin,
+            this.dgvpreAffixMax});
+            this.dgv_Prefix.Location = new System.Drawing.Point(507, 54);
+            this.dgv_Prefix.Name = "dgv_Prefix";
+            this.dgv_Prefix.RowTemplate.Height = 24;
+            this.dgv_Prefix.Size = new System.Drawing.Size(592, 179);
+            this.dgv_Prefix.TabIndex = 32;
+            this.dgv_Prefix.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
+            // 
+            // dgvpreIsSelected
+            // 
+            this.dgvpreIsSelected.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.dgvpreIsSelected.HeaderText = "選取";
+            this.dgvpreIsSelected.Name = "dgvpreIsSelected";
+            this.dgvpreIsSelected.Width = 35;
+            // 
+            // dgvpreAffixName
+            // 
+            this.dgvpreAffixName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dgvpreAffixName.HeaderText = "詞綴";
+            this.dgvpreAffixName.Name = "dgvpreAffixName";
+            this.dgvpreAffixName.Width = 54;
+            // 
+            // dgvpreAffixMin
+            // 
+            this.dgvpreAffixMin.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dgvpreAffixMin.HeaderText = "下限";
+            this.dgvpreAffixMin.Name = "dgvpreAffixMin";
+            this.dgvpreAffixMin.Width = 54;
+            // 
+            // dgvpreAffixMax
+            // 
+            this.dgvpreAffixMax.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dgvpreAffixMax.HeaderText = "上限";
+            this.dgvpreAffixMax.Name = "dgvpreAffixMax";
+            this.dgvpreAffixMax.Width = 54;
             // 
             // button2
             // 
@@ -725,7 +821,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1107, 543);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "設定";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // lblAlchPos
@@ -751,7 +847,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Suffix)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Prefix)).EndInit();
             this.gbStopCondition.ResumeLayout(false);
             this.gbStopCondition.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStopSuf)).EndInit();
@@ -830,11 +927,20 @@
         private System.Windows.Forms.Button btnSetAlchPos;
         private System.Windows.Forms.Label lblAlchPos;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn IsSelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AffixName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AffixMin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AffixMax;
+        private System.Windows.Forms.DataGridView dgv_Prefix;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView dgv_Suffix;
+        private System.Windows.Forms.Button btn_SaveAffix;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dgvsufIsselected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvsufAffixName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvsufAffixMin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvsufAffixMax;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn dgvpreIsSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvpreAffixName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvpreAffixMin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dgvpreAffixMax;
+        private System.Windows.Forms.Button btn_ReloadAffix;
     }
 }
 

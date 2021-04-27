@@ -56,17 +56,17 @@ namespace AutoCraft
         public void useCurrency(Point p1, Point p2)
         {
             SetCursorPos(p1.X, p1.Y);
-            Thread.Sleep(40);
+            Thread.Sleep(20);
             mouse_event((int)(MouseEventTFlags.RIGHTDOWN), 0, 0, 0, 0);
-            Thread.Sleep(40);
+            Thread.Sleep(20);
             mouse_event((int)MouseEventTFlags.RIGHTUP, 0, 0, 0, 0);
-            Thread.Sleep(40);
+            Thread.Sleep(20);
             SetCursorPos(p2.X, p2.Y);
-            Thread.Sleep(40);
+            Thread.Sleep(20);
             mouse_event((int)(MouseEventTFlags.LEFTDOWN), 0, 0, 0, 0);
-            Thread.Sleep(40);
+            Thread.Sleep(20);
             mouse_event((int)MouseEventTFlags.LEFTUP, 0, 0, 0, 0);
-            Thread.Sleep(40);
+            Thread.Sleep(20);
         }
 
         //複製
@@ -103,6 +103,8 @@ namespace AutoCraft
         //取剪貼簿
         public string getClipBoard()
         {
+            Console.WriteLine(Clipboard.ContainsText());
+            Console.WriteLine(Clipboard.GetText());
             if (Clipboard.ContainsText())
             {
                 return Clipboard.GetText();
@@ -114,12 +116,10 @@ namespace AutoCraft
         public void affixDetermine(string str, int index, Dictionary<string, int> affix)
         {
             affix.Clear();
-            //拆出詞綴區塊
-            //string[] substr = str.Replace("\r\n--------\r\n", "$").Split('$');            
+            //拆出詞綴區塊  
             string[] substr = Regex.Split(str, $"{Pattern_enter}--------{Pattern_enter}");
 
             //將詞綴區塊逐條分開
-            //string[] substr2 = substr[substr.Length + index].Replace("\r\n", "$").Split('$');            
             string[] substr2 = Regex.Split(substr[substr.Length + index], Pattern_enter);
 
             //分離詞綴&數字並放入字典，沒有數字的詞綴數字給0
@@ -131,29 +131,6 @@ namespace AutoCraft
                     r = 0;
                 }
                 affix.Add(Regex.Replace(i, "[0-9.]{1,}", "").Replace(" ", ""), r);
-            }
-        }
-        //List+class版
-        public void affixDetermine(string str, int index, List<Affix> affix)
-        {
-            affix.Clear();
-            //拆出詞綴區塊
-            //string[] substr = str.Replace("\r\n--------\r\n", "$").Split('$');            
-            string[] substr = Regex.Split(str, $"{Pattern_enter}--------{Pattern_enter}");
-
-            //將詞綴區塊逐條分開
-            //string[] substr2 = substr[substr.Length + index].Replace("\r\n", "$").Split('$');            
-            string[] substr2 = Regex.Split(substr[substr.Length + index], Pattern_enter);
-
-            //分離詞綴&數字並放入字典，沒有數字的詞綴數字給0
-            foreach (string i in substr2)
-            {
-                int r;
-                if (!int.TryParse(Regex.Match(i, "[0-9.]{1,}").Value, out r))
-                {
-                    r = 0;
-                }
-                affix.Add(new Affix {AffixName= Regex.Replace(i, "[0-9.]{1,}", "").Replace(" ", ""),AffixMin= r });
             }
         }
 
@@ -174,6 +151,9 @@ namespace AutoCraft
                         countpre += 1;
                     }
                 }
+            }
+            if (intersuf.Count() > 0)
+            {
                 foreach (string i in intersuf)
                 {
                     if (affix[i] >= suf[i])

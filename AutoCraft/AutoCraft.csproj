@@ -81,7 +81,7 @@
     <Compile Include="GlobalKeyBoardHook.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripts.cs" />
+    <Compile Include="Extension.cs" />
     <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

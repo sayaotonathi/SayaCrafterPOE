@@ -12,9 +12,9 @@ namespace AutoCraft
         [Name("詞綴")]
         public string AffixName { get; set; }
         [Name("下限")]
-        public int AffixMin { get; set; }
+        public string AffixMin { get; set; } = "0";
         [Name("上限")]
-        public int AffixMax { get; set; } = 0;
+        public string AffixMax { get; set; } = "0";
         [Name("選取")]
         public bool IsSelected { get; set; } = false;
     }
