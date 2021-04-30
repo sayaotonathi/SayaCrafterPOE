@@ -82,7 +82,7 @@
             this.rb_UseAlch = new System.Windows.Forms.RadioButton();
             this.gb_AltOption = new System.Windows.Forms.GroupBox();
             this.pnl_UseRegal = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.pnl_Regal_Option = new System.Windows.Forms.Panel();
             this.rb_Regal_And = new System.Windows.Forms.RadioButton();
             this.rb_Regal_Or = new System.Windows.Forms.RadioButton();
             this.rb_Regal_Suf = new System.Windows.Forms.RadioButton();
@@ -109,7 +109,7 @@
             this.panel1.SuspendLayout();
             this.gb_AltOption.SuspendLayout();
             this.pnl_UseRegal.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.pnl_Regal_Option.SuspendLayout();
             this.pnl_UseAug.SuspendLayout();
             this.pnl_Aug_Option.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -117,9 +117,14 @@
             // 
             // nudTime
             // 
+            this.nudTime.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudTime.Location = new System.Drawing.Point(120, 287);
             this.nudTime.Maximum = new decimal(new int[] {
-            5000,
+            50000,
             0,
             0,
             0});
@@ -586,7 +591,17 @@
             // 
             // nudDelay
             // 
+            this.nudDelay.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.nudDelay.Location = new System.Drawing.Point(120, 326);
+            this.nudDelay.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
             this.nudDelay.Name = "nudDelay";
             this.nudDelay.Size = new System.Drawing.Size(82, 22);
             this.nudDelay.TabIndex = 0;
@@ -671,23 +686,24 @@
             // 
             // pnl_UseRegal
             // 
-            this.pnl_UseRegal.Controls.Add(this.panel2);
+            this.pnl_UseRegal.Controls.Add(this.pnl_Regal_Option);
             this.pnl_UseRegal.Controls.Add(this.cb_Regal);
             this.pnl_UseRegal.Location = new System.Drawing.Point(20, 239);
             this.pnl_UseRegal.Name = "pnl_UseRegal";
             this.pnl_UseRegal.Size = new System.Drawing.Size(205, 150);
             this.pnl_UseRegal.TabIndex = 25;
             // 
-            // panel2
+            // pnl_Regal_Option
             // 
-            this.panel2.Controls.Add(this.rb_Regal_And);
-            this.panel2.Controls.Add(this.rb_Regal_Or);
-            this.panel2.Controls.Add(this.rb_Regal_Suf);
-            this.panel2.Controls.Add(this.rb_Regal_Pre);
-            this.panel2.Location = new System.Drawing.Point(36, 35);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(132, 99);
-            this.panel2.TabIndex = 23;
+            this.pnl_Regal_Option.Controls.Add(this.rb_Regal_And);
+            this.pnl_Regal_Option.Controls.Add(this.rb_Regal_Or);
+            this.pnl_Regal_Option.Controls.Add(this.rb_Regal_Suf);
+            this.pnl_Regal_Option.Controls.Add(this.rb_Regal_Pre);
+            this.pnl_Regal_Option.Enabled = false;
+            this.pnl_Regal_Option.Location = new System.Drawing.Point(36, 35);
+            this.pnl_Regal_Option.Name = "pnl_Regal_Option";
+            this.pnl_Regal_Option.Size = new System.Drawing.Size(132, 99);
+            this.pnl_Regal_Option.TabIndex = 23;
             // 
             // rb_Regal_And
             // 
@@ -710,6 +726,7 @@
             this.rb_Regal_Or.TabStop = true;
             this.rb_Regal_Or.Text = "前或後綴符合";
             this.rb_Regal_Or.UseVisualStyleBackColor = true;
+            this.rb_Regal_Or.CheckedChanged += new System.EventHandler(this.rb_AugRegal_PreOrSuf_CheckedChanged);
             // 
             // rb_Regal_Suf
             // 
@@ -721,6 +738,7 @@
             this.rb_Regal_Suf.TabStop = true;
             this.rb_Regal_Suf.Text = "後綴符合";
             this.rb_Regal_Suf.UseVisualStyleBackColor = true;
+            this.rb_Regal_Suf.CheckedChanged += new System.EventHandler(this.rb_Regal_CheckedChanged);
             // 
             // rb_Regal_Pre
             // 
@@ -732,6 +750,7 @@
             this.rb_Regal_Pre.TabStop = true;
             this.rb_Regal_Pre.Text = "前綴符合";
             this.rb_Regal_Pre.UseVisualStyleBackColor = true;
+            this.rb_Regal_Pre.CheckedChanged += new System.EventHandler(this.rb_Regal_CheckedChanged);
             // 
             // cb_Regal
             // 
@@ -742,6 +761,7 @@
             this.cb_Regal.TabIndex = 21;
             this.cb_Regal.Text = "使用富豪石";
             this.cb_Regal.UseVisualStyleBackColor = true;
+            this.cb_Regal.CheckedChanged += new System.EventHandler(this.cb_Regal_CheckedChanged);
             // 
             // pnl_UseAug
             // 
@@ -757,6 +777,7 @@
             this.pnl_Aug_Option.Controls.Add(this.rb_Aug_Or);
             this.pnl_Aug_Option.Controls.Add(this.rb_Aug_Suf);
             this.pnl_Aug_Option.Controls.Add(this.rb_Aug_Pre);
+            this.pnl_Aug_Option.Enabled = false;
             this.pnl_Aug_Option.Location = new System.Drawing.Point(36, 35);
             this.pnl_Aug_Option.Name = "pnl_Aug_Option";
             this.pnl_Aug_Option.Size = new System.Drawing.Size(132, 99);
@@ -772,6 +793,7 @@
             this.rb_Aug_Or.TabStop = true;
             this.rb_Aug_Or.Text = "前或後綴符合";
             this.rb_Aug_Or.UseVisualStyleBackColor = true;
+            this.rb_Aug_Or.CheckedChanged += new System.EventHandler(this.rb_AugRegal_PreOrSuf_CheckedChanged);
             // 
             // rb_Aug_Suf
             // 
@@ -783,6 +805,7 @@
             this.rb_Aug_Suf.TabStop = true;
             this.rb_Aug_Suf.Text = "後綴符合";
             this.rb_Aug_Suf.UseVisualStyleBackColor = true;
+            this.rb_Aug_Suf.CheckedChanged += new System.EventHandler(this.rb_Aug_CheckedChanged);
             // 
             // rb_Aug_Pre
             // 
@@ -794,6 +817,7 @@
             this.rb_Aug_Pre.TabStop = true;
             this.rb_Aug_Pre.Text = "前綴符合";
             this.rb_Aug_Pre.UseVisualStyleBackColor = true;
+            this.rb_Aug_Pre.CheckedChanged += new System.EventHandler(this.rb_Aug_CheckedChanged);
             // 
             // cb_Augment
             // 
@@ -804,6 +828,7 @@
             this.cb_Augment.TabIndex = 21;
             this.cb_Augment.Text = "使用增幅石";
             this.cb_Augment.UseVisualStyleBackColor = true;
+            this.cb_Augment.CheckedChanged += new System.EventHandler(this.cb_Augment_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -859,8 +884,8 @@
             this.gb_AltOption.ResumeLayout(false);
             this.pnl_UseRegal.ResumeLayout(false);
             this.pnl_UseRegal.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pnl_Regal_Option.ResumeLayout(false);
+            this.pnl_Regal_Option.PerformLayout();
             this.pnl_UseAug.ResumeLayout(false);
             this.pnl_UseAug.PerformLayout();
             this.pnl_Aug_Option.ResumeLayout(false);
@@ -904,7 +929,7 @@
         private System.Windows.Forms.RadioButton rb_Aug_Or;
         private System.Windows.Forms.RadioButton rb_Aug_Suf;
         private System.Windows.Forms.Panel pnl_UseRegal;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel pnl_Regal_Option;
         private System.Windows.Forms.RadioButton rb_Regal_And;
         private System.Windows.Forms.RadioButton rb_Regal_Or;
         private System.Windows.Forms.RadioButton rb_Regal_Suf;

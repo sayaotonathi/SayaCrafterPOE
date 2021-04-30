@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace AutoCraft
 {
-     class Utilities
+    class Utilities
     {
 
         //各種視窗控制
@@ -25,8 +25,10 @@ namespace AutoCraft
         public static extern void mouse_event(int dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
         public const int MOUSEEVENTF_LEFTDOWN = 0x02;
         public const int MOUSEEVENTF_LEFTUP = 0x04;
-        private const string Pattern_enter = "\r\n";
-
+        [DllImport("user32.dll")]
+        public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
+        const uint KEYEVENTF_KEYUP = 0x0002;
+        const uint KEYEVENTF_KEYDOWN = 0x0001;
         [DllImport("user32.dll")]
         public static extern int GetWindowRect(IntPtr hWnd, out RECT lpRect);
         [StructLayout(LayoutKind.Sequential)]
@@ -51,22 +53,91 @@ namespace AutoCraft
             RIGHTDOWN = 0x00000008,
             RIGHTUP = 0x00000010
         }
+        private const string Pattern_enter = "\r\n";
 
         //使用通貨，右鍵p1位置左鍵p2位置
-        public void useCurrency(Point p1, Point p2)
+        public void useCurrency(Point currencyPosition, Point craftArea)
         {
-            SetCursorPos(p1.X, p1.Y);
-            Thread.Sleep(20);
+            int delay = 30;
+            SetCursorPos(craftArea.X, craftArea.Y);
+            Thread.Sleep(delay);
+            rightClickCurrency(currencyPosition);
+            SetCursorPos(craftArea.X, craftArea.Y);
+            Thread.Sleep(delay);
+            leftClickCraftArea(craftArea);
+        }
+        //連續使用通貨，stopMode 1=前綴, 2=後綴, 3=前或後, 4=前且後
+        public void useCurrencyContinuously(Point currencyPosition, Point craftArea, int index, int idelay, int fireTimes, int stopPre, int stopSuf, Dictionary<string, int> pre, Dictionary<string, int> suf,ref bool stopFlag,int stopMode)
+        {
+            int loopCounter = 0;
+            sendLShiftKeyDown();
+            SetCursorPos(currencyPosition.X, currencyPosition.Y);
+            Thread.Sleep(idelay);
+            rightClickCurrency(currencyPosition);
+            Thread.Sleep(idelay);
+            SetCursorPos(craftArea.X, craftArea.Y);
+            while (loopCounter < fireTimes&&stopFlag)
+            {
+                loopCounter++;
+                Dictionary<string, int> clipAffix = new Dictionary<string, int>();
+                int int_count_prefix = 0;
+                int int_count_suffix = 0;
+                Thread.Sleep(idelay);
+                Console.WriteLine(loopCounter);
+                CtrlC();
+                affixDetermine(getClipBoard(), index, clipAffix);
+                affixCheck(clipAffix, pre, suf, out int_count_prefix, out int_count_suffix);
+                bool pattern=true;
+                switch (stopMode)
+                {
+                    case 1:
+                        pattern = int_count_prefix > 0;
+                        break;
+                    case 2:
+                        pattern = int_count_suffix > 0;
+                        break;
+                    case 3:
+                        pattern = int_count_prefix > 0 || int_count_suffix >= 0;
+                        break;
+                    case 4:
+                        pattern = int_count_prefix >= stopPre && int_count_suffix >= stopSuf;
+                        break;
+                }
+                if (pattern)
+                {
+                    break;
+                }
+                leftClickCraftArea(craftArea);
+            }
+            sendLShiftKeyUp();
+        }
+
+        //按住LShift
+        public void sendLShiftKeyDown()
+        {
+            keybd_event((int)Keys.LShiftKey, 0, KEYEVENTF_KEYDOWN | 0, 0); //160=LShift
+        }
+        //放開LShift
+        public void sendLShiftKeyUp()
+        {
+            keybd_event((int)Keys.LShiftKey, 0, KEYEVENTF_KEYUP | 0, 0); //160=LShift
+        }
+
+        public void rightClickCurrency(Point currencyPosition)
+        {
+            int delay = 30;
             mouse_event((int)(MouseEventTFlags.RIGHTDOWN), 0, 0, 0, 0);
-            Thread.Sleep(20);
+            Thread.Sleep(delay);
             mouse_event((int)MouseEventTFlags.RIGHTUP, 0, 0, 0, 0);
-            Thread.Sleep(20);
-            SetCursorPos(p2.X, p2.Y);
-            Thread.Sleep(20);
+            Thread.Sleep(delay);
+        }
+        public void leftClickCraftArea(Point craftArea)
+        {
+            int delay = 30;
             mouse_event((int)(MouseEventTFlags.LEFTDOWN), 0, 0, 0, 0);
-            Thread.Sleep(20);
+            Thread.Sleep(delay);
             mouse_event((int)MouseEventTFlags.LEFTUP, 0, 0, 0, 0);
-            Thread.Sleep(20);
+            Thread.Sleep(delay);
         }
 
         //複製
@@ -103,15 +174,13 @@ namespace AutoCraft
         //取剪貼簿
         public string getClipBoard()
         {
-            Console.WriteLine(Clipboard.ContainsText());
-            Console.WriteLine(Clipboard.GetText());
             if (Clipboard.ContainsText())
             {
                 return Clipboard.GetText();
             }
             return "";
         }
-        
+
         //拆分出詞綴區塊&分離數字，str:詞綴字串，index:第幾個區塊，
         public void affixDetermine(string str, int index, Dictionary<string, int> affix)
         {
@@ -135,8 +204,10 @@ namespace AutoCraft
         }
 
         //檢查是否有符合的詞綴，將傳入字典key(詞綴部分)與當前詞綴取交集，有交集則比value是否符合，ref給前後綴符合數量
-        public void affixCheck(Dictionary<string, int> affix, Dictionary<string, int> pre, Dictionary<string, int> suf, ref int countpre, ref int countsuf)
+        public void affixCheck(Dictionary<string, int> affix, Dictionary<string, int> pre, Dictionary<string, int> suf, out int countpre, out int countsuf)
         {
+            countpre = 0;
+            countsuf = 0;
             List<string> strpre = new List<string>(pre.Keys);
             List<string> strsuf = new List<string>(suf.Keys);
             List<string> affixStr = new List<string>(affix.Keys);
@@ -160,6 +231,13 @@ namespace AutoCraft
                     {
                         countsuf += 1;
                     }
+                }
+            }
+            if (countsuf > 0 && countpre > 0)
+            {
+                foreach (var i in affix.Keys)
+                {
+                    Console.WriteLine(i);
                 }
             }
         }

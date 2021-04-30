@@ -116,7 +116,7 @@ namespace AutoCraft
             //Console.WriteLine(testsuf.ElementAt(0));
             //ut.affixCheck(affix, testpre, testsuf, ref int_count_prefix, ref int_count_suffix);
             //Console.WriteLine(int_count_prefix + "," + int_count_suffix);
-
+            Console.WriteLine("");
         }
 
 
@@ -222,21 +222,30 @@ namespace AutoCraft
             if (e.ColumnIndex == 0 && e.RowIndex >= 0)
             {
                 dgv.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            }
-            if ((bool)dgv.CurrentCell.Value == true)
-            {
-                if (dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value != null)
+                if ((bool)dgv.CurrentCell.Value == true)
                 {
-                    string key = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value.ToString();
-                    int value = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value == null ? (int)dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value : 0;
-                    s.Add(key, value);
+                    if (dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value == null)
+                    {
+                        dgv.Rows[e.RowIndex].Cells[$"dgv{str}IsSelected"].Value = ((DataGridViewCheckBoxCell)dgv.Rows[e.RowIndex].Cells[$"dgv{str}IsSelected"]).FalseValue;
+                        dgv.EndEdit();
+                    }
+                    else
+                    {
+                        string key = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value.ToString();
+                        int value = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value == null ? (int)dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value : 0;
+                        s.Add(key, value);
+                    }
+                }
+                else
+                {
+                    string key = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value == null ? "" : dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value.ToString();
+                    if (s.ContainsKey(key))
+                    {
+                        s.Remove(key);
+                    }
                 }
             }
-            else
-            {
-                string key = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value.ToString();
-                s.Remove(key);
-            }
+
         }
         //儲存詞綴按鈕
         private void btn_SaveAffix_Click(object sender, EventArgs e)
@@ -322,6 +331,10 @@ namespace AutoCraft
 
                                 break;
                             case 2:
+                                ut.getAbsolutePoint(hwnd, relChaos, out absChaos);
+                                ut.getAbsolutePoint(hwnd, relScour, out absScour);
+                                ut.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
+                                pts = new ParameterizedThreadStart(Chaos);
                                 break;
                             case 3:
                                 break;
@@ -329,7 +342,7 @@ namespace AutoCraft
                                 ut.getAbsolutePoint(hwnd, relChance, out absChance);
                                 ut.getAbsolutePoint(hwnd, relScour, out absScour);
                                 ut.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
-                                pts = new ParameterizedThreadStart(chance);
+                                pts = new ParameterizedThreadStart(Chance);
                                 break;
                         }
                         Utilities.SetForegroundWindow(hwnd);
@@ -470,6 +483,7 @@ namespace AutoCraft
 
             while (loopCounter < nudTime.Value)
             {
+                loopCounter++;
                 int int_count_prefix = 0;
                 int int_count_suffix = 0;
                 string clip = "";
@@ -484,17 +498,89 @@ namespace AutoCraft
                     clip = ut.getClipBoard();
                 });
                 ut.affixDetermine(clip, index, clipAffix);
-                ut.affixCheck(clipAffix, pre, suf, ref int_count_prefix, ref int_count_suffix);
+                ut.affixCheck(clipAffix, pre, suf, out int_count_prefix, out int_count_suffix);
                 if (int_count_prefix >= nudStopPre.Value && int_count_suffix >= nudStopSuf.Value)
                 {
                     loopCounter = 0;
+                    Console.WriteLine(clip);
                     break;
                 }
-                loopCounter++;
+
             }
         }
+        //混沌石腳本
+        private void Chaos(object delay)
+        {
+            //todo:之後index改成自訂
+            int index = -1;
+            int idelay = (int)delay;
+            int fireTimes = (int)nudTime.Value;
+            int stopPre = (int)nudStopPre.Value;
+            int stopSuf = (int)nudStopSuf.Value;
+            this.InvokeIfRequired(() =>
+            {
+                ut.useCurrencyContinuously(absChaos, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, 4);
+            });
+        }
+
+        private void cb_Augment_CheckedChanged(object sender, EventArgs e)
+        {
+            pnl_Aug_Option.Enabled = ((CheckBox)sender).Checked ? true : false;
+
+        }
+
+        private void cb_Regal_CheckedChanged(object sender, EventArgs e)
+        {
+            pnl_Regal_Option.Enabled = ((CheckBox)sender).Checked ? true : false;
+        }
+        //增幅富豪僅前/後綴選項互斥
+        #region
+        private void rb_Aug_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            if (rb.Checked)
+            {
+                rb_Regal_Pre.Checked = false;
+                rb_Regal_Suf.Checked = false;
+            }
+        }
+        private void rb_Regal_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            if (rb.Checked)
+            {
+                rb_Aug_Pre.Checked = false;
+                rb_Aug_Pre.Checked = false;
+            }
+        }
+        #endregion
+        //增幅富豪前或後選項互斥
+        private void rb_AugRegal_PreOrSuf_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            if (rb.Checked)
+            {
+                rb_Aug_Or.Checked=rb==rb_Aug_Or?true:false;
+                rb_Regal_Or.Checked = rb == rb_Regal_Or ? true : false;
+            }
+        }
+
+        //改造石腳本
+        private void Alter(object delay)
+        {
+            //todo:之後index改成自訂
+            int index = -1;
+            int idelay = (int)delay;
+            int fireTimes = (int)nudTime.Value;
+            int stopPre = (int)nudStopPre.Value;
+            int stopSuf = (int)nudStopSuf.Value;
+            this.InvokeIfRequired(() =>
+            {
+                ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, 1);
+            });
+        }
         //機會石腳本
-        private void chance(object delay)
+        private void Chance(object delay)
         {
             int idelay = (int)delay;
             while (loopCounter < nudTime.Value)
