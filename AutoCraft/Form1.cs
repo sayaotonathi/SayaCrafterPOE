@@ -8,6 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -76,6 +77,8 @@ namespace AutoCraft
             {
                 gHook.HookedKeys.Add(key);
             }
+            ReloadAffix();//讀取詞綴設定檔
+            LoadPosSetting();//讀取位置設定
             gHook.hook();//開始監控
             lblAltPos.Text = $"{relAlt.X},{relAlt.Y}";
             lblAugPos.Text = $"{relAug.X},{relAug.Y}";
@@ -87,7 +90,7 @@ namespace AutoCraft
             lblAlchPos.Text = $"{relAlch.X},{relAlch.Y}";
             //hwnd = Utilities.FindWindow(null, "AAAAAA");
             hwnd = Utilities.FindWindow(null, "Path of Exile");
-            ReloadAffix();//讀取詞綴設定檔
+            
         }
 
 
@@ -103,37 +106,41 @@ namespace AutoCraft
         //測試用按鈕
         private void button1_Click(object sender, EventArgs e)
         {
-            //string str = ut.getClipBoard();
-            ////ut.affixDetermine(str,-2, affix);
-            ////for (int i = 0;i< affix.Count; i++)
-            ////{
-            ////    Console.WriteLine(affix.ElementAt(i));
-            ////}
-            //ut.affixDetermine("增加 23 % 閃避值\r\n減少 7% 魔力保留", -1, testpre);
-            //Console.WriteLine(testpre.ElementAt(0));
-            //Console.WriteLine(testpre.ElementAt(1));
-            //ut.affixDetermine("減少 7% 魔力保留", -1, testsuf);
-            //Console.WriteLine(testsuf.ElementAt(0));
-            //ut.affixCheck(affix, testpre, testsuf, ref int_count_prefix, ref int_count_suffix);
-            //Console.WriteLine(int_count_prefix + "," + int_count_suffix);
-            Console.WriteLine("");
+            string i = "傳奇頭目有 21.8% 機率掉落 1 個額外銀幣";
+            string j = "+42% 冰冷抗性";
+            int r;
+            decimal r2;
+            string s = Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value;
+            string s3 = Regex.Match(i, "[0 - 9.]{1,}").Value;
+            string s4 = Regex.Match(j, "[0 - 9.]{1,}").Value;
+
+            string s2 = Regex.Match(j, "[0-9.]+([0-9]{0,3})").Value;
+            Console.WriteLine(int.TryParse(Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value, out r));
+            Console.WriteLine(int.TryParse(Regex.Match(j, "[0-9.]+([0-9]{0,3})").Value, out r));
+            Console.WriteLine(decimal.TryParse("42", out r2));
         }
 
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //寫入
-            Affix a = new Affix();
-            a.AffixName = "增加%暴擊率";
-            a.AffixMin = "35";
-            a.IsSelected = true;
-            List<Affix> ls = new List<Affix>();
-            ls.Add(a);
-            using (var writer = new StreamWriter("./suffixs.csv"))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            string s = "完成輿圖征服者勢力地圖，有 3% 機率獲得 2 倍定位他們壁壘位置的進度";
+            string[] substr = ut.SplitClipBoard(s, "\r\n");
+
+            //將詞綴區塊逐條分開
+            string[] substr2 = Regex.Split(substr[0], "\r\n");
+
+            //分離詞綴&數字並放入字典，沒有數字的詞綴數字給0
+            foreach (string i in substr2)
             {
-                csv.WriteRecords(ls);
+                decimal r;
+                string s2 = Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value;
+                if (!decimal.TryParse(s2, out r))
+                {
+                    r = 0;
+                }
+
+                string s3 = Regex.Replace(i, "[0-9.]+([0-9]{0,3})", "").Replace(" ", "");
             }
         }
 
@@ -472,13 +479,39 @@ namespace AutoCraft
                 }
             }
         }
+
+        //讀取設定
+        private void LoadPosSetting()
+        {
+            //讀取想要的詞綴設定
+            using (var reader = new StreamReader("./position.csv"))
+            {
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    var record = csv.GetRecords<Position>();
+                    foreach (var i in record)
+                    {
+                        relAlt = new Point(i.relAltX, i.relAltY); //改造
+                        relAug = new Point(i.relAugX, i.relAugY); //增幅
+                        relChance = new Point(i.relChanceX, i.relChanceY); //機會
+                        relScour = new Point(i.relScourX, i.relScourY); //重鑄
+                        relRegal = new Point(i.relRegalX, i.relRegalY); //富豪
+                        relChaos = new Point(i.relChaosX, i.relChaosY); //混沌
+                        relAlch = new Point(i.relAlchX, i.relAlchY); //點金
+                        relCraftArea = new Point(i.relCraftAreaX, i.relCraftAreaY); //做裝區域
+                        nudIndex.Value = i.Index;
+                    }
+                }
+            }
+        }
+
         #endregion
         #region 腳本區
         //重鑄點金腳本
         private void Alchemy(object delay)
         {
             //todo:之後index改成自訂
-            int index = -1;
+            int index = (int)nudIndex.Value;
             int idelay = (int)delay;
 
             while (loopCounter < nudTime.Value)
@@ -505,6 +538,10 @@ namespace AutoCraft
                     Console.WriteLine(clip);
                     break;
                 }
+                if (clip is null)
+                {
+
+                }
 
             }
         }
@@ -512,7 +549,7 @@ namespace AutoCraft
         private void Chaos(object delay)
         {
             //todo:之後index改成自訂
-            int index = -1;
+            int index = (int)nudIndex.Value;
             int idelay = (int)delay;
             int fireTimes = (int)nudTime.Value;
             int stopPre = (int)nudStopPre.Value;
@@ -560,30 +597,126 @@ namespace AutoCraft
             RadioButton rb = (RadioButton)sender;
             if (rb.Checked)
             {
-                rb_Aug_Or.Checked=rb==rb_Aug_Or?true:false;
+                rb_Aug_Or.Checked = rb == rb_Aug_Or ? true : false;
                 rb_Regal_Or.Checked = rb == rb_Regal_Or ? true : false;
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            int a = 1;
+            int b = 2;
+            int c;
+            c = a++ + ++a + ++a + b--;
+            Console.WriteLine(c);
+        }
+
+        private void btnGetClipboard_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            string clip = ut.getClipBoard();
+            if (clip == "")
+            {
+                MessageBox.Show("請先複製詞綴");
+                return;
+            }
+            string[] splited = ut.SplitClipBoard(clip);
+            foreach (string str in splited)
+            {
+                listBox1.Items.Add(str);
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            nudIndex.Value = listBox1.SelectedIndex;
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSavePos_Click(object sender, EventArgs e)
+        {
+            List<Position> ls = new List<Position>();
+            
+                Position position = new Position
+                {
+                    //relAlt = relAlt,
+                    //relAlch = relAlch,
+                    //relAug = relAug,
+                    //relChance = relChance,
+                    //relChaos = relChaos,
+                    //relCraftArea = relCraftArea,
+                    //relRegal = relRegal,
+                    //relScour = relScour
+                    
+                    relAltX = relAlt.X,
+                    relAltY = relAlt.Y,
+                    relAlchX = relAlch.X,
+                    relAlchY = relAlch.Y,
+                    relAugX = relAug.X,
+                    relAugY = relAug.Y,
+                    relChanceX = relChance.X,
+                    relChanceY = relChance.Y,
+                    relChaosX = relChaos.X,
+                    relChaosY= relChaos.Y,
+                    relCraftAreaX = relCraftArea.X,
+                    relCraftAreaY = relCraftArea.Y,
+                    relRegalX = relRegal.X,
+                    relRegalY = relRegal.Y,
+                    relScourX = relScour.X,
+                    relScourY = relScour.Y,
+                    Index = (int)nudIndex.Value
+                    
+                };
+            ls.Add(position);
+            using (var writer = new StreamWriter("./position.csv"))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                csv.WriteRecords(ls);
+            }
+        }
+
+        //todo
         //改造石腳本
         private void Alter(object delay)
         {
             //todo:之後index改成自訂
-            int index = -1;
+            int index = (int)nudIndex.Value;
             int idelay = (int)delay;
             int fireTimes = (int)nudTime.Value;
             int stopPre = (int)nudStopPre.Value;
             int stopSuf = (int)nudStopSuf.Value;
+            int stopMode = 4;
+            if (cb_Augment.Checked)
+            {
+                var checkedAug = pnl_Aug_Option.Controls.OfType<RadioButton>().FirstOrDefault(n => n.Checked).Tag;
+                if (checkedAug != null)
+                {
+                    stopMode = (int)checkedAug;
+                }
+            }
+            if (cb_Regal.Checked)
+            {
+                var checkedRegal = pnl_Regal_Option.Controls.OfType<RadioButton>().FirstOrDefault(n => n.Checked).Tag;
+                if (checkedRegal != null)
+                {
+                    stopMode = (int)checkedRegal;
+                }
+            }
             this.InvokeIfRequired(() =>
             {
-                ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, 1);
+                ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, stopMode);
             });
         }
         //機會石腳本
         private void Chance(object delay)
         {
             int idelay = (int)delay;
-            while (loopCounter < nudTime.Value)
+            while (loopCounter < nudTime.Value&&flagActivate)
             {
                 ut.useCurrency(absScour, absCraftArea);
                 Thread.Sleep(idelay);

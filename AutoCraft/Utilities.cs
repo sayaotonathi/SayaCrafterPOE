@@ -59,7 +59,7 @@ namespace AutoCraft
         public void useCurrency(Point currencyPosition, Point craftArea)
         {
             int delay = 30;
-            SetCursorPos(craftArea.X, craftArea.Y);
+            SetCursorPos(currencyPosition.X, currencyPosition.Y);
             Thread.Sleep(delay);
             rightClickCurrency(currencyPosition);
             SetCursorPos(craftArea.X, craftArea.Y);
@@ -82,8 +82,8 @@ namespace AutoCraft
                 Dictionary<string, int> clipAffix = new Dictionary<string, int>();
                 int int_count_prefix = 0;
                 int int_count_suffix = 0;
-                Thread.Sleep(idelay);
-                Console.WriteLine(loopCounter);
+                Thread.Sleep(idelay);                Console.WriteLine(loopCounter);
+
                 CtrlC();
                 affixDetermine(getClipBoard(), index, clipAffix);
                 affixCheck(clipAffix, pre, suf, out int_count_prefix, out int_count_suffix);
@@ -100,7 +100,7 @@ namespace AutoCraft
                         pattern = int_count_prefix > 0 || int_count_suffix >= 0;
                         break;
                     case 4:
-                        pattern = int_count_prefix >= stopPre && int_count_suffix >= stopSuf;
+                        pattern = (int_count_prefix >= stopPre) && (int_count_suffix >= stopSuf);
                         break;
                 }
                 if (pattern)
@@ -186,21 +186,32 @@ namespace AutoCraft
         {
             affix.Clear();
             //拆出詞綴區塊  
-            string[] substr = Regex.Split(str, $"{Pattern_enter}--------{Pattern_enter}");
+            string[] substr = SplitClipBoard(str, Pattern_enter);
 
             //將詞綴區塊逐條分開
-            string[] substr2 = Regex.Split(substr[substr.Length + index], Pattern_enter);
+            string[] substr2 = Regex.Split(substr[index], Pattern_enter);
 
             //分離詞綴&數字並放入字典，沒有數字的詞綴數字給0
             foreach (string i in substr2)
             {
-                int r;
-                if (!int.TryParse(Regex.Match(i, "[0-9.]{1,}").Value, out r))
+                decimal r;
+                string s = Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value;
+                if (!decimal.TryParse(s, out r))
                 {
                     r = 0;
                 }
-                affix.Add(Regex.Replace(i, "[0-9.]{1,}", "").Replace(" ", ""), r);
+                
+                affix.Add(Regex.Replace(i, "[0-9.]+([0-9]{0,3})", "").Replace(" ", "").Replace("\n",""), (int)r);
             }
+        }
+        //分割剪貼簿
+        public string[] SplitClipBoard(string clip,string pattern = Pattern_enter)
+        {
+            if (clip == null)
+            {
+                return null;
+            }
+            return  Regex.Split(clip, $"{pattern}--------{pattern}");
         }
 
         //檢查是否有符合的詞綴，將傳入字典key(詞綴部分)與當前詞綴取交集，有交集則比value是否符合，ref給前後綴符合數量

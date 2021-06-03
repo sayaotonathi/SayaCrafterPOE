@@ -53,6 +53,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
             this.btn_ReloadAffix = new System.Windows.Forms.Button();
             this.btn_SaveAffix = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -95,7 +96,13 @@
             this.rb_Aug_Pre = new System.Windows.Forms.RadioButton();
             this.cb_Augment = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lblIndex = new System.Windows.Forms.Label();
+            this.nudIndex = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnGetClipboard = new System.Windows.Forms.Button();
             this.lblAlchPos = new System.Windows.Forms.Label();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.btnSavePos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudTime)).BeginInit();
             this.pnlSetBTNs.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -113,6 +120,7 @@
             this.pnl_UseAug.SuspendLayout();
             this.pnl_Aug_Option.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIndex)).BeginInit();
             this.SuspendLayout();
             // 
             // nudTime
@@ -361,9 +369,11 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1115, 569);
             this.tabControl1.TabIndex = 21;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.btn_ReloadAffix);
             this.tabPage1.Controls.Add(this.btn_SaveAffix);
             this.tabPage1.Controls.Add(this.label5);
@@ -390,6 +400,16 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "功能";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(193, 501);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 38;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // btn_ReloadAffix
             // 
@@ -606,7 +626,7 @@
             this.nudDelay.Size = new System.Drawing.Size(82, 22);
             this.nudDelay.TabIndex = 0;
             this.nudDelay.Value = new decimal(new int[] {
-            50,
+            100,
             0,
             0,
             0});
@@ -713,6 +733,7 @@
             this.rb_Regal_And.Size = new System.Drawing.Size(95, 16);
             this.rb_Regal_And.TabIndex = 3;
             this.rb_Regal_And.TabStop = true;
+            this.rb_Regal_And.Tag = "4";
             this.rb_Regal_And.Text = "前後綴均符合";
             this.rb_Regal_And.UseVisualStyleBackColor = true;
             // 
@@ -724,6 +745,7 @@
             this.rb_Regal_Or.Size = new System.Drawing.Size(95, 16);
             this.rb_Regal_Or.TabIndex = 2;
             this.rb_Regal_Or.TabStop = true;
+            this.rb_Regal_Or.Tag = "3";
             this.rb_Regal_Or.Text = "前或後綴符合";
             this.rb_Regal_Or.UseVisualStyleBackColor = true;
             this.rb_Regal_Or.CheckedChanged += new System.EventHandler(this.rb_AugRegal_PreOrSuf_CheckedChanged);
@@ -736,6 +758,7 @@
             this.rb_Regal_Suf.Size = new System.Drawing.Size(71, 16);
             this.rb_Regal_Suf.TabIndex = 1;
             this.rb_Regal_Suf.TabStop = true;
+            this.rb_Regal_Suf.Tag = "2";
             this.rb_Regal_Suf.Text = "後綴符合";
             this.rb_Regal_Suf.UseVisualStyleBackColor = true;
             this.rb_Regal_Suf.CheckedChanged += new System.EventHandler(this.rb_Regal_CheckedChanged);
@@ -748,6 +771,7 @@
             this.rb_Regal_Pre.Size = new System.Drawing.Size(71, 16);
             this.rb_Regal_Pre.TabIndex = 0;
             this.rb_Regal_Pre.TabStop = true;
+            this.rb_Regal_Pre.Tag = "1";
             this.rb_Regal_Pre.Text = "前綴符合";
             this.rb_Regal_Pre.UseVisualStyleBackColor = true;
             this.rb_Regal_Pre.CheckedChanged += new System.EventHandler(this.rb_Regal_CheckedChanged);
@@ -791,6 +815,7 @@
             this.rb_Aug_Or.Size = new System.Drawing.Size(95, 16);
             this.rb_Aug_Or.TabIndex = 2;
             this.rb_Aug_Or.TabStop = true;
+            this.rb_Aug_Or.Tag = "3";
             this.rb_Aug_Or.Text = "前或後綴符合";
             this.rb_Aug_Or.UseVisualStyleBackColor = true;
             this.rb_Aug_Or.CheckedChanged += new System.EventHandler(this.rb_AugRegal_PreOrSuf_CheckedChanged);
@@ -803,6 +828,7 @@
             this.rb_Aug_Suf.Size = new System.Drawing.Size(71, 16);
             this.rb_Aug_Suf.TabIndex = 1;
             this.rb_Aug_Suf.TabStop = true;
+            this.rb_Aug_Suf.Tag = "2";
             this.rb_Aug_Suf.Text = "後綴符合";
             this.rb_Aug_Suf.UseVisualStyleBackColor = true;
             this.rb_Aug_Suf.CheckedChanged += new System.EventHandler(this.rb_Aug_CheckedChanged);
@@ -815,6 +841,7 @@
             this.rb_Aug_Pre.Size = new System.Drawing.Size(71, 16);
             this.rb_Aug_Pre.TabIndex = 0;
             this.rb_Aug_Pre.TabStop = true;
+            this.rb_Aug_Pre.Tag = "1";
             this.rb_Aug_Pre.Text = "前綴符合";
             this.rb_Aug_Pre.UseVisualStyleBackColor = true;
             this.rb_Aug_Pre.CheckedChanged += new System.EventHandler(this.rb_Aug_CheckedChanged);
@@ -832,6 +859,12 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnSavePos);
+            this.tabPage2.Controls.Add(this.listBox1);
+            this.tabPage2.Controls.Add(this.lblIndex);
+            this.tabPage2.Controls.Add(this.nudIndex);
+            this.tabPage2.Controls.Add(this.label6);
+            this.tabPage2.Controls.Add(this.btnGetClipboard);
             this.tabPage2.Controls.Add(this.lblAlchPos);
             this.tabPage2.Controls.Add(this.pnlSetBTNs);
             this.tabPage2.Controls.Add(this.lblCraftAreaPos);
@@ -849,6 +882,46 @@
             this.tabPage2.Text = "設定";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // lblIndex
+            // 
+            this.lblIndex.AutoSize = true;
+            this.lblIndex.Location = new System.Drawing.Point(483, 346);
+            this.lblIndex.Name = "lblIndex";
+            this.lblIndex.Size = new System.Drawing.Size(53, 12);
+            this.lblIndex.TabIndex = 33;
+            this.lblIndex.Text = "詞綴位置";
+            // 
+            // nudIndex
+            // 
+            this.nudIndex.Location = new System.Drawing.Point(542, 343);
+            this.nudIndex.Maximum = new decimal(new int[] {
+            5000,
+            0,
+            0,
+            0});
+            this.nudIndex.Name = "nudIndex";
+            this.nudIndex.Size = new System.Drawing.Size(66, 22);
+            this.nudIndex.TabIndex = 32;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(296, 34);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(53, 12);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "選取詞綴";
+            // 
+            // btnGetClipboard
+            // 
+            this.btnGetClipboard.Location = new System.Drawing.Point(298, 340);
+            this.btnGetClipboard.Name = "btnGetClipboard";
+            this.btnGetClipboard.Size = new System.Drawing.Size(106, 23);
+            this.btnGetClipboard.TabIndex = 21;
+            this.btnGetClipboard.Text = "取得剪貼簿";
+            this.btnGetClipboard.UseVisualStyleBackColor = true;
+            this.btnGetClipboard.Click += new System.EventHandler(this.btnGetClipboard_Click);
+            // 
             // lblAlchPos
             // 
             this.lblAlchPos.AutoSize = true;
@@ -858,6 +931,26 @@
             this.lblAlchPos.TabIndex = 21;
             this.lblAlchPos.Text = "label2";
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(298, 53);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(310, 280);
+            this.listBox1.TabIndex = 34;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // btnSavePos
+            // 
+            this.btnSavePos.Location = new System.Drawing.Point(27, 468);
+            this.btnSavePos.Name = "btnSavePos";
+            this.btnSavePos.Size = new System.Drawing.Size(145, 23);
+            this.btnSavePos.TabIndex = 40;
+            this.btnSavePos.Text = "儲存座標及位置設定";
+            this.btnSavePos.UseVisualStyleBackColor = true;
+            this.btnSavePos.Click += new System.EventHandler(this.btnSavePos_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -865,7 +958,7 @@
             this.ClientSize = new System.Drawing.Size(1115, 569);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "AAAAAA";
+            this.Text = "POE Auto Crafter by Saya";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudTime)).EndInit();
             this.pnlSetBTNs.ResumeLayout(false);
@@ -892,6 +985,7 @@
             this.pnl_Aug_Option.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudIndex)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -966,6 +1060,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvpreAffixMin;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvpreAffixMax;
         private System.Windows.Forms.Button btn_ReloadAffix;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btnGetClipboard;
+        private System.Windows.Forms.Label lblIndex;
+        private System.Windows.Forms.NumericUpDown nudIndex;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button btnSavePos;
     }
 }
 
