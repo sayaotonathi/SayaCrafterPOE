@@ -35,6 +35,10 @@ E:\Homework\AutoCraft\AutoCraft\bin\Debug\System.Numerics.Vectors.xml
 E:\Homework\AutoCraft\AutoCraft\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 E:\Homework\AutoCraft\AutoCraft\bin\Debug\System.Threading.Tasks.Extensions.xml
 E:\Homework\AutoCraft\AutoCraft\obj\Debug\AutoCraft.csproj.CopyComplete
+E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.Form1.resources
+E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.Properties.Resources.resources
+E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.csproj.GenerateResource.cache
+E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.csproj.CoreCompileInputs.cache
 E:\Homework\SayaCrafterPOE\AutoCraft\bin\Debug\AutoCraft.exe.config
 E:\Homework\SayaCrafterPOE\AutoCraft\bin\Debug\AutoCraft.exe
 E:\Homework\SayaCrafterPOE\AutoCraft\bin\Debug\AutoCraft.pdb
@@ -54,11 +58,6 @@ E:\Homework\SayaCrafterPOE\AutoCraft\bin\Debug\System.Memory.xml
 E:\Homework\SayaCrafterPOE\AutoCraft\bin\Debug\System.Numerics.Vectors.xml
 E:\Homework\SayaCrafterPOE\AutoCraft\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 E:\Homework\SayaCrafterPOE\AutoCraft\bin\Debug\System.Threading.Tasks.Extensions.xml
-E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.csprojAssemblyReference.cache
-E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.Form1.resources
-E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.Properties.Resources.resources
-E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.csproj.GenerateResource.cache
-E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.csproj.CoreCompileInputs.cache
 E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.csproj.CopyComplete
 E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.exe
 E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.pdb

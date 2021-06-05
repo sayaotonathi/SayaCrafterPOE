@@ -1,12 +1,15 @@
-﻿using CsvHelper;
+﻿using AutoCraft.ControlHandler;
+using CsvHelper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -34,7 +37,7 @@ namespace AutoCraft
 
         //IntPtr hwnd = Utilities.FindWindow(null, "Path of Exile");
         IntPtr hwnd;
-        Utilities.RECT rc;
+        MouseAndKeyEvent.RECT rc;
         Point relp;
         Point absp;
 
@@ -66,8 +69,8 @@ namespace AutoCraft
         Point absCraftArea;
 
         Utilities ut = new Utilities();
-        Dictionary<string, int> testpre = new Dictionary<string, int>();
-        Dictionary<string, int> testsuf = new Dictionary<string, int>();
+        //Dictionary<string, int> testpre = new Dictionary<string, int>();
+        //Dictionary<string, int> testsuf = new Dictionary<string, int>();
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -89,35 +92,46 @@ namespace AutoCraft
             lblCraftAreaPos.Text = $"{relCraftArea.X},{relCraftArea.Y}";
             lblAlchPos.Text = $"{relAlch.X},{relAlch.Y}";
             //hwnd = Utilities.FindWindow(null, "AAAAAA");
-            hwnd = Utilities.FindWindow(null, "Path of Exile");
-            
+            hwnd = MouseAndKeyEvent.FindWindow(null, "Path of Exile");
+
         }
 
-
-
-        List<string> affixStr = new List<string>();
-        List<int> affixNum = new List<int>();
-        Dictionary<string, int> affix = new Dictionary<string, int>();
+        //List<string> affixStr = new List<string>();
+        //List<int> affixNum = new List<int>();
+        //Dictionary<string, int> affix = new Dictionary<string, int>();
         Dictionary<string, int> pre = new Dictionary<string, int>();
         Dictionary<string, int> suf = new Dictionary<string, int>();
 
 
 
         //測試用按鈕
+        [DllImport("user32.dll")]
+        static extern bool PostMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
         private void button1_Click(object sender, EventArgs e)
         {
-            string i = "傳奇頭目有 21.8% 機率掉落 1 個額外銀幣";
-            string j = "+42% 冰冷抗性";
-            int r;
-            decimal r2;
-            string s = Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value;
-            string s3 = Regex.Match(i, "[0 - 9.]{1,}").Value;
-            string s4 = Regex.Match(j, "[0 - 9.]{1,}").Value;
+            //string i = "傳奇頭目有 21.8% 機率掉落 1 個額外銀幣";
+            //string j = "+42% 冰冷抗性";
+            //int r;
+            //decimal r2;
+            //string s = Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value;
+            //string s3 = Regex.Match(i, "[0 - 9.]{1,}").Value;
+            //string s4 = Regex.Match(j, "[0 - 9.]{1,}").Value;
 
-            string s2 = Regex.Match(j, "[0-9.]+([0-9]{0,3})").Value;
-            Console.WriteLine(int.TryParse(Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value, out r));
-            Console.WriteLine(int.TryParse(Regex.Match(j, "[0-9.]+([0-9]{0,3})").Value, out r));
-            Console.WriteLine(decimal.TryParse("42", out r2));
+            //string s2 = Regex.Match(j, "[0-9.]+([0-9]{0,3})").Value;
+            //Console.WriteLine(int.TryParse(Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value, out r));
+            //Console.WriteLine(int.TryParse(Regex.Match(j, "[0-9.]+([0-9]{0,3})").Value, out r));
+            //Console.WriteLine(decimal.TryParse("42", out r2));
+            Process[] processes = Process.GetProcessesByName("PathOfExile_x64");
+
+            //InputSimulator inputSimulator = new InputSimulator();
+            //inputSimulator.Keyboard.KeyDown(VirtualKeyCode.CONTROL);
+            foreach (Process proc in processes)
+            {
+
+                SendMessage(proc.MainWindowHandle, 0x0100, 0x10, 0);
+            }
         }
 
 
@@ -149,8 +163,8 @@ namespace AutoCraft
         //設定座標
         public void setPos(IntPtr h, ref Point p, Label lbl)
         {
-            Utilities.GetWindowRect(h, out rc);
-            ut.getRelativePoint(h, out p);
+            MouseAndKeyEvent.GetWindowRect(h, out rc);
+            MouseAndKeyEvent.getRelativePoint(h, out p);
             lbl.Text = $"{p.X},{p.Y}";
 
         }
@@ -217,7 +231,11 @@ namespace AutoCraft
             if (rb.Checked)
             {
                 ActivatingAction = int.Parse(rb.Tag.ToString());
-                gb_AltOption.Enabled = ActivatingAction == 3 ? true : false;
+                cb_Augment.Enabled = ActivatingAction == 3 ? true : false;
+                if (ActivatingAction != 3)
+                {
+                    cb_Augment.Checked = false;
+                }
             }
         }
         //勾選加入list，取消勾選移除
@@ -263,7 +281,7 @@ namespace AutoCraft
             {
                 Affix affix = new Affix
                 {
-                    IsSelected = (bool)prefixrows[i].Cells["dgvpreIsSelected"].Value,
+                    IsSelected = prefixrows[i].Cells["dgvpreIsSelected"].Value != null ? (bool)prefixrows[i].Cells["dgvpreIsSelected"].Value : false,
                     AffixName = (string)prefixrows[i].Cells["dgvpreAffixName"].Value,
                     AffixMin = (string)prefixrows[i].Cells["dgvpreAffixMin"].Value,
                     AffixMax = (string)prefixrows[i].Cells["dgvpreAffixMax"].Value
@@ -280,9 +298,14 @@ namespace AutoCraft
             var suffixrows = dgv_Suffix.Rows;
             for (int i = 0; i < suffixrows.Count - 1; i++)
             {
+                //Affix affix = new Affix();
+                //affix.IsSelected=(bool)suffixrows[i].Cells["dgvsufIsSelected"].Value;
+                //affix.AffixName = (string)suffixrows[i].Cells["dgvsufAffixName"].Value;
+                //affix.AffixMin = (string)suffixrows[i].Cells["dgvsufAffixMin"].Value;
+                //affix.AffixMax = (string)suffixrows[i].Cells["dgvsufAffixMax"].Value;
                 Affix affix = new Affix
                 {
-                    IsSelected = (bool)suffixrows[i].Cells["dgvsufIsSelected"].Value,
+                    IsSelected = suffixrows[i].Cells["dgvsufIsselected"].Value != null ? (bool)suffixrows[i].Cells["dgvsufIsselected"].Value : false,
                     AffixName = (string)suffixrows[i].Cells["dgvsufAffixName"].Value,
                     AffixMin = (string)suffixrows[i].Cells["dgvsufAffixMin"].Value,
                     AffixMax = (string)suffixrows[i].Cells["dgvsufAffixMax"].Value
@@ -315,14 +338,20 @@ namespace AutoCraft
 
             switch (kv)
             {
+                case 115:
+                    ut.sendCtrlC();
+                    break;
                 case 114: //F3
                     pt.Abort();
                     flagActivate = false;
                     lblActiveStatus.Text = flagActivate ? "執行中" : "停止中";
+                    //ut.sendLShiftKeyUp();
+                    //ut.sendLeftClickUp();
+                    //ut.sendRightClickUp();
                     loopCounter = 0;
                     break;
                 case 113://F2
-                    Utilities.SetForegroundWindow(Utilities.FindWindow(null, "Path of Exile"));
+                    MouseAndKeyEvent.SetForegroundWindow(MouseAndKeyEvent.FindWindow(null, "Path of Exile"));
                     if (!flagActivate)
                     {
                         flagActivate = true;
@@ -331,28 +360,44 @@ namespace AutoCraft
                         switch (ActivatingAction)
                         {
                             case 1:
-                                ut.getAbsolutePoint(hwnd, relAlch, out absAlch);
-                                ut.getAbsolutePoint(hwnd, relScour, out absScour);
-                                ut.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relAlch, out absAlch);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relScour, out absScour);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
                                 pts = new ParameterizedThreadStart(Alchemy);
+                                //Alchemy((int)nudDelay.Value);
+                                //flagActivate = false;
+                                //this.lblActiveStatus.Text = "停止中";
+                                //ut.sendLShiftKeyUp();
+                                //ut.sendLeftClickUp();
+                                //ut.sendRightClickUp();
 
                                 break;
                             case 2:
-                                ut.getAbsolutePoint(hwnd, relChaos, out absChaos);
-                                ut.getAbsolutePoint(hwnd, relScour, out absScour);
-                                ut.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relChaos, out absChaos);
+                                //MouseAndKeyEvent.getAbsolutePoint(hwnd, relScour, out absScour);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
                                 pts = new ParameterizedThreadStart(Chaos);
+                                //Chaos((int)nudDelay.Value);
+                                //flagActivate = false;
+                                //this.lblActiveStatus.Text = "停止中";
                                 break;
                             case 3:
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relAlt, out absAlt);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relAug, out absAug);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
+                                pts = new ParameterizedThreadStart(Alter);
                                 break;
                             case 4:
-                                ut.getAbsolutePoint(hwnd, relChance, out absChance);
-                                ut.getAbsolutePoint(hwnd, relScour, out absScour);
-                                ut.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relChance, out absChance);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relScour, out absScour);
+                                MouseAndKeyEvent.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
                                 pts = new ParameterizedThreadStart(Chance);
+                                //Chance((int)nudDelay.Value);
+                                //flagActivate = false;
+                                //this.lblActiveStatus.Text = "停止中";
                                 break;
                         }
-                        Utilities.SetForegroundWindow(hwnd);
+                        MouseAndKeyEvent.SetForegroundWindow(hwnd);
                         int delay = (int)nudDelay.Value;
                         pts += (iii) =>
                         {
@@ -365,12 +410,14 @@ namespace AutoCraft
                         pt = new Thread(pts);
                         pt.Start(delay);
                         loopCounter = 0;
-
                     }
+                    //ut.sendLShiftKeyUp();
+                    //ut.sendLeftClickUp();
+                    //ut.sendRightClickUp();
                     break;
 
                 case 112: //F1設定座標
-                    Utilities.SetForegroundWindow(hwnd);
+                    MouseAndKeyEvent.SetForegroundWindow(hwnd);
                     if (flagSetAlt)
                     {
                         setPos(hwnd, ref relAlt, lblAltPos);
@@ -420,11 +467,6 @@ namespace AutoCraft
                         flagSetAlch = false;
                     }
                     pnlSetBTNs.Enabled = true;
-                    break;
-                case 115:
-                    ut.CtrlC();
-                    string s = ut.getClipBoard();
-                    Console.WriteLine(s);
                     break;
             }
         }
@@ -510,59 +552,133 @@ namespace AutoCraft
         //重鑄點金腳本
         private void Alchemy(object delay)
         {
-            //todo:之後index改成自訂
             int index = (int)nudIndex.Value;
             int idelay = (int)delay;
+            int stopPre = (int)nudStopPre.Value;
+            int stopSuf = (int)nudStopSuf.Value;
+            int fireTimes = (int)nudTime.Value;
 
-            while (loopCounter < nudTime.Value)
+            while (loopCounter < fireTimes && flagActivate)
             {
                 loopCounter++;
-                int int_count_prefix = 0;
-                int int_count_suffix = 0;
                 string clip = "";
                 Dictionary<string, int> clipAffix = new Dictionary<string, int>();
                 ut.useCurrency(absScour, absCraftArea);
                 Thread.Sleep(idelay);
                 ut.useCurrency(absAlch, absCraftArea);
                 Thread.Sleep(idelay);
-                ut.CtrlC();
+                ut.sendCtrlC();
                 this.InvokeIfRequired(() =>
                 {
                     clip = ut.getClipBoard();
                 });
                 ut.affixDetermine(clip, index, clipAffix);
-                ut.affixCheck(clipAffix, pre, suf, out int_count_prefix, out int_count_suffix);
-                if (int_count_prefix >= nudStopPre.Value && int_count_suffix >= nudStopSuf.Value)
+                if (ut.checkAffix(clipAffix, pre, suf,4, stopPre,stopSuf))
                 {
                     loopCounter = 0;
                     Console.WriteLine(clip);
                     break;
                 }
-                if (clip is null)
-                {
-
-                }
-
             }
         }
         //混沌石腳本
         private void Chaos(object delay)
         {
-            //todo:之後index改成自訂
             int index = (int)nudIndex.Value;
             int idelay = (int)delay;
             int fireTimes = (int)nudTime.Value;
             int stopPre = (int)nudStopPre.Value;
             int stopSuf = (int)nudStopSuf.Value;
+            int counter = 0;
             this.InvokeIfRequired(() =>
             {
-                ut.useCurrencyContinuously(absChaos, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, 4);
+                ut.useCurrencyContinuously(absChaos, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, 4,ref counter);
             });
         }
+        private void Chaos(int delay)
+        {
+            int index = (int)nudIndex.Value;
+            int idelay = (int)delay;
+            int fireTimes = (int)nudTime.Value;
+            int stopPre = (int)nudStopPre.Value;
+            int stopSuf = (int)nudStopSuf.Value;
+            int counter = 0;
+            ut.useCurrencyContinuously(absChaos, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, 4,ref counter);
+
+        }
+
+        //todo
+        //改造石腳本
+        private void Alter(object delay)
+        {
+            int index = (int)nudIndex.Value;
+            int idelay = (int)delay;
+            int fireTimes = (int)nudTime.Value;
+            int stopPre = (int)nudStopPre.Value;
+            int stopSuf = (int)nudStopSuf.Value;
+            int stopMode = 4;
+            int counter = 0;
+            if (cb_Augment.Checked)
+            {
+                //var checkedAug = pnl_Aug_Option.Controls.OfType<RadioButton>().FirstOrDefault(n => n.Checked).Tag;
+                //if (checkedAug != null)
+                //{
+                //    stopMode = (int)checkedAug;
+                //}
+                stopMode = 2;
+            }
+            //if (cb_Regal.Checked)
+            //{
+            //    var checkedRegal = pnl_Regal_Option.Controls.OfType<RadioButton>().FirstOrDefault(n => n.Checked).Tag;
+            //    if (checkedRegal != null)
+            //    {
+            //        stopMode = (int)checkedRegal;
+            //    }
+            //}
+            this.InvokeIfRequired(() =>
+            {
+                bool flag = true;
+                while (flag)
+                {
+                    Tuple<int, int> affixNum = ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, stopMode,ref counter);
+                    if(affixNum.Item1>= stopPre||(affixNum.Item1==0&&affixNum.Item2==0)||counter>=fireTimes)
+                    {
+                        flag = false;
+                    }
+                    else if (cb_Augment.Checked)
+                    {
+                        ut.useCurrency(absAug, absCraftArea);
+                        string clip = ut.getClipBoardLogic();
+                        Dictionary<string,int> clipAffix = ut.affixDetermine(clip, index);
+                        flag = !ut.checkAffix(clipAffix, pre, suf, 4, stopPre, stopSuf);
+                    }
+                    else
+                    {
+                        flag = false;
+                    }
+                    Thread.Sleep(idelay);
+                }
+            });
+        }
+        //機會石腳本
+        private void Chance(object delay)
+        {
+            int idelay = (int)delay;
+            while (loopCounter < nudTime.Value && flagActivate)
+            {
+                ut.useCurrency(absScour, absCraftArea);
+                Thread.Sleep(idelay);
+                ut.useCurrency(absChance, absCraftArea);
+                Thread.Sleep(idelay);
+                loopCounter++;
+            }
+        }
+        #endregion
 
         private void cb_Augment_CheckedChanged(object sender, EventArgs e)
         {
-            pnl_Aug_Option.Enabled = ((CheckBox)sender).Checked ? true : false;
+            //pnl_Aug_Option.Enabled = ((CheckBox)sender).Checked ? true : false;
+            panel2.Visible = ((CheckBox)sender).Checked ? true : false;
 
         }
 
@@ -570,8 +686,10 @@ namespace AutoCraft
         {
             pnl_Regal_Option.Enabled = ((CheckBox)sender).Checked ? true : false;
         }
+
+
+        #region 增幅富豪互斥
         //增幅富豪僅前/後綴選項互斥
-        #region
         private void rb_Aug_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton rb = (RadioButton)sender;
@@ -590,7 +708,7 @@ namespace AutoCraft
                 rb_Aug_Pre.Checked = false;
             }
         }
-        #endregion
+
         //增幅富豪前或後選項互斥
         private void rb_AugRegal_PreOrSuf_CheckedChanged(object sender, EventArgs e)
         {
@@ -601,7 +719,7 @@ namespace AutoCraft
                 rb_Regal_Or.Checked = rb == rb_Regal_Or ? true : false;
             }
         }
-
+        #endregion
         private void button3_Click(object sender, EventArgs e)
         {
             int a = 1;
@@ -627,51 +745,39 @@ namespace AutoCraft
             }
         }
 
+        //詞綴位置選取
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            nudIndex.Value = listBox1.SelectedIndex;
-
+            if (listBox1.SelectedIndex >= 0)
+            {
+                nudIndex.Value = listBox1.SelectedIndex;
+            }
         }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
+        //詞綴儲存按鈕
         private void btnSavePos_Click(object sender, EventArgs e)
         {
             List<Position> ls = new List<Position>();
-            
-                Position position = new Position
-                {
-                    //relAlt = relAlt,
-                    //relAlch = relAlch,
-                    //relAug = relAug,
-                    //relChance = relChance,
-                    //relChaos = relChaos,
-                    //relCraftArea = relCraftArea,
-                    //relRegal = relRegal,
-                    //relScour = relScour
-                    
-                    relAltX = relAlt.X,
-                    relAltY = relAlt.Y,
-                    relAlchX = relAlch.X,
-                    relAlchY = relAlch.Y,
-                    relAugX = relAug.X,
-                    relAugY = relAug.Y,
-                    relChanceX = relChance.X,
-                    relChanceY = relChance.Y,
-                    relChaosX = relChaos.X,
-                    relChaosY= relChaos.Y,
-                    relCraftAreaX = relCraftArea.X,
-                    relCraftAreaY = relCraftArea.Y,
-                    relRegalX = relRegal.X,
-                    relRegalY = relRegal.Y,
-                    relScourX = relScour.X,
-                    relScourY = relScour.Y,
-                    Index = (int)nudIndex.Value
-                    
-                };
+
+            Position position = new Position
+            {
+                relAltX = relAlt.X,
+                relAltY = relAlt.Y,
+                relAlchX = relAlch.X,
+                relAlchY = relAlch.Y,
+                relAugX = relAug.X,
+                relAugY = relAug.Y,
+                relChanceX = relChance.X,
+                relChanceY = relChance.Y,
+                relChaosX = relChaos.X,
+                relChaosY = relChaos.Y,
+                relCraftAreaX = relCraftArea.X,
+                relCraftAreaY = relCraftArea.Y,
+                relRegalX = relRegal.X,
+                relRegalY = relRegal.Y,
+                relScourX = relScour.X,
+                relScourY = relScour.Y,
+                Index = (int)nudIndex.Value
+            };
             ls.Add(position);
             using (var writer = new StreamWriter("./position.csv"))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
@@ -679,53 +785,6 @@ namespace AutoCraft
                 csv.WriteRecords(ls);
             }
         }
-
-        //todo
-        //改造石腳本
-        private void Alter(object delay)
-        {
-            //todo:之後index改成自訂
-            int index = (int)nudIndex.Value;
-            int idelay = (int)delay;
-            int fireTimes = (int)nudTime.Value;
-            int stopPre = (int)nudStopPre.Value;
-            int stopSuf = (int)nudStopSuf.Value;
-            int stopMode = 4;
-            if (cb_Augment.Checked)
-            {
-                var checkedAug = pnl_Aug_Option.Controls.OfType<RadioButton>().FirstOrDefault(n => n.Checked).Tag;
-                if (checkedAug != null)
-                {
-                    stopMode = (int)checkedAug;
-                }
-            }
-            if (cb_Regal.Checked)
-            {
-                var checkedRegal = pnl_Regal_Option.Controls.OfType<RadioButton>().FirstOrDefault(n => n.Checked).Tag;
-                if (checkedRegal != null)
-                {
-                    stopMode = (int)checkedRegal;
-                }
-            }
-            this.InvokeIfRequired(() =>
-            {
-                ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, stopMode);
-            });
-        }
-        //機會石腳本
-        private void Chance(object delay)
-        {
-            int idelay = (int)delay;
-            while (loopCounter < nudTime.Value&&flagActivate)
-            {
-                ut.useCurrency(absScour, absCraftArea);
-                Thread.Sleep(idelay);
-                ut.useCurrency(absChance, absCraftArea);
-                Thread.Sleep(idelay);
-                loopCounter++;
-            }
-        }
-        #endregion
     }
 
 }

@@ -96,13 +96,14 @@
             this.rb_Aug_Pre = new System.Windows.Forms.RadioButton();
             this.cb_Augment = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btnSavePos = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.lblIndex = new System.Windows.Forms.Label();
             this.nudIndex = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.btnGetClipboard = new System.Windows.Forms.Button();
             this.lblAlchPos = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.btnSavePos = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.nudTime)).BeginInit();
             this.pnlSetBTNs.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -121,6 +122,7 @@
             this.pnl_Aug_Option.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIndex)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // nudTime
@@ -130,7 +132,7 @@
             0,
             0,
             0});
-            this.nudTime.Location = new System.Drawing.Point(120, 287);
+            this.nudTime.Location = new System.Drawing.Point(94, 286);
             this.nudTime.Maximum = new decimal(new int[] {
             50000,
             0,
@@ -168,7 +170,7 @@
             // lblActiveStatus
             // 
             this.lblActiveStatus.AutoSize = true;
-            this.lblActiveStatus.Location = new System.Drawing.Point(94, 258);
+            this.lblActiveStatus.Location = new System.Drawing.Point(68, 257);
             this.lblActiveStatus.Name = "lblActiveStatus";
             this.lblActiveStatus.Size = new System.Drawing.Size(41, 12);
             this.lblActiveStatus.TabIndex = 3;
@@ -177,7 +179,7 @@
             // lblDoc
             // 
             this.lblDoc.AutoSize = true;
-            this.lblDoc.Location = new System.Drawing.Point(49, 222);
+            this.lblDoc.Location = new System.Drawing.Point(23, 221);
             this.lblDoc.Name = "lblDoc";
             this.lblDoc.Size = new System.Drawing.Size(80, 12);
             this.lblDoc.TabIndex = 4;
@@ -344,7 +346,7 @@
             // lbl_PlayTime
             // 
             this.lbl_PlayTime.AutoSize = true;
-            this.lbl_PlayTime.Location = new System.Drawing.Point(49, 293);
+            this.lbl_PlayTime.Location = new System.Drawing.Point(23, 292);
             this.lbl_PlayTime.Name = "lbl_PlayTime";
             this.lbl_PlayTime.Size = new System.Drawing.Size(65, 12);
             this.lbl_PlayTime.TabIndex = 6;
@@ -353,7 +355,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 258);
+            this.label2.Location = new System.Drawing.Point(21, 257);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 5;
@@ -367,18 +369,19 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1115, 569);
+            this.tabControl1.Size = new System.Drawing.Size(842, 569);
             this.tabControl1.TabIndex = 21;
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panel2);
+            this.tabPage1.Controls.Add(this.lblStopSuf);
+            this.tabPage1.Controls.Add(this.nudStopSuf);
+            this.tabPage1.Controls.Add(this.gb_AltOption);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.btn_ReloadAffix);
             this.tabPage1.Controls.Add(this.btn_SaveAffix);
-            this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.dgv_Suffix);
             this.tabPage1.Controls.Add(this.dgv_Prefix);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.gbStopCondition);
@@ -389,14 +392,13 @@
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.lblDoc);
             this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.gb_AltOption);
             this.tabPage1.Controls.Add(this.lblActiveStatus);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1107, 543);
+            this.tabPage1.Size = new System.Drawing.Size(834, 543);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "功能";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -413,7 +415,7 @@
             // 
             // btn_ReloadAffix
             // 
-            this.btn_ReloadAffix.Location = new System.Drawing.Point(873, 501);
+            this.btn_ReloadAffix.Location = new System.Drawing.Point(567, 495);
             this.btn_ReloadAffix.Name = "btn_ReloadAffix";
             this.btn_ReloadAffix.Size = new System.Drawing.Size(103, 23);
             this.btn_ReloadAffix.TabIndex = 37;
@@ -423,7 +425,7 @@
             // 
             // btn_SaveAffix
             // 
-            this.btn_SaveAffix.Location = new System.Drawing.Point(997, 501);
+            this.btn_SaveAffix.Location = new System.Drawing.Point(691, 495);
             this.btn_SaveAffix.Name = "btn_SaveAffix";
             this.btn_SaveAffix.Size = new System.Drawing.Size(102, 23);
             this.btn_SaveAffix.TabIndex = 36;
@@ -434,20 +436,20 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(507, 258);
+            this.label5.Location = new System.Drawing.Point(6, 6);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.Size = new System.Drawing.Size(65, 12);
             this.label5.TabIndex = 35;
-            this.label5.Text = "後綴：";
+            this.label5.Text = "增幅條件：";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(507, 27);
+            this.label4.Location = new System.Drawing.Point(217, 21);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.Size = new System.Drawing.Size(65, 12);
             this.label4.TabIndex = 34;
-            this.label4.Text = "前綴：";
+            this.label4.Text = "停止條件：";
             // 
             // dgv_Suffix
             // 
@@ -457,7 +459,7 @@
             this.dgvsufAffixName,
             this.dgvsufAffixMin,
             this.dgvsufAffixMax});
-            this.dgv_Suffix.Location = new System.Drawing.Point(509, 287);
+            this.dgv_Suffix.Location = new System.Drawing.Point(8, 35);
             this.dgv_Suffix.Name = "dgv_Suffix";
             this.dgv_Suffix.RowTemplate.Height = 24;
             this.dgv_Suffix.Size = new System.Drawing.Size(592, 179);
@@ -500,7 +502,7 @@
             this.dgvpreAffixName,
             this.dgvpreAffixMin,
             this.dgvpreAffixMax});
-            this.dgv_Prefix.Location = new System.Drawing.Point(507, 54);
+            this.dgv_Prefix.Location = new System.Drawing.Point(217, 48);
             this.dgv_Prefix.Name = "dgv_Prefix";
             this.dgv_Prefix.RowTemplate.Height = 24;
             this.dgv_Prefix.Size = new System.Drawing.Size(592, 179);
@@ -547,13 +549,11 @@
             // 
             // gbStopCondition
             // 
-            this.gbStopCondition.Controls.Add(this.lblStopSuf);
-            this.gbStopCondition.Controls.Add(this.nudStopSuf);
             this.gbStopCondition.Controls.Add(this.lblStopPre);
             this.gbStopCondition.Controls.Add(this.nudStopPre);
-            this.gbStopCondition.Location = new System.Drawing.Point(49, 362);
+            this.gbStopCondition.Location = new System.Drawing.Point(23, 361);
             this.gbStopCondition.Name = "gbStopCondition";
-            this.gbStopCondition.Size = new System.Drawing.Size(152, 91);
+            this.gbStopCondition.Size = new System.Drawing.Size(152, 94);
             this.gbStopCondition.TabIndex = 30;
             this.gbStopCondition.TabStop = false;
             this.gbStopCondition.Text = "停止條件";
@@ -561,15 +561,16 @@
             // lblStopSuf
             // 
             this.lblStopSuf.AutoSize = true;
-            this.lblStopSuf.Location = new System.Drawing.Point(21, 54);
+            this.lblStopSuf.Location = new System.Drawing.Point(283, 506);
             this.lblStopSuf.Name = "lblStopSuf";
             this.lblStopSuf.Size = new System.Drawing.Size(41, 12);
             this.lblStopSuf.TabIndex = 34;
             this.lblStopSuf.Text = "後綴：";
+            this.lblStopSuf.Visible = false;
             // 
             // nudStopSuf
             // 
-            this.nudStopSuf.Location = new System.Drawing.Point(71, 50);
+            this.nudStopSuf.Location = new System.Drawing.Point(333, 502);
             this.nudStopSuf.Maximum = new decimal(new int[] {
             5000,
             0,
@@ -578,6 +579,7 @@
             this.nudStopSuf.Name = "nudStopSuf";
             this.nudStopSuf.Size = new System.Drawing.Size(66, 22);
             this.nudStopSuf.TabIndex = 33;
+            this.nudStopSuf.Visible = false;
             // 
             // lblStopPre
             // 
@@ -586,7 +588,7 @@
             this.lblStopPre.Name = "lblStopPre";
             this.lblStopPre.Size = new System.Drawing.Size(41, 12);
             this.lblStopPre.TabIndex = 32;
-            this.lblStopPre.Text = "前綴：";
+            this.lblStopPre.Text = "數量：";
             // 
             // nudStopPre
             // 
@@ -603,7 +605,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(49, 328);
+            this.label3.Location = new System.Drawing.Point(23, 327);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(62, 12);
             this.label3.TabIndex = 29;
@@ -616,7 +618,7 @@
             0,
             0,
             0});
-            this.nudDelay.Location = new System.Drawing.Point(120, 326);
+            this.nudDelay.Location = new System.Drawing.Point(94, 325);
             this.nudDelay.Maximum = new decimal(new int[] {
             50000,
             0,
@@ -634,12 +636,13 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.rb_UseChaos);
+            this.panel1.Controls.Add(this.cb_Augment);
             this.panel1.Controls.Add(this.rb_UseAlt);
             this.panel1.Controls.Add(this.rb_UseChance);
             this.panel1.Controls.Add(this.rb_UseAlch);
-            this.panel1.Location = new System.Drawing.Point(51, 54);
+            this.panel1.Location = new System.Drawing.Point(23, 27);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(170, 123);
+            this.panel1.Size = new System.Drawing.Size(142, 173);
             this.panel1.TabIndex = 28;
             // 
             // rb_UseChaos
@@ -669,7 +672,7 @@
             // rb_UseChance
             // 
             this.rb_UseChance.AutoSize = true;
-            this.rb_UseChance.Location = new System.Drawing.Point(25, 88);
+            this.rb_UseChance.Location = new System.Drawing.Point(25, 110);
             this.rb_UseChance.Name = "rb_UseChance";
             this.rb_UseChance.Size = new System.Drawing.Size(83, 16);
             this.rb_UseChance.TabIndex = 1;
@@ -697,12 +700,13 @@
             this.gb_AltOption.Controls.Add(this.pnl_UseRegal);
             this.gb_AltOption.Controls.Add(this.pnl_UseAug);
             this.gb_AltOption.Enabled = false;
-            this.gb_AltOption.Location = new System.Drawing.Point(245, 54);
+            this.gb_AltOption.Location = new System.Drawing.Point(421, 486);
             this.gb_AltOption.Name = "gb_AltOption";
-            this.gb_AltOption.Size = new System.Drawing.Size(241, 415);
+            this.gb_AltOption.Size = new System.Drawing.Size(122, 46);
             this.gb_AltOption.TabIndex = 26;
             this.gb_AltOption.TabStop = false;
-            this.gb_AltOption.Text = "改造增幅富豪";
+            this.gb_AltOption.Text = "增幅";
+            this.gb_AltOption.Visible = false;
             // 
             // pnl_UseRegal
             // 
@@ -712,6 +716,7 @@
             this.pnl_UseRegal.Name = "pnl_UseRegal";
             this.pnl_UseRegal.Size = new System.Drawing.Size(205, 150);
             this.pnl_UseRegal.TabIndex = 25;
+            this.pnl_UseRegal.Visible = false;
             // 
             // pnl_Regal_Option
             // 
@@ -790,7 +795,6 @@
             // pnl_UseAug
             // 
             this.pnl_UseAug.Controls.Add(this.pnl_Aug_Option);
-            this.pnl_UseAug.Controls.Add(this.cb_Augment);
             this.pnl_UseAug.Location = new System.Drawing.Point(20, 46);
             this.pnl_UseAug.Name = "pnl_UseAug";
             this.pnl_UseAug.Size = new System.Drawing.Size(205, 150);
@@ -806,6 +810,7 @@
             this.pnl_Aug_Option.Name = "pnl_Aug_Option";
             this.pnl_Aug_Option.Size = new System.Drawing.Size(132, 99);
             this.pnl_Aug_Option.TabIndex = 23;
+            this.pnl_Aug_Option.Visible = false;
             // 
             // rb_Aug_Or
             // 
@@ -849,7 +854,8 @@
             // cb_Augment
             // 
             this.cb_Augment.AutoSize = true;
-            this.cb_Augment.Location = new System.Drawing.Point(14, 13);
+            this.cb_Augment.Enabled = false;
+            this.cb_Augment.Location = new System.Drawing.Point(47, 88);
             this.cb_Augment.Name = "cb_Augment";
             this.cb_Augment.Size = new System.Drawing.Size(84, 16);
             this.cb_Augment.TabIndex = 21;
@@ -877,10 +883,30 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1107, 543);
+            this.tabPage2.Size = new System.Drawing.Size(834, 543);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "設定";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btnSavePos
+            // 
+            this.btnSavePos.Location = new System.Drawing.Point(27, 468);
+            this.btnSavePos.Name = "btnSavePos";
+            this.btnSavePos.Size = new System.Drawing.Size(145, 23);
+            this.btnSavePos.TabIndex = 40;
+            this.btnSavePos.Text = "儲存座標及位置設定";
+            this.btnSavePos.UseVisualStyleBackColor = true;
+            this.btnSavePos.Click += new System.EventHandler(this.btnSavePos_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 12;
+            this.listBox1.Location = new System.Drawing.Point(298, 53);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(310, 280);
+            this.listBox1.TabIndex = 34;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // lblIndex
             // 
@@ -931,31 +957,21 @@
             this.lblAlchPos.TabIndex = 21;
             this.lblAlchPos.Text = "label2";
             // 
-            // listBox1
+            // panel2
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(298, 53);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(310, 280);
-            this.listBox1.TabIndex = 34;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
-            // 
-            // btnSavePos
-            // 
-            this.btnSavePos.Location = new System.Drawing.Point(27, 468);
-            this.btnSavePos.Name = "btnSavePos";
-            this.btnSavePos.Size = new System.Drawing.Size(145, 23);
-            this.btnSavePos.TabIndex = 40;
-            this.btnSavePos.Text = "儲存座標及位置設定";
-            this.btnSavePos.UseVisualStyleBackColor = true;
-            this.btnSavePos.Click += new System.EventHandler(this.btnSavePos_Click);
+            this.panel2.Controls.Add(this.label5);
+            this.panel2.Controls.Add(this.dgv_Suffix);
+            this.panel2.Location = new System.Drawing.Point(211, 246);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(605, 215);
+            this.panel2.TabIndex = 39;
+            this.panel2.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 569);
+            this.ClientSize = new System.Drawing.Size(842, 569);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "POE Auto Crafter by Saya";
@@ -980,12 +996,13 @@
             this.pnl_Regal_Option.ResumeLayout(false);
             this.pnl_Regal_Option.PerformLayout();
             this.pnl_UseAug.ResumeLayout(false);
-            this.pnl_UseAug.PerformLayout();
             this.pnl_Aug_Option.ResumeLayout(false);
             this.pnl_Aug_Option.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIndex)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1067,6 +1084,7 @@
         private System.Windows.Forms.NumericUpDown nudIndex;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button btnSavePos;
+        private System.Windows.Forms.Panel panel2;
     }
 }
 
