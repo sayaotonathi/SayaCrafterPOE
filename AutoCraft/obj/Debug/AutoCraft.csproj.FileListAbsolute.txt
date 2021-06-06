@@ -61,3 +61,4 @@ E:\Homework\SayaCrafterPOE\AutoCraft\bin\Debug\System.Threading.Tasks.Extensions
 E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.csproj.CopyComplete
 E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.exe
 E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.pdb
+E:\Homework\SayaCrafterPOE\AutoCraft\obj\Debug\AutoCraft.csprojAssemblyReference.cache

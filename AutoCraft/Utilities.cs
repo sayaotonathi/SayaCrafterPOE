@@ -29,7 +29,7 @@ namespace AutoCraft
             leftClickCraftArea(craftArea);
         }
         //連續使用通貨，stopMode 1=前綴, 2=後綴, 3=前或後, 4=前且後
-        public Tuple<int,int> useCurrencyContinuously(Point currencyPosition, Point craftArea, int index, int idelay, int fireTimes, int stopPre, int stopSuf, Dictionary<string, int> pre, Dictionary<string, int> suf, ref bool stopFlag, int stopMode,ref int loopCounter)
+        public Tuple<int,int> useCurrencyContinuously(Point currencyPosition, Point craftArea, int index, int idelay, int fireTimes, int stopPre, int stopSuf, Dictionary<string, float> pre, Dictionary<string, float> suf, ref bool stopFlag, int stopMode,ref int loopCounter)
         {
             //int loopCounter = 0;
             MouseAndKeyEvent.sendLShiftKeyDown();
@@ -41,7 +41,7 @@ namespace AutoCraft
 
             //判定詞綴一次
 
-            Dictionary<string, int> clipAffix = new Dictionary<string, int>();
+            Dictionary<string, float> clipAffix = new Dictionary<string, float>();
             Thread.Sleep(idelay);
             //Console.WriteLine(loopCounter);
             clearClipCoard();
@@ -115,7 +115,7 @@ namespace AutoCraft
         }
 
         //詞綴是否符合條件判斷
-        public bool checkAffix(Dictionary<string, int> clipAffix, Dictionary<string, int> pre, Dictionary<string, int> suf, int stopMode, int stopPre, int stopSuf)
+        public bool checkAffix(Dictionary<string, float> clipAffix, Dictionary<string, float> pre, Dictionary<string, float> suf, int stopMode, int stopPre, int stopSuf)
         {
             int int_count_prefix = prefixCheck(clipAffix, pre);
             int int_count_suffix = suffixCheck(clipAffix, suf);
@@ -137,7 +137,7 @@ namespace AutoCraft
             }
             return pattern;
         }
-        public bool checkAffix(Dictionary<string, int> clipAffix, Dictionary<string, int> pre, Dictionary<string, int> suf, int stopMode, int stopPre, int stopSuf, out Tuple<int, int> affixNum)
+        public bool checkAffix(Dictionary<string, float> clipAffix, Dictionary<string, float> pre, Dictionary<string, float> suf, int stopMode, int stopPre, int stopSuf, out Tuple<int, int> affixNum)
         {
             int int_count_prefix = prefixCheck(clipAffix, pre);
             int int_count_suffix = suffixCheck(clipAffix, suf);
@@ -226,7 +226,7 @@ namespace AutoCraft
         }
 
         //拆分出詞綴區塊&分離數字，str:詞綴字串，index:第幾個區塊，
-        public void affixDetermine(string str, int index, Dictionary<string, int> affix)
+        public void affixDetermine(string str, int index, Dictionary<string, float> affix)
         {
             affix.Clear();
             //拆出詞綴區塊  
@@ -249,9 +249,9 @@ namespace AutoCraft
             }
         }
         //詞綴拆解成字典
-        public Dictionary<string, int> affixDetermine(string str, int index)
+        public Dictionary<string, float> affixDetermine(string str, int index)
         {
-            Dictionary<string, int> affix = new Dictionary<string, int>();
+            Dictionary<string, float> affix = new Dictionary<string, float>();
             //拆出詞綴區塊  
             string[] substr = SplitClipBoard(str, Pattern_enter);
 
@@ -261,9 +261,9 @@ namespace AutoCraft
             //分離詞綴&數字並放入字典，沒有數字的詞綴數字給0
             foreach (string i in substr2)
             {
-                decimal outputValue;
+                float outputValue;
                 string value = Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value;
-                if (!decimal.TryParse(value, out outputValue))
+                if (!float.TryParse(value, out outputValue))
                 {
                     outputValue = 0;
                 }
@@ -272,7 +272,7 @@ namespace AutoCraft
                 {
                     continue;
                 }
-                affix.Add(key, (int)outputValue);
+                affix.Add(key, outputValue);
             }
             return affix;
         }
@@ -287,7 +287,7 @@ namespace AutoCraft
         }
       
         //符合條件前綴數量檢查
-        public int prefixCheck(Dictionary<string, int> affix, Dictionary<string, int> pre)
+        public int prefixCheck(Dictionary<string, float> affix, Dictionary<string, float> pre)
         {
             int countpre = 0;
             List<string> strpre = new List<string>(pre.Keys);
@@ -306,7 +306,7 @@ namespace AutoCraft
             return countpre;
         }
         //符合條件後綴數量檢查
-        public int suffixCheck(Dictionary<string, int> affix, Dictionary<string, int> suf)
+        public int suffixCheck(Dictionary<string, float> affix, Dictionary<string, float> suf)
         {
             int countsuf = 0;
             List<string> strsuf = new List<string>(suf.Keys);

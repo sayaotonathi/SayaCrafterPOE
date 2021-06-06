@@ -69,8 +69,8 @@ namespace AutoCraft
         Point absCraftArea;
 
         Utilities ut = new Utilities();
-        //Dictionary<string, int> testpre = new Dictionary<string, int>();
-        //Dictionary<string, int> testsuf = new Dictionary<string, int>();
+        //Dictionary<string, float> testpre = new Dictionary<string, float>();
+        //Dictionary<string, float> testsuf = new Dictionary<string, float>();
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -98,9 +98,9 @@ namespace AutoCraft
 
         //List<string> affixStr = new List<string>();
         //List<int> affixNum = new List<int>();
-        //Dictionary<string, int> affix = new Dictionary<string, int>();
-        Dictionary<string, int> pre = new Dictionary<string, int>();
-        Dictionary<string, int> suf = new Dictionary<string, int>();
+        //Dictionary<string, float> affix = new Dictionary<string, float>();
+        Dictionary<string, float> pre = new Dictionary<string, float>();
+        Dictionary<string, float> suf = new Dictionary<string, float>();
 
 
 
@@ -495,7 +495,7 @@ namespace AutoCraft
                         dgv_Prefix.Rows[index].Cells["dgvpreAffixMax"].Value = i.AffixMax;
                         if (i.IsSelected)
                         {
-                            pre.Add(i.AffixName, int.Parse(i.AffixMin));
+                            pre.Add(i.AffixName, float.Parse(i.AffixMin));
                         }
                     }
                 }
@@ -515,7 +515,7 @@ namespace AutoCraft
                         dgv_Suffix.Rows[index].Cells["dgvsufAffixMax"].Value = i.AffixMax;
                         if (i.IsSelected)
                         {
-                            suf.Add(i.AffixName, int.Parse(i.AffixMin));
+                            suf.Add(i.AffixName, float.Parse(i.AffixMin));
                         }
                     }
                 }
@@ -562,7 +562,7 @@ namespace AutoCraft
             {
                 loopCounter++;
                 string clip = "";
-                Dictionary<string, int> clipAffix = new Dictionary<string, int>();
+                Dictionary<string, float> clipAffix = new Dictionary<string, float>();
                 ut.useCurrency(absScour, absCraftArea);
                 Thread.Sleep(idelay);
                 ut.useCurrency(absAlch, absCraftArea);
@@ -638,10 +638,11 @@ namespace AutoCraft
             this.InvokeIfRequired(() =>
             {
                 bool flag = true;
-                while (flag)
+                while (flag&&flagActivate)
                 {
                     Tuple<int, int> affixNum = ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre, stopSuf, pre, suf, ref flagActivate, stopMode,ref counter);
-                    if(affixNum.Item1>= stopPre||(affixNum.Item1==0&&affixNum.Item2==0)||counter>=fireTimes)
+                    Thread.Sleep(idelay);
+                    if (affixNum.Item1>= stopPre||(affixNum.Item1==0&&affixNum.Item2==0)||counter>=fireTimes)
                     {
                         flag = false;
                     }
@@ -649,7 +650,7 @@ namespace AutoCraft
                     {
                         ut.useCurrency(absAug, absCraftArea);
                         string clip = ut.getClipBoardLogic();
-                        Dictionary<string,int> clipAffix = ut.affixDetermine(clip, index);
+                        Dictionary<string, float> clipAffix = ut.affixDetermine(clip, index);
                         flag = !ut.checkAffix(clipAffix, pre, suf, 4, stopPre, stopSuf);
                     }
                     else
