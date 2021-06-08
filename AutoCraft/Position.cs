@@ -10,23 +10,6 @@ namespace AutoCraft
 {
     public class Position
     {
-        //[Name("改造")]
-        //public Point relAlt { get; set; } = new Point(100, 250); //改造
-        //[Name("增幅")]
-        //public Point relAug { get; set; } = new Point(200, 300); //增幅
-        //[Name("機會")]
-        //public Point relChance { get; set; } = new Point(200, 250); //機會
-        //[Name("重鑄")]
-        //public Point relScour { get; set; } = new Point(150, 400); //重鑄
-        //[Name("富豪")]
-        //public Point relRegal { get; set; } = new Point(360, 250); //富豪
-        //[Name("混沌")]
-        //public Point relChaos { get; set; } = new Point(460, 250); //混沌
-        //[Name("點金")]
-        //public Point relAlch { get; set; } = new Point(410, 250); //點金
-        //[Name("做裝區域")]
-        //public Point relCraftArea { get; set; } = new Point(290, 408); //做裝區域
-
 
         [Name("改造X")]
         public int relAltX { get; set; } = 100; //改造X
@@ -60,6 +43,10 @@ namespace AutoCraft
         public int relCraftAreaX { get; set; } = 290; //做裝區域X
         [Name("做裝區域Y")]
         public int relCraftAreaY { get; set; } = 408; //做裝區域Y
+        [Name("蛻變X")]
+        public int relTransX { get; set; } = 50; //做裝區域X
+        [Name("蛻變Y")]
+        public int relTransY { get; set; } = 250; //做裝區域Y
         [Name("Index")]
         public int Index { get; set; } = 0;
 

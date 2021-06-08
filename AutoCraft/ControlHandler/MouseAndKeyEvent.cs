@@ -23,7 +23,7 @@ namespace AutoCraft.ControlHandler
         //const uint KEYEVENTF_KEYUP = 0x0002;
         //const uint KEYEVENTF_KEYDOWN = 0x0001;
         const uint KEYEVENTF_KEYUP = 2;
-        const uint KEYEVENTF_KEYDOWN = 0;
+        const uint KEYEVENTF_KEYDOWN = 1;
         [DllImport("user32.dll")]
         public static extern int GetWindowRect(IntPtr hWnd, out RECT lpRect);
         [StructLayout(LayoutKind.Sequential)]
