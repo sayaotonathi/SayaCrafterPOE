@@ -20,10 +20,12 @@ namespace AutoCraft.ControlHandler
         public const int MOUSEEVENTF_LEFTUP = 0x04;
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, uint dwExtraInfo);
+       
         //const uint KEYEVENTF_KEYUP = 0x0002;
         //const uint KEYEVENTF_KEYDOWN = 0x0001;
         const uint KEYEVENTF_KEYUP = 2;
         const uint KEYEVENTF_KEYDOWN = 1;
+        
         [DllImport("user32.dll")]
         public static extern int GetWindowRect(IntPtr hWnd, out RECT lpRect);
         [StructLayout(LayoutKind.Sequential)]
@@ -63,11 +65,13 @@ namespace AutoCraft.ControlHandler
         {
             mouse_event((int)(MouseEventTFlags.LEFTDOWN), 0, 0, 0, 0);
         }
+        
         //左鍵放開
         public static void sendLeftClickUp()
         {
             mouse_event((int)(MouseEventTFlags.LEFTUP), 0, 0, 0, 0);
         }
+        
         //右鍵按下
         public static void sendRightClickDown()
         {

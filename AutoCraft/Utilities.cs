@@ -16,95 +16,97 @@ namespace AutoCraft
 {
     public class Utilities
     {
+        private readonly IntPtr _hwnd;
+        public Utilities() { }
+        public Utilities(IntPtr hwnd)
+        {
+            _hwnd = hwnd;
+        }
         private const string Pattern_enter = "\r\n";
 
         //使用通貨，右鍵p1位置左鍵p2位置
         public void useCurrency(Point currencyPosition, Point craftArea)
         {
-            int delay = 50;
+            int delay = 30;
             MouseAndKeyEvent.SetCursorPos(currencyPosition.X, currencyPosition.Y);
-            Thread.Sleep(delay);
-            rightClickCurrency(currencyPosition);
+            Thread.Sleep(delay * 2);
+            rightClickCurrency();
             MouseAndKeyEvent.SetCursorPos(craftArea.X, craftArea.Y);
             Thread.Sleep(delay);
-            leftClickCraftArea(craftArea);
+            leftClickCraftArea();
         }
         //連續使用通貨，stopMode 1=前綴, 2=後綴, 3=前或後, 4=前且後
-        public Tuple<int,int,int> useCurrencyContinuously(Point currencyPosition, Point craftArea, int index, int idelay, int fireTimes, int stopPre,int stopRegal,  Dictionary<string, float> stop, Dictionary<string, float> aug, Dictionary<string, float> regal,  ref bool stopFlag, ref int loopCounter)
+        public Tuple<int, int, int> useCurrencyContinuously(Point currencyPosition, Point craftArea, int index, int idelay, int fireTimes, int stopPre, int stopRegal, Dictionary<string, float> stop, Dictionary<string, float> aug, Dictionary<string, float> regal, ref bool stopFlag, ref int loopCounter)
         {
             //int loopCounter = 0;
-            MouseAndKeyEvent.sendLShiftKeyDown();
-            Thread.Sleep(idelay);
-            MouseAndKeyEvent.SetCursorPos(currencyPosition.X, currencyPosition.Y);
-            Thread.Sleep(idelay);
-            rightClickCurrency(currencyPosition);
-            Thread.Sleep(idelay);
-            MouseAndKeyEvent.SetCursorPos(craftArea.X, craftArea.Y);
-            Thread.Sleep(idelay);
-            //判定詞綴一次
+            //Thread.Sleep(idelay);
+            //MouseAndKeyEvent.sendLShiftKeyDown();
+            //Thread.Sleep(idelay*2);
+            //MouseAndKeyEvent.SetCursorPos(currencyPosition.X, currencyPosition.Y);
+            //Thread.Sleep(idelay*2);
+            //rightClickCurrency(currencyPosition);
+            //Thread.Sleep(idelay*2);
+            //MouseAndKeyEvent.SetCursorPos(craftArea.X, craftArea.Y);
+            //Thread.Sleep(idelay*2);
+
 
             Dictionary<string, float> clipAffix = new Dictionary<string, float>();
             string cliptmp = "";
-            //Thread.Sleep(idelay * 2);
-            ////Console.WriteLine(loopCounter);
-            //clearClipCoard();
-
-            //string cliptmp = getClipBoardLogic();
-
-            //if (cliptmp == "")
-            //{
-            //    MessageBox.Show("執行前檢查時剪貼簿取得錯誤");
-            //    return null;
-            //}
-            //clipAffix = affixDetermine(cliptmp, index);
-
-            //Tuple<int, int> affixnum = new Tuple<int, int>(0, 0);
-            //if (!checkAffix(clipAffix, pre, suf, 4, stopPre, stopSuf, out affixnum)) ;
             int stopCount = 0;
             int augCount = 0;
             int regalCount = 0;
             //if (!checkAffix(clipAffix, stop, stopPre, out stopCount) && !checkAffix(clipAffix, aug, 1, out augCount) && !checkAffix(clipAffix, regal, stopRegal, out regalCount))
+
+            while (loopCounter < fireTimes && stopFlag)
             {
-                while (loopCounter < fireTimes && stopFlag)
+                //leftClickCraftArea(craftArea);
+                loopCounter++;
+
+                #region 剪貼簿取得&檢查
+                clipAffix.Clear();
+                //Thread.Sleep(idelay);
+                cliptmp = getClipBoardLogic();
+
+                if (cliptmp == "")
                 {
-                    //leftClickCraftArea(craftArea);
-                    loopCounter++;
-
-                    #region 剪貼簿取得&檢查
-                    clipAffix.Clear();
-                    Thread.Sleep(idelay);
-                    cliptmp = getClipBoardLogic();
-
-                    if (cliptmp == "")
-                    {
-                        MessageBox.Show("剪貼簿取得錯誤");
-                        break;
-                    }
-                    #endregion
-                    clipAffix = affixDetermine(cliptmp, index);
-
-                    //Console.WriteLine("----------------------------------------------");
-                    //Console.WriteLine($"第{loopCounter}次");
-                    //foreach (var i in clipAffix)
-                    //{
-                    //    Console.WriteLine(i.Key + ":" + i.Value);
-                    //}
-                    //Console.WriteLine($"shift狀態:{Keyboard.IsKeyDown(Key.LeftShift)}");
-                    //Console.WriteLine("----------------------------------------------");
-
-
-                    if (checkAffix(clipAffix, stop, stopPre, out stopCount)|| (checkAffix(clipAffix, aug, 1, out augCount)&&clipAffix.Count<2)|| checkAffix(clipAffix, regal, stopRegal, out regalCount))
-                    {
-                        MouseAndKeyEvent.sendLShiftKeyUp();
-                        //Console.WriteLine("跳出連續使用");
-                        return new Tuple<int, int, int>(stopCount,augCount,regalCount);
-                    }
-                    //Console.WriteLine("點前");
-                    leftClickCraftArea(craftArea);
-
-                    //Console.WriteLine("點後");
+                    MessageBox.Show("剪貼簿取得錯誤");
+                    break;
                 }
+                #endregion
+                clipAffix = affixDetermine(cliptmp, index);
+
+                Console.WriteLine("----------------------------------------------");
+                Console.WriteLine($"第{loopCounter}次");
+                //foreach (var i in clipAffix)
+                //{
+                //    Console.WriteLine(i.Key + ":" + i.Value);
+                //}
+                //Console.WriteLine($"shift狀態:{Keyboard.IsKeyDown(Key.LeftShift)}");
+                Console.WriteLine("----------------------------------------------");
+
+
+                if (checkAffix(clipAffix, stop, stopPre, out stopCount) || (checkAffix(clipAffix, aug, 1, out augCount) && clipAffix.Count < 2) || checkAffix(clipAffix, regal, stopRegal, out regalCount))
+                {
+                    MouseAndKeyEvent.sendLShiftKeyUp();
+                    Console.WriteLine("跳出連續使用");
+                    return new Tuple<int, int, int>(stopCount, augCount, regalCount);
+                }
+                if(!Keyboard.IsKeyDown(Key.LeftShift))
+                {
+                    MouseAndKeyEvent.sendLShiftKeyDown();
+                    Thread.Sleep(idelay * 2);
+                    MouseAndKeyEvent.SetCursorPos(currencyPosition.X, currencyPosition.Y);
+                    Thread.Sleep(idelay * 2);
+                    rightClickCurrency();
+                    Thread.Sleep(idelay * 2);
+                    MouseAndKeyEvent.SetCursorPos(craftArea.X, craftArea.Y);
+                    Thread.Sleep(idelay * 2);
+                }
+                
+                leftClickCraftArea();
+                Thread.Sleep(idelay);
             }
+
             MouseAndKeyEvent.sendLShiftKeyUp();
 
             return new Tuple<int, int, int>(stopCount, augCount, regalCount); ;
@@ -115,7 +117,7 @@ namespace AutoCraft
             MouseAndKeyEvent.sendLShiftKeyDown();
             MouseAndKeyEvent.SetCursorPos(currencyPosition.X, currencyPosition.Y);
             Thread.Sleep(idelay);
-            rightClickCurrency(currencyPosition);
+            rightClickCurrency();
             Thread.Sleep(idelay);
             MouseAndKeyEvent.SetCursorPos(craftArea.X, craftArea.Y);
 
@@ -142,7 +144,7 @@ namespace AutoCraft
             {
                 while (loopCounter < fireTimes && stopFlag)
                 {
-                    leftClickCraftArea(craftArea);
+                    leftClickCraftArea();
                     loopCounter++;
 
                     #region 剪貼簿取得&檢查
@@ -177,7 +179,7 @@ namespace AutoCraft
             }
             MouseAndKeyEvent.sendLShiftKeyUp();
 
-            return stopCount ;
+            return stopCount;
         }
         //詞綴是否符合條件判斷
         public bool checkAffix(Dictionary<string, float> clipAffix, Dictionary<string, float> pre, Dictionary<string, float> suf, int stopMode, int stopPre, int stopSuf)
@@ -238,23 +240,24 @@ namespace AutoCraft
         }
 
         //右鍵點擊
-        public void rightClickCurrency(Point currencyPosition)
+        public void rightClickCurrency()
         {
-            int delay = 50;
+            int delay = 80;
             MouseAndKeyEvent.sendRightClickDown();
             Thread.Sleep(delay);
             MouseAndKeyEvent.sendRightClickUp();
             //Thread.Sleep(delay);
         }
         //左鍵點擊
-        public void leftClickCraftArea(Point craftArea)
+        public void leftClickCraftArea()
         {
-            int delay = 50;
+            int delay = 80;
             MouseAndKeyEvent.sendLeftClickDown();
             Thread.Sleep(delay);
             MouseAndKeyEvent.sendLeftClickUp();
             //Thread.Sleep(delay);
         }
+       
 
         //複製
         public void sendCtrlC()
@@ -341,11 +344,11 @@ namespace AutoCraft
             string[] substr = SplitClipBoard(str, Pattern_enter);
 
             //將詞綴區塊逐條分開
-            if (substr.Length +index<0)
+            if (substr.Length + index < 0)
             {
                 return affix;
             }
-            string[] substr2 = Regex.Split(substr[index+ substr.Length], Pattern_enter);
+            string[] substr2 = Regex.Split(substr[index + substr.Length], Pattern_enter);
 
             //分離詞綴&數字並放入字典，沒有數字的詞綴數字給0
             foreach (string i in substr2)

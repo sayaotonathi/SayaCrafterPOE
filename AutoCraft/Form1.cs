@@ -24,23 +24,17 @@ namespace AutoCraft
         {
             InitializeComponent();
         }
-
-
         GlobalKeyboardHook gHook;
+
         int kv; //將keyValue轉成整數用的變數
-        bool ctrl, alt, shift; //按下功能鍵時就改為true
         private Thread pt = null; //多緒執行，使終止快捷可以作用
 
         bool flagActivate = false; //是否運作中flag
         int loopCounter = 0; //功能執行次數
         int ActivatingAction = 1;//正在使用中的腳本，1:點金 2:混沌 3:改造 4:機會
 
-        //IntPtr hwnd = Utilities.FindWindow(null, "Path of Exile");
         IntPtr hwnd;
         IntPtr thisHwnd;
-        MouseAndKeyEvent.RECT rc;
-        Point relp;
-        Point absp;
 
         //1600*900預設通貨相對位置
         Point relAlt = new Point(100, 250); //改造
@@ -73,12 +67,11 @@ namespace AutoCraft
         Point absTrans;
         Point absCraftArea;
 
-        Utilities ut = new Utilities();
-        //Dictionary<string, float> testpre = new Dictionary<string, float>();
-        //Dictionary<string, float> testsuf = new Dictionary<string, float>();
+        Utilities ut ;
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             gHook = new GlobalKeyboardHook(); //根據作者的程式碼(class)創造一個新物件
             gHook.KeyDown += new KeyEventHandler(gHook_KeyDown);// 連結KeyDown事件
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
@@ -98,77 +91,20 @@ namespace AutoCraft
             lblAlchPos.Text = $"{relAlch.X},{relAlch.Y}";
             lblTransPos.Text = $"{relTrans.X},{relTrans.Y}";
             hwnd = MouseAndKeyEvent.FindWindow(null, "Path of Exile");
-            thisHwnd = MouseAndKeyEvent.FindWindow(null, "POE Auto Crafter by Saya");
-
+            thisHwnd = this.Handle;
+            ut = new Utilities(hwnd);
         }
         Dictionary<string, float> dictStop = new Dictionary<string, float>();
         Dictionary<string, float> dictAug = new Dictionary<string, float>();
         Dictionary<string, float> dictRegal = new Dictionary<string, float>();
-
-
-
-        //測試用按鈕
-        [DllImport("user32.dll")]
-        static extern bool PostMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        static extern IntPtr SendMessage(IntPtr hWnd, UInt32 Msg, int wParam, int lParam);
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //string i = "傳奇頭目有 21.8% 機率掉落 1 個額外銀幣";
-            //string j = "+42% 冰冷抗性";
-            //int r;
-            //decimal r2;
-            //string s = Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value;
-            //string s3 = Regex.Match(i, "[0 - 9.]{1,}").Value;
-            //string s4 = Regex.Match(j, "[0 - 9.]{1,}").Value;
-
-            //string s2 = Regex.Match(j, "[0-9.]+([0-9]{0,3})").Value;
-            //Console.WriteLine(int.TryParse(Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value, out r));
-            //Console.WriteLine(int.TryParse(Regex.Match(j, "[0-9.]+([0-9]{0,3})").Value, out r));
-            //Console.WriteLine(decimal.TryParse("42", out r2));
-            Process[] processes = Process.GetProcessesByName("PathOfExile_x64");
-
-            //InputSimulator inputSimulator = new InputSimulator();
-            //inputSimulator.Keyboard.KeyDown(VirtualKeyCode.CONTROL);
-            foreach (Process proc in processes)
-            {
-                SendMessage(proc.MainWindowHandle, 0x0100, 0x10, 0);
-            }
-        }
-
-
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            string s = "完成輿圖征服者勢力地圖，有 3% 機率獲得 2 倍定位他們壁壘位置的進度";
-            string[] substr = ut.SplitClipBoard(s, "\r\n");
-
-            //將詞綴區塊逐條分開
-            string[] substr2 = Regex.Split(substr[0], "\r\n");
-
-            //分離詞綴&數字並放入字典，沒有數字的詞綴數字給0
-            foreach (string i in substr2)
-            {
-                decimal r;
-                string s2 = Regex.Match(i, "[0-9.]+([0-9]{0,3})").Value;
-                if (!decimal.TryParse(s2, out r))
-                {
-                    r = 0;
-                }
-
-                string s3 = Regex.Replace(i, "[0-9.]+([0-9]{0,3})", "").Replace(" ", "");
-            }
-        }
 
         #region 位置設定按鍵
 
         //設定座標
         public void setPos(IntPtr h, ref Point p, Label lbl)
         {
-            MouseAndKeyEvent.GetWindowRect(h, out rc);
             MouseAndKeyEvent.getRelativePoint(h, out p);
             lbl.Text = $"{p.X},{p.Y}";
-
         }
         private void btnSetAlchPos_Click(object sender, EventArgs e)
         {
@@ -263,8 +199,8 @@ namespace AutoCraft
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var dgv = (DataGridView)sender;
-            Dictionary<string, float> s = dgv.Name == "dgv_Stop" ? dictStop : dictAug;
-            string str = dgv.Name == "dgv_Stop" ? "Stop" : "Aug";
+            Dictionary<string, float> s =null;
+            string str ="";
 
             switch (dgv.Name)
             {
@@ -276,7 +212,7 @@ namespace AutoCraft
                     s = dictAug;
                     str = "Aug";
                     break;
-                case "dgv_regal":
+                case "dgv_Regal":
                     s = dictRegal;
                     str = "Regal";
                     break;
@@ -296,7 +232,8 @@ namespace AutoCraft
                     else
                     {
                         string key = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value.ToString();
-                        int value = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value == null ? (int)dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value : 0;
+                        dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value =  dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value?? 0;
+                        float value = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value != null ? float.Parse(dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value.ToString()) : 0;
                         s.Add(key, value);
                     }
                 }
@@ -392,9 +329,12 @@ namespace AutoCraft
 
         //背景快捷功能
         /* https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes */
-
-
         //快捷觸發設定
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
+        private const uint WM_LBUTTONDOWN = 0x0201;
+        private const uint WM_LBUTTONUP  =  0x0202;
+
         private void gHook_KeyDown(object sender, KeyEventArgs e)
         {
             kv = (int)e.KeyValue;//把按下的按鍵號碼轉成整數存在kv中
@@ -402,17 +342,7 @@ namespace AutoCraft
             switch (kv)
             {
                 case 115:
-                    ThreadStart ptss = new ThreadStart(() =>
-                    {
-                        this.InvokeIfRequired(() =>
-                        {
-                            ut.sendCtrlC();
-                            MessageBox.Show(ut.getClipBoard());
-                        });
-                    });
-                    var ppt = new Thread(ptss);
-                    ppt.Start();
-
+                    
                     break;
                 case 114: //F3
                     pt.Abort();
@@ -479,57 +409,66 @@ namespace AutoCraft
                     break;
 
                 case 112: //F1設定座標
-                    MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
+                    
                     if (flagSetAlt)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relAlt, lblAltPos);
                         Console.WriteLine(relAlt.X + "," + relAlt.Y);
                         flagSetAlt = false;
                     }
                     if (flagSetAug)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relAug, lblAugPos);
                         Console.WriteLine(relAug.X + "," + relAug.Y);
                         flagSetAug = false;
                     }
                     if (flagSetRegal)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relRegal, lblRegalPos);
                         Console.WriteLine(relRegal.X + "," + relRegal.Y);
                         flagSetRegal = false;
                     }
                     if (flagSetChaos)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relChaos, lblChaosPos);
                         Console.WriteLine(relChaos.X + "," + relChaos.Y);
                         flagSetChaos = false;
                     }
                     if (flagSetChance)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relChance, lblChancePos);
                         Console.WriteLine(relChance.X + "," + relChance.Y);
                         flagSetChance = false;
                     }
                     if (flagSetScour)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relScour, lblScourPos);
                         Console.WriteLine(relScour.X + "," + relScour.Y);
                         flagSetScour = false;
                     }
                     if (flagSetCraftArea)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relCraftArea, lblCraftAreaPos);
                         Console.WriteLine(relCraftArea.X + "," + relCraftArea.Y);
                         flagSetCraftArea = false;
                     }
                     if (flagSetAlch)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relAlch, lblAlchPos);
                         Console.WriteLine(relAlch.X + "," + relAlch.Y);
                         flagSetAlch = false;
                     }
                     if (flagSetTrans)
                     {
+                        MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
                         setPos(hwnd, ref relTrans, lblTransPos);
                         Console.WriteLine(relTrans.X + "," + relTrans.Y);
                         flagSetTrans = false;
@@ -645,7 +584,6 @@ namespace AutoCraft
             int index = (int)nudIndex.Value;
             int idelay = (int)delay;
             int stopPre = (int)nudStopPre.Value;
-            int stopSuf = (int)nudStopSuf.Value;
             int fireTimes = (int)nudTime.Value;
 
             while (loopCounter < fireTimes && flagActivate)
@@ -678,7 +616,7 @@ namespace AutoCraft
             int idelay = (int)delay;
             int fireTimes = (int)nudTime.Value;
             int stopPre = (int)nudStopPre.Value;
-            int stopSuf = (int)nudStopSuf.Value;
+            //int stopSuf = (int)nudStopSuf.Value;
             int counter = 0;
             this.InvokeIfRequired(() =>
             {
@@ -702,21 +640,17 @@ namespace AutoCraft
             {
                 MouseAndKeyEvent.SetForegroundWindow(hwnd);
                 bool flag = true;
-                //var continueRule = cb_Regal.Checked ? dictRegal : dictAug;
-                //if (cb_Augment.Checked)
-                //{
-                //    continueRule = dictAug;
-                //}
                 string clip = "";
                 Dictionary<string, float> clipAffix = new Dictionary<string, float>(); ;
                 while (flag && flagActivate)
                 {
-                    //flag = false;
                     //清空字典避免拿到上個循環的數據
                     clipAffix.Clear();
                     //連續改造
                     Tuple<int,int,int> affixNum = ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre,ruleRegal, dictStop,dictAug,dictRegal, ref flagActivate, ref counter);
-                    Thread.Sleep(idelay);
+                    //MouseAndKeyEvent.sendLShiftKeyUp();
+
+                    //Thread.Sleep(idelay);
 
                     //有選擇使用增幅
                     if (cb_Augment.Checked)
@@ -724,7 +658,7 @@ namespace AutoCraft
                         //判斷是否增幅
                         clip = ut.getClipBoardLogic();
                         clipAffix = ut.affixDetermine(clip, index);
-                        if (affixNum.Item2!=0&&clipAffix.Count<2)
+                        if (affixNum.Item2!=0 && clipAffix.Count < 2)
                         {
                             ut.useCurrency(absAug, absCraftArea);
                             Thread.Sleep(idelay);
@@ -765,11 +699,7 @@ namespace AutoCraft
                             }
                         }
                     }
-                    //else
-                    //{
-                    //    flag = false;
-                    //}
-                    Thread.Sleep(idelay);
+                    Thread.Sleep(idelay*3);
 
                     //符合停止條件 or 連續使用次數到上限回傳0 or 外迴圈次數到上限 停止
                     if (affixNum.Item1 >= stopPre || (affixNum.Item1 == 0&&affixNum.Item2==0&&affixNum.Item3==0) || counter >= fireTimes)
@@ -831,6 +761,11 @@ namespace AutoCraft
             }
         }
 
+        private void Defocus(object sender, EventArgs e)
+        {
+           tabControl1.Focus();
+        }
+
 
 
 
@@ -878,6 +813,7 @@ namespace AutoCraft
                 csv.WriteRecords(ls);
             }
         }
+
     }
 
 }

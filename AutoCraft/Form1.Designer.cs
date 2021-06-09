@@ -52,6 +52,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gbScript = new System.Windows.Forms.GroupBox();
+            this.cb_AugBeforeRegal = new System.Windows.Forms.CheckBox();
+            this.rb_UseChaos = new System.Windows.Forms.RadioButton();
+            this.cb_Regal = new System.Windows.Forms.CheckBox();
+            this.cb_Augment = new System.Windows.Forms.CheckBox();
+            this.rb_UseAlt = new System.Windows.Forms.RadioButton();
+            this.rb_UseChance = new System.Windows.Forms.RadioButton();
+            this.rb_UseAlch = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.nudRegal = new System.Windows.Forms.NumericUpDown();
@@ -69,9 +77,6 @@
             this.dgvAugAffixName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvAugAffixMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvAugAffixMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lblStopSuf = new System.Windows.Forms.Label();
-            this.nudStopSuf = new System.Windows.Forms.NumericUpDown();
-            this.button3 = new System.Windows.Forms.Button();
             this.btn_ReloadAffix = new System.Windows.Forms.Button();
             this.btn_SaveAffix = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -80,22 +85,11 @@
             this.dgvStopAffixName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvStopAffixMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvStopAffixMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
             this.gbStopCondition = new System.Windows.Forms.GroupBox();
             this.lblStopPre = new System.Windows.Forms.Label();
             this.nudStopPre = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.nudDelay = new System.Windows.Forms.NumericUpDown();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cb_AugBeforeRegal = new System.Windows.Forms.CheckBox();
-            this.rb_UseChaos = new System.Windows.Forms.RadioButton();
-            this.cb_Regal = new System.Windows.Forms.CheckBox();
-            this.cb_Augment = new System.Windows.Forms.CheckBox();
-            this.rb_UseAlt = new System.Windows.Forms.RadioButton();
-            this.rb_UseChance = new System.Windows.Forms.RadioButton();
-            this.rb_UseAlch = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lblTransPos = new System.Windows.Forms.Label();
             this.btnSavePos = new System.Windows.Forms.Button();
@@ -109,18 +103,17 @@
             this.pnlSetBTNs.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.gbScript.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudRegal)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Regal)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Aug)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudStopSuf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Stop)).BeginInit();
             this.gbStopCondition.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStopPre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay)).BeginInit();
-            this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIndex)).BeginInit();
             this.SuspendLayout();
@@ -150,7 +143,7 @@
             // lblActiveStatus
             // 
             this.lblActiveStatus.AutoSize = true;
-            this.lblActiveStatus.Location = new System.Drawing.Point(68, 298);
+            this.lblActiveStatus.Location = new System.Drawing.Point(70, 296);
             this.lblActiveStatus.Name = "lblActiveStatus";
             this.lblActiveStatus.Size = new System.Drawing.Size(41, 12);
             this.lblActiveStatus.TabIndex = 3;
@@ -159,7 +152,7 @@
             // lblDoc
             // 
             this.lblDoc.AutoSize = true;
-            this.lblDoc.Location = new System.Drawing.Point(23, 262);
+            this.lblDoc.Location = new System.Drawing.Point(23, 242);
             this.lblDoc.Name = "lblDoc";
             this.lblDoc.Size = new System.Drawing.Size(80, 12);
             this.lblDoc.TabIndex = 4;
@@ -346,7 +339,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 298);
+            this.label2.Location = new System.Drawing.Point(23, 296);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 5;
@@ -360,40 +353,136 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1008, 785);
+            this.tabControl1.Size = new System.Drawing.Size(846, 669);
             this.tabControl1.TabIndex = 21;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.gbScript);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.panel3);
             this.tabPage1.Controls.Add(this.panel2);
-            this.tabPage1.Controls.Add(this.lblStopSuf);
-            this.tabPage1.Controls.Add(this.nudStopSuf);
-            this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.btn_ReloadAffix);
             this.tabPage1.Controls.Add(this.btn_SaveAffix);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.dgv_Stop);
-            this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.gbStopCondition);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.nudDelay);
             this.tabPage1.Controls.Add(this.lbl_PlayTime);
             this.tabPage1.Controls.Add(this.nudTime);
-            this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.lblDoc);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.lblActiveStatus);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1000, 759);
+            this.tabPage1.Size = new System.Drawing.Size(838, 643);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "功能";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.Defocus);
+            // 
+            // gbScript
+            // 
+            this.gbScript.Controls.Add(this.cb_AugBeforeRegal);
+            this.gbScript.Controls.Add(this.rb_UseChaos);
+            this.gbScript.Controls.Add(this.cb_Regal);
+            this.gbScript.Controls.Add(this.cb_Augment);
+            this.gbScript.Controls.Add(this.rb_UseAlt);
+            this.gbScript.Controls.Add(this.rb_UseChance);
+            this.gbScript.Controls.Add(this.rb_UseAlch);
+            this.gbScript.Location = new System.Drawing.Point(18, 46);
+            this.gbScript.Name = "gbScript";
+            this.gbScript.Size = new System.Drawing.Size(156, 193);
+            this.gbScript.TabIndex = 41;
+            this.gbScript.TabStop = false;
+            this.gbScript.Text = "選擇腳本";
+            // 
+            // cb_AugBeforeRegal
+            // 
+            this.cb_AugBeforeRegal.AutoSize = true;
+            this.cb_AugBeforeRegal.Enabled = false;
+            this.cb_AugBeforeRegal.Location = new System.Drawing.Point(48, 132);
+            this.cb_AugBeforeRegal.Name = "cb_AugBeforeRegal";
+            this.cb_AugBeforeRegal.Size = new System.Drawing.Size(84, 16);
+            this.cb_AugBeforeRegal.TabIndex = 22;
+            this.cb_AugBeforeRegal.Text = "富豪前增幅";
+            this.cb_AugBeforeRegal.UseVisualStyleBackColor = true;
+            // 
+            // rb_UseChaos
+            // 
+            this.rb_UseChaos.AutoSize = true;
+            this.rb_UseChaos.Location = new System.Drawing.Point(26, 43);
+            this.rb_UseChaos.Name = "rb_UseChaos";
+            this.rb_UseChaos.Size = new System.Drawing.Size(59, 16);
+            this.rb_UseChaos.TabIndex = 3;
+            this.rb_UseChaos.Tag = "2";
+            this.rb_UseChaos.Text = "用混沌";
+            this.rb_UseChaos.UseVisualStyleBackColor = true;
+            this.rb_UseChaos.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
+            // 
+            // cb_Regal
+            // 
+            this.cb_Regal.AutoSize = true;
+            this.cb_Regal.Enabled = false;
+            this.cb_Regal.Location = new System.Drawing.Point(48, 110);
+            this.cb_Regal.Name = "cb_Regal";
+            this.cb_Regal.Size = new System.Drawing.Size(84, 16);
+            this.cb_Regal.TabIndex = 21;
+            this.cb_Regal.Text = "使用富豪石";
+            this.cb_Regal.UseVisualStyleBackColor = true;
+            this.cb_Regal.CheckedChanged += new System.EventHandler(this.cb_Regal_CheckedChanged);
+            // 
+            // cb_Augment
+            // 
+            this.cb_Augment.AutoSize = true;
+            this.cb_Augment.Enabled = false;
+            this.cb_Augment.Location = new System.Drawing.Point(48, 88);
+            this.cb_Augment.Name = "cb_Augment";
+            this.cb_Augment.Size = new System.Drawing.Size(84, 16);
+            this.cb_Augment.TabIndex = 21;
+            this.cb_Augment.Text = "使用增幅石";
+            this.cb_Augment.UseVisualStyleBackColor = true;
+            this.cb_Augment.CheckedChanged += new System.EventHandler(this.cb_Augment_CheckedChanged);
+            // 
+            // rb_UseAlt
+            // 
+            this.rb_UseAlt.AutoSize = true;
+            this.rb_UseAlt.Location = new System.Drawing.Point(26, 66);
+            this.rb_UseAlt.Name = "rb_UseAlt";
+            this.rb_UseAlt.Size = new System.Drawing.Size(59, 16);
+            this.rb_UseAlt.TabIndex = 2;
+            this.rb_UseAlt.Tag = "3";
+            this.rb_UseAlt.Text = "用改造";
+            this.rb_UseAlt.UseVisualStyleBackColor = true;
+            this.rb_UseAlt.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
+            // 
+            // rb_UseChance
+            // 
+            this.rb_UseChance.AutoSize = true;
+            this.rb_UseChance.Location = new System.Drawing.Point(24, 158);
+            this.rb_UseChance.Name = "rb_UseChance";
+            this.rb_UseChance.Size = new System.Drawing.Size(83, 16);
+            this.rb_UseChance.TabIndex = 1;
+            this.rb_UseChance.Tag = "4";
+            this.rb_UseChance.Text = "用重鑄機會";
+            this.rb_UseChance.UseVisualStyleBackColor = true;
+            this.rb_UseChance.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
+            // 
+            // rb_UseAlch
+            // 
+            this.rb_UseAlch.AutoSize = true;
+            this.rb_UseAlch.Checked = true;
+            this.rb_UseAlch.Location = new System.Drawing.Point(26, 21);
+            this.rb_UseAlch.Name = "rb_UseAlch";
+            this.rb_UseAlch.Size = new System.Drawing.Size(83, 16);
+            this.rb_UseAlch.TabIndex = 0;
+            this.rb_UseAlch.TabStop = true;
+            this.rb_UseAlch.Tag = "1";
+            this.rb_UseAlch.Text = "用重鑄點金";
+            this.rb_UseAlch.UseVisualStyleBackColor = true;
+            this.rb_UseAlch.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
             // 
             // groupBox1
             // 
@@ -465,6 +554,7 @@
             this.dgv_Regal.RowTemplate.Height = 24;
             this.dgv_Regal.Size = new System.Drawing.Size(592, 179);
             this.dgv_Regal.TabIndex = 33;
+            this.dgv_Regal.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
             // dgvRegalIsSelected
             // 
@@ -556,42 +646,9 @@
             this.dgvAugAffixMax.Name = "dgvAugAffixMax";
             this.dgvAugAffixMax.Width = 54;
             // 
-            // lblStopSuf
-            // 
-            this.lblStopSuf.AutoSize = true;
-            this.lblStopSuf.Location = new System.Drawing.Point(301, 667);
-            this.lblStopSuf.Name = "lblStopSuf";
-            this.lblStopSuf.Size = new System.Drawing.Size(41, 12);
-            this.lblStopSuf.TabIndex = 34;
-            this.lblStopSuf.Text = "後綴：";
-            this.lblStopSuf.Visible = false;
-            // 
-            // nudStopSuf
-            // 
-            this.nudStopSuf.Location = new System.Drawing.Point(351, 663);
-            this.nudStopSuf.Maximum = new decimal(new int[] {
-            5000,
-            0,
-            0,
-            0});
-            this.nudStopSuf.Name = "nudStopSuf";
-            this.nudStopSuf.Size = new System.Drawing.Size(66, 22);
-            this.nudStopSuf.TabIndex = 33;
-            this.nudStopSuf.Visible = false;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(211, 662);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 38;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // btn_ReloadAffix
             // 
-            this.btn_ReloadAffix.Location = new System.Drawing.Point(860, 327);
+            this.btn_ReloadAffix.Location = new System.Drawing.Point(46, 581);
             this.btn_ReloadAffix.Name = "btn_ReloadAffix";
             this.btn_ReloadAffix.Size = new System.Drawing.Size(103, 23);
             this.btn_ReloadAffix.TabIndex = 37;
@@ -601,7 +658,7 @@
             // 
             // btn_SaveAffix
             // 
-            this.btn_SaveAffix.Location = new System.Drawing.Point(860, 298);
+            this.btn_SaveAffix.Location = new System.Drawing.Point(46, 552);
             this.btn_SaveAffix.Name = "btn_SaveAffix";
             this.btn_SaveAffix.Size = new System.Drawing.Size(102, 23);
             this.btn_SaveAffix.TabIndex = 36;
@@ -660,16 +717,6 @@
             this.dgvStopAffixMax.HeaderText = "上限";
             this.dgvStopAffixMax.Name = "dgvStopAffixMax";
             this.dgvStopAffixMax.Width = 54;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(114, 662);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 31;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // gbStopCondition
             // 
@@ -739,125 +786,6 @@
             0,
             0});
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.cb_AugBeforeRegal);
-            this.panel1.Controls.Add(this.rb_UseChaos);
-            this.panel1.Controls.Add(this.cb_Regal);
-            this.panel1.Controls.Add(this.cb_Augment);
-            this.panel1.Controls.Add(this.rb_UseAlt);
-            this.panel1.Controls.Add(this.rb_UseChance);
-            this.panel1.Controls.Add(this.rb_UseAlch);
-            this.panel1.Location = new System.Drawing.Point(23, 27);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(142, 205);
-            this.panel1.TabIndex = 28;
-            // 
-            // cb_AugBeforeRegal
-            // 
-            this.cb_AugBeforeRegal.AutoSize = true;
-            this.cb_AugBeforeRegal.Enabled = false;
-            this.cb_AugBeforeRegal.Location = new System.Drawing.Point(47, 132);
-            this.cb_AugBeforeRegal.Name = "cb_AugBeforeRegal";
-            this.cb_AugBeforeRegal.Size = new System.Drawing.Size(84, 16);
-            this.cb_AugBeforeRegal.TabIndex = 22;
-            this.cb_AugBeforeRegal.Text = "富豪前增幅";
-            this.cb_AugBeforeRegal.UseVisualStyleBackColor = true;
-            // 
-            // rb_UseChaos
-            // 
-            this.rb_UseChaos.AutoSize = true;
-            this.rb_UseChaos.Location = new System.Drawing.Point(25, 43);
-            this.rb_UseChaos.Name = "rb_UseChaos";
-            this.rb_UseChaos.Size = new System.Drawing.Size(59, 16);
-            this.rb_UseChaos.TabIndex = 3;
-            this.rb_UseChaos.Tag = "2";
-            this.rb_UseChaos.Text = "用混沌";
-            this.rb_UseChaos.UseVisualStyleBackColor = true;
-            this.rb_UseChaos.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
-            // 
-            // cb_Regal
-            // 
-            this.cb_Regal.AutoSize = true;
-            this.cb_Regal.Enabled = false;
-            this.cb_Regal.Location = new System.Drawing.Point(47, 110);
-            this.cb_Regal.Name = "cb_Regal";
-            this.cb_Regal.Size = new System.Drawing.Size(84, 16);
-            this.cb_Regal.TabIndex = 21;
-            this.cb_Regal.Text = "使用富豪石";
-            this.cb_Regal.UseVisualStyleBackColor = true;
-            this.cb_Regal.CheckedChanged += new System.EventHandler(this.cb_Regal_CheckedChanged);
-            // 
-            // cb_Augment
-            // 
-            this.cb_Augment.AutoSize = true;
-            this.cb_Augment.Enabled = false;
-            this.cb_Augment.Location = new System.Drawing.Point(47, 88);
-            this.cb_Augment.Name = "cb_Augment";
-            this.cb_Augment.Size = new System.Drawing.Size(84, 16);
-            this.cb_Augment.TabIndex = 21;
-            this.cb_Augment.Text = "使用增幅石";
-            this.cb_Augment.UseVisualStyleBackColor = true;
-            this.cb_Augment.CheckedChanged += new System.EventHandler(this.cb_Augment_CheckedChanged);
-            // 
-            // rb_UseAlt
-            // 
-            this.rb_UseAlt.AutoSize = true;
-            this.rb_UseAlt.Location = new System.Drawing.Point(25, 66);
-            this.rb_UseAlt.Name = "rb_UseAlt";
-            this.rb_UseAlt.Size = new System.Drawing.Size(59, 16);
-            this.rb_UseAlt.TabIndex = 2;
-            this.rb_UseAlt.Tag = "3";
-            this.rb_UseAlt.Text = "用改造";
-            this.rb_UseAlt.UseVisualStyleBackColor = true;
-            this.rb_UseAlt.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
-            // 
-            // rb_UseChance
-            // 
-            this.rb_UseChance.AutoSize = true;
-            this.rb_UseChance.Location = new System.Drawing.Point(23, 158);
-            this.rb_UseChance.Name = "rb_UseChance";
-            this.rb_UseChance.Size = new System.Drawing.Size(83, 16);
-            this.rb_UseChance.TabIndex = 1;
-            this.rb_UseChance.Tag = "4";
-            this.rb_UseChance.Text = "用重鑄機會";
-            this.rb_UseChance.UseVisualStyleBackColor = true;
-            this.rb_UseChance.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
-            // 
-            // rb_UseAlch
-            // 
-            this.rb_UseAlch.AutoSize = true;
-            this.rb_UseAlch.Checked = true;
-            this.rb_UseAlch.Location = new System.Drawing.Point(25, 21);
-            this.rb_UseAlch.Name = "rb_UseAlch";
-            this.rb_UseAlch.Size = new System.Drawing.Size(83, 16);
-            this.rb_UseAlch.TabIndex = 0;
-            this.rb_UseAlch.TabStop = true;
-            this.rb_UseAlch.Tag = "1";
-            this.rb_UseAlch.Text = "用重鑄點金";
-            this.rb_UseAlch.UseVisualStyleBackColor = true;
-            this.rb_UseAlch.CheckedChanged += new System.EventHandler(this.ChangeActivatingAction);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 647);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 12);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
-            this.label1.Visible = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(26, 662);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.lblTransPos);
@@ -879,10 +807,11 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1000, 759);
+            this.tabPage2.Size = new System.Drawing.Size(838, 643);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "設定";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Click += new System.EventHandler(this.Defocus);
             // 
             // lblTransPos
             // 
@@ -971,7 +900,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 785);
+            this.ClientSize = new System.Drawing.Size(846, 669);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "POE Auto Crafter by Saya";
@@ -981,6 +910,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.gbScript.ResumeLayout(false);
+            this.gbScript.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudRegal)).EndInit();
@@ -990,14 +921,11 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Aug)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudStopSuf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Stop)).EndInit();
             this.gbStopCondition.ResumeLayout(false);
             this.gbStopCondition.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudStopPre)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDelay)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudIndex)).EndInit();
@@ -1031,7 +959,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.CheckBox cb_Augment;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton rb_UseChaos;
         private System.Windows.Forms.RadioButton rb_UseAlt;
         private System.Windows.Forms.RadioButton rb_UseChance;
@@ -1059,13 +986,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView dgv_Regal;
-        private System.Windows.Forms.Label lblStopSuf;
-        private System.Windows.Forms.NumericUpDown nudStopSuf;
         private System.Windows.Forms.CheckBox cb_Regal;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown nudRegal;
@@ -1084,6 +1005,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvStopAffixMax;
         private System.Windows.Forms.Button btnSetTransPos;
         private System.Windows.Forms.Label lblTransPos;
+        private System.Windows.Forms.GroupBox gbScript;
     }
 }
 
