@@ -25,10 +25,14 @@ namespace AutoCraft.ControlHandler
         //const uint KEYEVENTF_KEYDOWN = 0x0001;
         const uint KEYEVENTF_KEYUP = 2;
         const uint KEYEVENTF_KEYDOWN = 1;
-        
+        [DllImport("user32.dll")]
+        public static extern short GetAsyncKeyState(UInt16 virtualKeyCode);
+        const UInt16 VK_LBUTTON = 0x01;
+        const UInt16 VK_RBUTTON = 0x02;
         [DllImport("user32.dll")]
         public static extern int GetWindowRect(IntPtr hWnd, out RECT lpRect);
         [StructLayout(LayoutKind.Sequential)]
+
 
         //視窗結構
         public struct RECT
@@ -49,6 +53,23 @@ namespace AutoCraft.ControlHandler
             ABSOLUTE = 0x00008000,
             RIGHTDOWN = 0x00000008,
             RIGHTUP = 0x00000010
+        }
+       
+        public static void sendRDown()
+        {
+            keybd_event((int)Keys.R, 0, KEYEVENTF_KEYDOWN, 0); //160=LShift
+        }
+        public static void sendRUp()
+        {
+            keybd_event((int)Keys.R, 0, KEYEVENTF_KEYUP, 0); //160=LShift
+        }
+        public static void sendTDown()
+        {
+            keybd_event((int)Keys.T, 0, KEYEVENTF_KEYDOWN, 0); //160=LShift
+        }
+        public static void sendTUp()
+        {
+            keybd_event((int)Keys.T, 0, KEYEVENTF_KEYUP, 0); //160=LShift
         }
         //按住LShift
         public static void sendLShiftKeyDown()
@@ -72,6 +93,12 @@ namespace AutoCraft.ControlHandler
             mouse_event((int)(MouseEventTFlags.LEFTUP), 0, 0, 0, 0);
         }
         
+        //左鍵狀態偵測
+        public static bool checkLButtonState()
+        {
+            return GetAsyncKeyState(VK_LBUTTON) < 0;
+        }
+       
         //右鍵按下
         public static void sendRightClickDown()
         {
@@ -81,6 +108,11 @@ namespace AutoCraft.ControlHandler
         public static void sendRightClickUp()
         {
             mouse_event((int)MouseEventTFlags.RIGHTUP, 0, 0, 0, 0);
+        }
+        //右鍵狀態偵測
+        public static bool checkRButtonState()
+        {
+            return GetAsyncKeyState(VK_RBUTTON) < 0;
         }
         //左Ctrl按下
         public static void sendLCtrlDown()

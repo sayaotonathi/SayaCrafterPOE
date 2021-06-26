@@ -67,11 +67,11 @@ namespace AutoCraft
         Point absTrans;
         Point absCraftArea;
 
-        Utilities ut ;
+        Utilities ut;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
             gHook = new GlobalKeyboardHook(); //根據作者的程式碼(class)創造一個新物件
             gHook.KeyDown += new KeyEventHandler(gHook_KeyDown);// 連結KeyDown事件
             foreach (Keys key in Enum.GetValues(typeof(Keys)))
@@ -199,8 +199,8 @@ namespace AutoCraft
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var dgv = (DataGridView)sender;
-            Dictionary<string, float> s =null;
-            string str ="";
+            Dictionary<string, float> s = null;
+            string str = "";
 
             switch (dgv.Name)
             {
@@ -232,7 +232,7 @@ namespace AutoCraft
                     else
                     {
                         string key = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixName"].Value.ToString();
-                        dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value =  dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value?? 0;
+                        dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value ?? 0;
                         float value = dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value != null ? float.Parse(dgv.Rows[e.RowIndex].Cells[$"dgv{str}AffixMin"].Value.ToString()) : 0;
                         s.Add(key, value);
                     }
@@ -259,8 +259,8 @@ namespace AutoCraft
                 Affix affix = new Affix
                 {
                     IsSelected = prefixrows[i].Cells["dgvStopIsSelected"].Value != null ? (bool)prefixrows[i].Cells["dgvStopIsSelected"].Value : false,
-                    AffixName = (string)prefixrows[i].Cells["dgvStopAffixName"].Value,
-                    AffixMin = (string)prefixrows[i].Cells["dgvStopAffixMin"].Value,
+                    AffixName =prefixrows[i].Cells["dgvStopAffixName"].Value.ToString(),
+                    AffixMin = prefixrows[i].Cells["dgvStopAffixMin"].Value.ToString(),
                     AffixMax = (string)prefixrows[i].Cells["dgvStopAffixMax"].Value
                 };
                 prefix.Add(affix);
@@ -281,8 +281,8 @@ namespace AutoCraft
                 Affix affix = new Affix
                 {
                     IsSelected = augrows[i].Cells["dgvAugIsselected"].Value != null ? (bool)augrows[i].Cells["dgvAugIsselected"].Value : false,
-                    AffixName = (string)augrows[i].Cells["dgvAugAffixName"].Value,
-                    AffixMin = (string)augrows[i].Cells["dgvAugAffixMin"].Value,
+                    AffixName = augrows[i].Cells["dgvAugAffixName"].Value.ToString(),
+                    AffixMin = augrows[i].Cells["dgvAugAffixMin"].Value.ToString(),
                     AffixMax = (string)augrows[i].Cells["dgvAugAffixMax"].Value
                 };
                 aug.Add(affix);
@@ -300,13 +300,18 @@ namespace AutoCraft
             var regalrows = dgv_Regal.Rows;
             for (int i = 0; i < regalrows.Count - 1; i++)
             {
-                Affix affix = new Affix
-                {
-                    IsSelected = regalrows[i].Cells["dgvRegalIsSelected"].Value != null ? (bool)regalrows[i].Cells["dgvRegalIsselected"].Value : false,
-                    AffixName = (string)regalrows[i].Cells["dgvRegalAffixName"].Value,
-                    AffixMin = (string)regalrows[i].Cells["dgvRegalAffixMin"].Value,
-                    AffixMax = (string)regalrows[i].Cells["dgvRegalAffixMax"].Value
-                };
+                //Affix affix = new Affix
+                //{
+                //    IsSelected = regalrows[i].Cells["dgvRegalIsSelected"].Value != null ? (bool)regalrows[i].Cells["dgvRegalIsSelected"].Value : false,
+                //    AffixName = (string)regalrows[i].Cells["dgvRegalAffixName"].Value.ToString(),
+                //    AffixMin = ((int)regalrows[i].Cells["dgvRegalAffixMin"].Value).ToString(),
+                //    AffixMax = (string)regalrows[i].Cells["dgvRegalAffixMax"].Value/*.ToString()*/
+                //};
+                Affix affix = new Affix();
+                affix.IsSelected = regalrows[i].Cells["dgvRegalIsSelected"].Value != null ? (bool)regalrows[i].Cells["dgvRegalIsSelected"].Value : false;
+                affix.AffixName = regalrows[i].Cells["dgvRegalAffixName"].Value.ToString();
+                affix.AffixMin = regalrows[i].Cells["dgvRegalAffixMin"].Value.ToString();
+                affix.AffixMax = (string)regalrows[i].Cells["dgvRegalAffixMax"].Value;
                 regal.Add(affix);
             }
 
@@ -333,8 +338,10 @@ namespace AutoCraft
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, uint Msg, int wParam, int lParam);
         private const uint WM_LBUTTONDOWN = 0x0201;
-        private const uint WM_LBUTTONUP  =  0x0202;
-
+        private const uint WM_LBUTTONUP = 0x0202;
+        //[DllImport("user32.dll")]
+        //public static extern short GetAsyncKeyState(UInt16 virtualKeyCode);
+        
         private void gHook_KeyDown(object sender, KeyEventArgs e)
         {
             kv = (int)e.KeyValue;//把按下的按鍵號碼轉成整數存在kv中
@@ -342,7 +349,27 @@ namespace AutoCraft
             switch (kv)
             {
                 case 115:
-                    
+                    //MouseAndKeyEvent.sendLShiftKeyDown();
+                    if (!System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.R))
+                    {
+                        MouseAndKeyEvent.sendRDown();
+                    }
+                    else
+                    {
+                        MouseAndKeyEvent.sendRUp();
+                        Thread.Sleep(50);
+                        MouseAndKeyEvent.sendRDown();
+                    }
+                    //if (!System.Windows.Input.Keyboard.IsKeyDown(System.Windows.Input.Key.T))
+                    //{
+                    //    MouseAndKeyEvent.sendTDown();
+                    //}
+                    //else
+                    //{
+                    //    MouseAndKeyEvent.sendTUp();
+                    //    Thread.Sleep(50);
+                    //    MouseAndKeyEvent.sendTDown();
+                    //}
                     break;
                 case 114: //F3
                     pt.Abort();
@@ -372,7 +399,7 @@ namespace AutoCraft
                                 MouseAndKeyEvent.getAbsolutePoint(hwnd, relChaos, out absChaos);
                                 MouseAndKeyEvent.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
                                 pts = new ParameterizedThreadStart(Chaos);
-                                
+
                                 break;
                             case 3:
                                 MouseAndKeyEvent.getAbsolutePoint(hwnd, relAlt, out absAlt);
@@ -388,7 +415,7 @@ namespace AutoCraft
                                 MouseAndKeyEvent.getAbsolutePoint(hwnd, relScour, out absScour);
                                 MouseAndKeyEvent.getAbsolutePoint(hwnd, relCraftArea, out absCraftArea);
                                 pts = new ParameterizedThreadStart(Chance);
-                               
+
                                 break;
                         }
                         MouseAndKeyEvent.SetForegroundWindow(hwnd);
@@ -405,11 +432,11 @@ namespace AutoCraft
                         pt.Start(delay);
                         loopCounter = 0;
                     }
-                   
+
                     break;
 
                 case 112: //F1設定座標
-                    
+
                     if (flagSetAlt)
                     {
                         MouseAndKeyEvent.SetForegroundWindow(thisHwnd);
@@ -624,9 +651,9 @@ namespace AutoCraft
                 ut.useCurrencyContinuously(absChaos, absCraftArea, index, idelay, fireTimes, stopPre, dictStop, ref flagActivate, ref counter);
             });
         }
-       
 
-        //todo
+
+        //todo 改造
         //改造石腳本
         private void Alter(object delay)
         {
@@ -647,7 +674,7 @@ namespace AutoCraft
                     //清空字典避免拿到上個循環的數據
                     clipAffix.Clear();
                     //連續改造
-                    Tuple<int,int,int> affixNum = ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre,ruleRegal, dictStop,dictAug,dictRegal, ref flagActivate, ref counter);
+                    Tuple<int, int, int> affixNum = ut.useCurrencyContinuously(absAlt, absCraftArea, index, idelay, fireTimes, stopPre, ruleRegal,cb_Augment.Checked,cb_Regal.Checked, dictStop, dictAug, dictRegal, ref flagActivate, ref counter);
                     //MouseAndKeyEvent.sendLShiftKeyUp();
 
                     //Thread.Sleep(idelay);
@@ -656,17 +683,24 @@ namespace AutoCraft
                     if (cb_Augment.Checked)
                     {
                         //判斷是否增幅
+
                         clip = ut.getClipBoardLogic();
                         clipAffix = ut.affixDetermine(clip, index);
-                        if (affixNum.Item2!=0 && clipAffix.Count < 2)
+                        if (affixNum.Item2 != 0 && clipAffix.Count < 2)
                         {
+                            Thread.Sleep(idelay);
+                            Console.WriteLine("增幅點做裝開始");
+
                             ut.useCurrency(absAug, absCraftArea);
+                            Console.WriteLine("增幅點做裝結束");
+
                             Thread.Sleep(idelay);
                             clip = ut.getClipBoardLogic();
                             clipAffix = ut.affixDetermine(clip, index);
                         }
                         //點增幅後判斷是否停止
-                        flag = !ut.checkAffix(clipAffix,  dictStop, stopPre);
+                        flag = !ut.checkAffix(clipAffix, dictStop, stopPre);
+                        Console.WriteLine("增幅flag:" + flag);
                     }
 
                     //有選擇使用富豪
@@ -675,20 +709,25 @@ namespace AutoCraft
                         //判斷是否富豪
                         clip = ut.getClipBoardLogic();
                         clipAffix = ut.affixDetermine(clip, index);
-                        if (ut.checkAffix(clipAffix,  dictRegal, ruleRegal))
+                        if (ut.checkAffix(clipAffix, dictRegal, ruleRegal))
                         {
                             //要富豪前增幅的話先點一次增幅
-                            if (cb_AugBeforeRegal.Checked&&clipAffix.Count<2)
+                            if (cb_AugBeforeRegal.Checked && clipAffix.Count < 2)
                             {
                                 ut.useCurrency(absAug, absCraftArea);
                                 Thread.Sleep(idelay);
                             }
+                            Console.WriteLine("富豪點做裝開始");
+
                             ut.useCurrency(absRegal, absCraftArea);
+                            Console.WriteLine("富豪點做裝開始");
+
                             Thread.Sleep(idelay);
                             clip = ut.getClipBoardLogic();
                             clipAffix = ut.affixDetermine(clip, index);
                             //富豪後判斷是否停止
                             flag = !ut.checkAffix(clipAffix, dictStop, stopPre);
+                            Console.WriteLine("富豪flag:" + flag);
                             //不停止的話重鑄蛻變
                             if (flag)
                             {
@@ -697,16 +736,24 @@ namespace AutoCraft
                                 ut.useCurrency(absTrans, absCraftArea);
                                 Thread.Sleep(idelay);
                             }
+
                         }
                     }
-                    Thread.Sleep(idelay*3);
+                    //Thread.Sleep(idelay * 3);
 
                     //符合停止條件 or 連續使用次數到上限回傳0 or 外迴圈次數到上限 停止
-                    if (affixNum.Item1 >= stopPre || (affixNum.Item1 == 0&&affixNum.Item2==0&&affixNum.Item3==0) || counter >= fireTimes)
+                    if (affixNum.Item1 >= stopPre || (affixNum.Item1 == 0 && affixNum.Item2 == 0 && affixNum.Item3 == 0) || counter >= fireTimes)
                     {
+                        Console.WriteLine($"停:{affixNum.Item1},增:{affixNum.Item2},富{affixNum.Item3}");
                         flag = false;
+                        Console.WriteLine("不是他媽的在這改吧:" + flag);
+
                     }
                 }
+                Console.WriteLine(flagActivate);
+                Console.WriteLine("結束前flag:" + flag);
+                Console.WriteLine("腳本結束");
+
             });
         }
         //機會石腳本
@@ -763,7 +810,7 @@ namespace AutoCraft
 
         private void Defocus(object sender, EventArgs e)
         {
-           tabControl1.Focus();
+            tabControl1.Focus();
         }
 
 
@@ -776,7 +823,7 @@ namespace AutoCraft
             if (listBox1.SelectedIndex >= 0)
             {
                 Console.WriteLine(listBox1.Items.Count);
-                nudIndex.Value = listBox1.SelectedIndex- listBox1.Items.Count;
+                nudIndex.Value = listBox1.SelectedIndex - listBox1.Items.Count;
             }
         }
         //詞綴儲存按鈕
@@ -814,6 +861,10 @@ namespace AutoCraft
             }
         }
 
+        private void btnGetHwnd_Click(object sender, EventArgs e)
+        {
+            hwnd = MouseAndKeyEvent.FindWindow(null, "Path of Exile");
+        }
     }
 
 }

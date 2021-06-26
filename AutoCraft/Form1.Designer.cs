@@ -99,6 +99,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.btnGetClipboard = new System.Windows.Forms.Button();
             this.lblAlchPos = new System.Windows.Forms.Label();
+            this.btnGetHwnd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudTime)).BeginInit();
             this.pnlSetBTNs.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -788,6 +789,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnGetHwnd);
             this.tabPage2.Controls.Add(this.lblTransPos);
             this.tabPage2.Controls.Add(this.btnSavePos);
             this.tabPage2.Controls.Add(this.listBox1);
@@ -895,6 +897,16 @@
             this.lblAlchPos.Size = new System.Drawing.Size(33, 12);
             this.lblAlchPos.TabIndex = 21;
             this.lblAlchPos.Text = "label2";
+            // 
+            // btnGetHwnd
+            // 
+            this.btnGetHwnd.Location = new System.Drawing.Point(27, 543);
+            this.btnGetHwnd.Name = "btnGetHwnd";
+            this.btnGetHwnd.Size = new System.Drawing.Size(145, 23);
+            this.btnGetHwnd.TabIndex = 41;
+            this.btnGetHwnd.Text = "重新抓取視窗";
+            this.btnGetHwnd.UseVisualStyleBackColor = true;
+            this.btnGetHwnd.Click += new System.EventHandler(this.btnGetHwnd_Click);
             // 
             // Form1
             // 
@@ -1006,6 +1018,7 @@
         private System.Windows.Forms.Button btnSetTransPos;
         private System.Windows.Forms.Label lblTransPos;
         private System.Windows.Forms.GroupBox gbScript;
+        private System.Windows.Forms.Button btnGetHwnd;
     }
 }
 
